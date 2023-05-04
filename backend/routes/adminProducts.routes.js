@@ -1,10 +1,12 @@
 const express = require("express");
 const { ProductsModel } = require("../models/products.model");
-const productRoute = express.Router();
+const { adminAuth } = require("../middlewares/adminAuth.middleware");
+const { userAuth } = require("../middlewares/userAuth.middleware");
+const adminProductRoute = express.Router();
 
 
 // Get Product Data
-productRoute.get("/", async (req, res) => {
+adminProductRoute.get("/", async (req, res) => {
   try {
     const data = await ProductsModel.find();
     res.status(200).send(data);
@@ -13,9 +15,11 @@ productRoute.get("/", async (req, res) => {
   }
 });
 
+// Admin Auth check
+adminProductRoute.use(adminAuth);
 
 // Add Product
-productRoute.post("/addProduct", async (req, res) => {
+adminProductRoute.post("/addProduct", async (req, res) => {
   try {
     const product = new ProductsModel(req.body);
     await product.save();
@@ -27,7 +31,7 @@ productRoute.post("/addProduct", async (req, res) => {
 
 
 // Update/Patch Product
-productRoute.patch("/patch/:id", async (req, res) => {
+adminProductRoute.patch("/patch/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await ProductsModel.findByIdAndUpdate({ _id: id }, req.body);
@@ -39,7 +43,7 @@ productRoute.patch("/patch/:id", async (req, res) => {
 
 
 // Update/Put Product
-productRoute.put("/put/:id", async (req, res) => {
+adminProductRoute.put("/put/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await ProductsModel.findByIdAndUpdate({ _id: id }, req.body);
@@ -51,7 +55,7 @@ productRoute.put("/put/:id", async (req, res) => {
 
 
 // Delete Product
-productRoute.delete("/delete/:id", async (req, res) => {
+adminProductRoute.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await ProductsModel.findByIdAndDelete({ _id: id });
@@ -64,5 +68,5 @@ productRoute.delete("/delete/:id", async (req, res) => {
 
 // export productRoute
 module.exports = {
-  productRoute,
+  adminProductRoute,
 };
