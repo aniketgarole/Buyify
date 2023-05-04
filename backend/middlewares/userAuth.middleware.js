@@ -10,14 +10,14 @@ const userAuth = (req,res,next) => {
             if(decoded){
                 next();
             }else{
-                res.status(200).send({msg : "Please Login"})
+                res.status(200).send({msg : "Please Login (User)"})
             }
         })
     }catch(err){
         res.status(400).send(err)
     }
    }else{
-    res.status(200).send("Please Login")
+    res.status(200).send("Please Login (User)")
    }
 };
 

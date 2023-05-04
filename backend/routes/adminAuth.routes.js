@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken")
 const { AdminModel } = require("../models/adminAuth.model");
 const bcrypt = require("bcrypt");
+const { adminAuth } = require("../middlewares/adminAuth.middleware");
 const adminRoute = express.Router();
 
 // See All Admins
@@ -29,7 +30,6 @@ adminRoute.post("/addAdmin", (req, res) => {
 });
 
 // Admin Login;
-// adminRoute.use(adminAuth)
 adminRoute.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
