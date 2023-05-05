@@ -13,7 +13,9 @@ function App() {
 
      
       {/* <Men/> */}
-<SingleProduct/>
+{/* <SingleProduct/> */}
+
+<Checkout/>
      
 
     </div>
