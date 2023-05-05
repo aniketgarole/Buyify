@@ -10,7 +10,7 @@ userProductRoute.get("/", async (req, res) => {
 
     // Getting data from req.query and after getting the data i am also deleting that data becouse i have to take care other Querys
     let sortData, page, limit, order, min, max;
-    if (q.sort || q.page || q.limit || q.order) {
+    if (q.sort || q.page || q.limit || q.order || q.min || q.max) {
       sortData = q.sort;
       page = q.page;
       limit = q.limit;
@@ -26,11 +26,22 @@ userProductRoute.get("/", async (req, res) => {
       delete q.max;
     }
 
-    // paginaton
+    // paginaton and min max thing.
     if (!page) page = 1;
     if (!limit) limit = 20;
+    if(!min) min = 0;
+    if(!max) max = +Infinity
     const skip = (page - 1) * 10;
-    const data = await ProductsModel.find(q).skip(skip).limit(limit);
+    const data = await ProductsModel.find({
+      $and: [
+        { ...q },
+        {
+          offerPrice: { $gt: min, $lt: max },
+        },
+      ],
+    })
+      .skip(skip)
+      .limit(limit);
 
     // sorting
     const newData = data.sort((a, b) => {
