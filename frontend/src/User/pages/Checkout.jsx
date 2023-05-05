@@ -6,6 +6,7 @@ import {
   AccordionPanel,
   Box,
   Button,
+  Divider,
   Flex,
   FormControl,
   FormLabel,
@@ -25,14 +26,20 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+
+import axios from "axios";
+import { useSelector } from "react-redux";
+import useRazorpay from "react-razorpay";
 
 let arr = [];
 const Checkout = () => {
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState("");
+  const [Pvalue, setPValue] = React.useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const [address, setAddress] = useState("");
+  const Razorpay = useRazorpay();
 
   const handleSaveAddress = () => {
     const formData = {
@@ -62,8 +69,66 @@ const Checkout = () => {
 
     onClose();
   };
-
   let useradd = JSON.parse(localStorage.getItem("D_address"));
+
+  const data = useSelector((store) => {
+    return store.cartReducer.cart;
+  });
+
+  const totalCartPrice = data
+    .reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.price;
+    }, 0)
+    .toFixed(2);
+
+  const orderPrice = +totalCartPrice + 40;
+  const handlePayment = useCallback(() => {
+    const options = {
+      key: "rzp_test_8soKTDQ4yrJnr9",
+      amount: +orderPrice * 100,
+      currency: "INR",
+      name: "Buyify.com",
+      description: "Test Transaction",
+      image: "./logo.jpg",
+
+      handler: async (res) => {
+        console.log(res);
+        const addOrders = async (id, cartData, address) => {
+          try {
+            const sameId = Date.now() + id;
+            await axios.post("/api/orders", {
+              cart: cartData, // this should be array of objects cart
+              userId: id, //"userId which you get from authreducer",
+              address: address,
+              timestamp: Date.now(), // this can be used for sorting
+              orderId: sameId,
+              status: "pending",
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        await addOrders(data, address);
+        if (res) {
+          let mydata = [];
+          // dispatch(addToCart(id, mydata))
+        }
+      },
+      prefill: {
+        name: "userName",
+        // email: userData?.email,
+        contact: "8496080933",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    const rzpay = new Razorpay(options);
+    rzpay.open();
+  }, [Razorpay]);
 
   console.log(useradd);
   return (
@@ -85,14 +150,14 @@ const Checkout = () => {
       </Box>
 
       <Flex
-        border={"1px solid red"}
+        // border={"1px solid red"}
         width={"75%"}
         margin={"auto"}
         h={"100vh"}
         gap={"3%"}
         p={"12px"}
       >
-        <Box border={"1px solid green"} width={"70%"}>
+        <Box width={"70%"}>
           <Accordion allowToggle>
             <AccordionItem>
               <h2>
@@ -124,7 +189,7 @@ const Checkout = () => {
                         Add delivery instructions
                       </span>
                     </Radio>
-                    {useradd.map((el) => (
+                    {useradd?.map((el) => (
                       <Radio value="2">
                         <span style={{ fontWeight: "bold" }}>
                           {el.fullName}
@@ -268,20 +333,115 @@ const Checkout = () => {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+              <AccordionPanel
+                p={8}
+                border={"1px solid grey"}
+                m={"20px"}
+                borderRadius={"10px"}
+              >
+                <RadioGroup onChange={setPValue} value={Pvalue}>
+                  <Stack direction="column" gap={"40px"}>
+                    <Radio value="card">
+                      {" "}
+                      <Text fontWeight={"medium"}>
+                        Pay with Debit/Credit/ATM Cards
+                      </Text>
+                    </Radio>
+                    <Stack>
+                      <Radio value="netbanking">
+                        <Text fontWeight={"medium"}>Net Banking</Text>{" "}
+                      </Radio>
+                      <Select placeholder="Select option" width={"22%"}>
+                        <option value="option1">SBI</option>
+                        <option value="option2">Bank of America</option>
+                        <option value="option3">icici</option>
+                        <option value="option3">HDFC</option>
+                      </Select>{" "}
+                    </Stack>
+
+                    <Radio value="upi" fontWeight={"medium"}>
+                      {" "}
+                      <Text fontWeight={"medium"}>Other UPI Apps</Text>
+                    </Radio>
+
+                    <Radio value="emi">
+                      {" "}
+                      <Text fontWeight={"medium"}>EMI</Text>
+                    </Radio>
+
+                    <Radio value="cod">
+                      <Text fontWeight={"medium"}>
+                        Cash on Delivery/ Pay on Delivery
+                      </Text>
+                    </Radio>
+                  </Stack>
+                </RadioGroup>
+                <Button
+                  colorScheme="yellow"
+                  size="sm"
+                  mt={"40px"}
+                  isDisabled={!Pvalue}
+                >
+                  Use this payment method
+                </Button>
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
         </Box>
         <Box
-          border={"1px solid green"}
+          border={"1px solid grey"}
           width={"27%"}
           borderRadius={"10px"}
-        ></Box>
+          p={15}
+          h={"350px"}
+        >
+          <Box>
+            {/* <Box isDisabled={!Pvalue}>{<PayPal />}</Box> */}
+            <Button
+              colorScheme="yellow"
+              size="sm"
+              w={"100%"}
+              isDisabled={!Pvalue}
+              onClick={handlePayment}
+            >
+              Pay Now
+            </Button>
+            <Text textAlign={"center"} fontSize="xs" mt={"12px"}>
+              Choose a payment method to continue checking out. You will still
+              have a chance to review and edit your order before it is final
+            </Text>
+          </Box>
+          <Divider mt={"15"} />
+          <Text mt={"10px"} fontSize="xl" fontWeight={"bold"} mb={"15px"}>
+            Order Summary
+          </Text>
+          <Box lineHeight={"25px"}>
+            <Flex justifyContent={"space-between"}>
+              <Text fontSize="sm">item:</Text>
+              <Text fontSize="sm">₹ {totalCartPrice}</Text>
+            </Flex>
+            <Flex justifyContent={"space-between"}>
+              {" "}
+              <Text fontSize="sm">Delivery:</Text>
+              <Text fontSize="sm">₹ {"40.00"}</Text>
+            </Flex>
+            <Flex justifyContent={"space-between"}>
+              <Text fontSize="sm">Total:</Text>
+              <Text fontSize="sm">₹ {(+totalCartPrice + 40).toFixed(2)}</Text>
+            </Flex>
+          </Box>
+
+          <Divider mt={"8px"} />
+          <Flex justifyContent={"space-between"} mt={"8px"}>
+            <Text fontSize="xl" fontWeight={"bold"} color={"#b12704"}>
+              Order Total:
+            </Text>
+            <Text fontSize="xl" fontWeight={"bold"} color={"#b12704"}>
+              ₹ {(+totalCartPrice + 40).toFixed(2)}
+            </Text>
+          </Flex>
+          <Divider mt={"8px"} />
+        </Box>
       </Flex>
     </>
   );
