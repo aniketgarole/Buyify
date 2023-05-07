@@ -1,17 +1,17 @@
 
 const express = require("express");
-const { CartModel } = require("../models/cart.model");
+const { OrderModel } = require("../models/order.model");
 const { userAuth } = require("../middlewares/userAuth.middleware");
 
-const cartRouter = express.Router();
+const orderRouter = express.Router();
 
 
 // Checking user Auth 
-cartRouter.use(userAuth);
+orderRouter.use(userAuth);
 // Get cart data 
-cartRouter.get("/",async(req,res)=>{
+orderRouter.get("/",async(req,res)=>{
     try{
-        const data = await CartModel.find({authorId : req.body.authorId});
+        const data = await OrderModel.find({authorId : req.body.authorId});
         res.status(200).send(data)
     }catch(err){
         res.status(400).send({err});
@@ -19,11 +19,12 @@ cartRouter.get("/",async(req,res)=>{
 });
 
 // add product into the cart
-cartRouter.post("/addCart",async(req,res)=>{
+orderRouter.post("/addOrder",async(req,res)=>{
     try{
-        const prod = new CartModel(req.body);
+        // console.log(req.body)
+        const prod = new OrderModel(req.body);
         await prod.save();
-        res.status(200).send({msg : "Product added to cart"})
+        res.status(200).send({msg : "Order added"})
     }catch(err){
         res.status(400).send({err});
     }
@@ -31,13 +32,13 @@ cartRouter.post("/addCart",async(req,res)=>{
 
 
 // Delete product
-cartRouter.delete("/delete/:id",async(req,res)=>{
+orderRouter.delete("/delete/:id",async(req,res)=>{
     try{
         const {id} = req.params;
-        const user = await CartModel.findOne({_id : id})
+        const user = await OrderModel.findOne({_id : id})
         if(req.body.authorId === user.authorId){
-            await CartModel.findByIdAndDelete({_id : id})
-            res.status(200).send({msg : "Product deleted from cart"})
+            await OrderModel.findByIdAndDelete({_id : id})
+            res.status(200).send({msg : "Product deleted from order"})
         }else{
             res.status(400).send({err : "You are not a authorized person."});
         }
@@ -50,5 +51,5 @@ cartRouter.delete("/delete/:id",async(req,res)=>{
 
 // export 
 module.exports = {
-    cartRouter
+    orderRouter
 }

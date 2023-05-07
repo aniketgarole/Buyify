@@ -8,6 +8,7 @@ const userAuth = (req,res,next) => {
     try{
         jwt.verify(token,"EZ",(err,decoded)=>{
             if(decoded){
+                // console.log(decoded)
                 req.body.authorId = decoded.authorId;
                 next();
             }else{
