@@ -28,7 +28,7 @@ userProductRoute.get("/", async (req, res) => {
 
     // paginaton and min max thing.
     if (!page) page = 1;
-    if (!limit) limit = 20;
+    // if (!limit) limit = 20;
     if(!min) min = 0;
     if(!max) max = +Infinity
     const skip = (page - 1) * 10;

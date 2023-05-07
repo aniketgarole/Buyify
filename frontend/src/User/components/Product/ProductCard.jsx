@@ -3,24 +3,33 @@ import React from 'react'
 import "./ProductCard.css"
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 import { FaInfoCircle } from "react-icons/fa"
-function ProductCard({data}) {
-  
+import { Link } from 'react-router-dom'
+function ProductCard({ data }) {
 
+//  console.log(data.rating)
   let ratingFillArray = [];
-  for (let i = 1; i <= Math.ceil(data.ratings); i++) {
+  for (let i = 1; i <= Math.ceil(+data.rating); i++) {
     ratingFillArray.push(i)
   }
   let ratingVacantArray = [];
-  for (let i = 1; i <= (5 - Math.ceil(data.ratings)); i++) {
+  for (let i = 1; i <= (5 - Math.ceil(+data.rating)); i++) {
     ratingVacantArray.push(i)
   }
-
+  
   return (
-    <Box border="2px solid blue" width={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }} className="product-card">
+    <Box
+      //  border="2px solid blue" 
+      boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+      pb="10px"
+      borderRadius={"5px"}
+      // _hover={{ transform: "translateY(0)"}}
+      width={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }} className="product-card">
       {/* Image */}
+      <Link to={`/men/${data.id}`}>
       <Box>
         <Image width={"100%"} height={"100%"} src={data.images[0]} />
       </Box>
+      </Link>
 
       <Box mt={4} align={"center"}>
         <Flex gap={1} justify={"center"}>
@@ -45,31 +54,32 @@ function ProductCard({data}) {
           {data.title}
         </Text>
         {/* rating  */}
-        <Flex justify={"center"}>
-          {ratingFillArray.map((el,i) => {
+        <Flex justify={"center"} mt={"5px"} mb="5px">
+          {ratingFillArray.map((el, i) => {
             return (
               <AiFillStar key={i} color="#fda11c" />
             )
           })}
-          {ratingVacantArray.map((el,i) => {
+
+          {ratingVacantArray.map((el, i) => {
             return (
               <AiOutlineStar key={i} color="#fda11c" />
             )
           })}
-
-
+         <Text  ml="5px" mt={"-5px"} fontWeight={"semibold"}>{data.ratingCount}</Text>
         </Flex>
-         <Box _hover={{ cursor: "pointer" }} width="120px" bgColor={"#ffc266"} mt={1}>
+
+        <Box _hover={{ cursor: "pointer" }} width="120px" bgColor={"#ffc266"} mt={1}>
             <Text fontSize={"0.8rem"} >Great Summer Sale</Text>
           </Box>
-        
+
 
 
 
         <Box >
           <Flex justify={"center"}>
             <Text fontSize={"2rem"}>
-             ₹{data.offerPrice}
+              ₹{data.offerPrice}
             </Text>
             <Text mt={4} ml={"5px"} display={{ base: "none", sm: "block" }}>
               M.R.P:
@@ -91,13 +101,13 @@ function ProductCard({data}) {
           </Flex>
 
           <Text mt={"-5px"} ml={"5px"} fontWeight={"semibold"} display={{ base: "block", lg: "none", md: "block", sm: "block" }} >
-          ({data.discount} off)
+            ({data.discount} off)
           </Text>
         </Box>
-        <Image width={{lg:"50px",md:"50px",sm:"50px",base:"45px"}} src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg" />
+        <Image width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }} src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg" />
       </Box>
 
-      <Button class="add-to-cart-btn"  >
+      <Button className="add-to-cart-btn"  bgColor={"#ff8800"} p="30px"  position= "absolute"  fontSize="18px" width= "100%" _hover={{ bgColor:"#232f3e"}} >
         Add To Cart
       </Button>
 
