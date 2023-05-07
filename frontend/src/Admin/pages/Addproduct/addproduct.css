@@ -1,0 +1,40 @@
+.product-main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid red; */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+
+
+
+
+.check{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    /* border: 1px solid blue */
+}
+
+.check input{
+    outline: none;
+    /* align-self:center; */
+}
+
+.check span{
+    color: black;
+    font-size: 15px;
+}
+
+.product-form label {
+    font-size: 18px;
+}
+
+
+.product-form h1 {
+    font-size: 25px;
+    text-align: center;
+    font-weight: 500;
+}

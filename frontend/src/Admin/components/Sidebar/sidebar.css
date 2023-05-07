@@ -1,0 +1,29 @@
+.sidebar{
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    /* border-right: 1px solid rgb(254, 68, 68); */
+    /* background-color: blue; */
+    
+    
+}
+
+.title{
+    font-size: 17px;
+    font-weight: 500;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    color:black
+}
+
+.li{
+    display: flex;
+    gap: 10px;
+}
