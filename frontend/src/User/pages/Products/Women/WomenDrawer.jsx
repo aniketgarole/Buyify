@@ -1,8 +1,8 @@
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, useDisclosure } from "@chakra-ui/react"
-import Sidebar from "./Sidebar"
+import WomenSidebar from "./WomenSidebar"
 import React from "react"
 
-function FiltersDrawer() {
+function WomenDrawer() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
   
@@ -23,7 +23,7 @@ function FiltersDrawer() {
             {/* <DrawerHeader>Filter your Product</DrawerHeader> */}
   
             <DrawerBody>
-              <Sidebar/>
+              <WomenSidebar/>
             </DrawerBody>
   
             <DrawerFooter>
@@ -38,4 +38,4 @@ function FiltersDrawer() {
     )
   }
 
-  export default FiltersDrawer
+  export default WomenDrawer

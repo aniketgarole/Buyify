@@ -9,7 +9,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 12px;
+    padding: 16px;
     background-color: #ff8800;
     color: #fff;
     font-size: 18px;
@@ -17,9 +17,7 @@
     transition: all 0.3s ease;
     transform: translateY(100%);
   }
-  .add-to-cart-btn:hover{
-    background-color: #232f3e;
-  }
+ 
   
   .product-card:hover > .add-to-cart-btn {
     transform: translateY(0);

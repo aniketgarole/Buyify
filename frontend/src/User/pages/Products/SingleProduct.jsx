@@ -3,31 +3,19 @@ import React from 'react'
 import { FaInfoCircle, FaLock } from 'react-icons/fa'
 import { MdLocalOffer } from "react-icons/md"
 import {TbThumbUp}from "react-icons/tb"
-let data = {
-    "categories": "Tshirts",
-    "ratings": 4,
-    "rating_count": "16.8k",
-    "images": [
-        "https://assets.myntassets.com/f_webp,dpr_1.0,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_1.8,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_2.0,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_2.2,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_2.4,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_2.6,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg",
-        "https://assets.myntassets.com/f_webp,dpr_2.8,q_60,w_210,c_limit,fl_progressive/assets/images/7488103/2019/8/22/acfba45f-8f9c-4b97-b5bc-a909418bdf4c1566454100620-Dennis-Lingo-Men-Green-Slim-Fit-Solid-Casual-Shirt-358156645-3.jpg"
-    ],
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-    "brand": "Huetrap",
-    "title": "AMERICAN CREW Men's Polo Collar Half Sleeve T-Shirt",
-    "size": "M",
-    "price": 296,
-    "strike_price": "Rs. 1099",
-    "discount": "(73% OFF)",
-    "id": 1
-}
 
 function SingleProduct() {
+    const { id } = useParams();
+
+    const { product, isLoading, isError } = useSelector((store) => store.ProductReducer)
+    const [item] = product.filter((element)=>{
+        return element.id==id
+    })
+    console.log(item)
+    const {originalPrice,offerPrice,discount,title,brand,images} = item
     return (
         <>
             <Box  border="1px solid #dadede" padding={10} bgColor="teal.100">
@@ -38,7 +26,7 @@ function SingleProduct() {
                     <Text fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }} textAlign={"left"} fontWeight={"bold"}>Buyify Prime</Text>
                     <Flex gap={2}>
                         <Checkbox></Checkbox>
-                        <Image width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }} src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg" />
+                        <Image width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }} src={"https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"} />
                     </Flex>
                 </Box>
             </Flex>
@@ -46,21 +34,21 @@ function SingleProduct() {
 
             <Box>
                 <Text fontSize={"1.2rem"} fontWeight={"bold"}
-                    color="blackAlpha.900">{data.title}</Text>
+                    color="blackAlpha.900">{title}</Text>
             </Box>
             <Flex flexDir={{base:"column",sm:"column",md:"row",lg:"row"}} align={"center"}>
 
                 <Box   mb="20px" > 
                     <Flex gap={10} ml={"10px"}>
-                        <Flex flexDir={"column"} gap={2}>
-                            {data.images.map((item, i) => {
-                                return <Box key={i} border={"1px solid blue"} p={"5px"} borderRadius={10}>
+                        <Flex mt="15px" flexDir={"column"} gap={2}>
+                            {images?.map((item, i) => {
+                                return <Box key={i} border={"1px solid grey"} p={"5px"} borderRadius={10}>
                                     <Image width={"30px"} height={"100%"} src={item} />
                                 </Box>
                             })}
                         </Flex>
                         <Box>
-                            <Image width={"370px"} height={"100%"} src={data.images[0]} />
+                            <Image width={"370px"} height={"100%"} src={images[0]} />
                         </Box>
 
                     </Flex>
@@ -68,7 +56,7 @@ function SingleProduct() {
 
                         <Flex gap={3}>
                             <Image width="100px" src="https://m.media-amazon.com/images/I/11sUgaVRsYL.png" />
-                            <Text fontSize={"1.2rem"} fontWeight={"bold"} >{data.brand}</Text>
+                            <Text fontSize={"1.2rem"} fontWeight={"bold"} >{brand}</Text>
                         </Flex>
                         <Flex gap={3} mt="10px">
                             <Image width="20px" src="https://m.media-amazon.com/images/I/01S5bawZYgL.png" />
@@ -86,24 +74,24 @@ function SingleProduct() {
                 </Box>
                 <Box  width={{base:"90%",sm:"90%",md:"40%",lg:"60%"}} pr={"30px"} pl="30px" >
                     <Divider />
-                    <Text mb={"20px"} mt="5px" color={'teal.500'} >Visit the {data.brand} Store</Text>
+                    <Text mb={"20px"} mt="5px" color={'teal.500'} >Visit the {brand} Store</Text>
                     <Divider />
                     <Text mt={"5px"} fontWeight={"bold"} color={"red.500"}>Summer Sale Deal</Text>
                     <Flex gap={2}>
-                        <Text color={"red"} fontSize={"1.6rem"} >-51%</Text>
-                        <Text fontSize={"1.6rem"}  fontWeight="semibold">₹1,229</Text>
+                        <Text color={"red"} fontSize={"1.6rem"} >-{discount}</Text>
+                        <Text fontSize={"1.6rem"}  fontWeight="semibold">{offerPrice}</Text>
                     </Flex>
                     <Flex color={"gray.600"} gap={1} >
                         <Text fontSize={"0.8rem"} >
                             M.R.P.:
                         </Text>
                         <Text fontSize={"0.8rem"} decoration={'line-through'} >
-                            ₹1299
+                           {originalPrice}
                         </Text>
                     </Flex>
 
                     <Text mt={"10px"} fontSize={"sm"} fontWeight={"medium"}>Inclusive of all taxes</Text>
-                    <Text mb={"10px"} fontWeight={"medium"}><b>EMI</b> starts at ₹421 per month.</Text>
+                    <Text mb={"10px"} fontWeight={"medium"}><b>EMI</b> starts at ₹{Math.floor(offerPrice/10)} per month.</Text>
 
                     <Divider />
 
@@ -290,7 +278,7 @@ function SingleProduct() {
                         </Box>
                     </Flex>
                     <Box pl="20px" pr="20px"  border="1px solid #dadede" borderRadius={"10px"} pb="20px">
-                    <Text fontWeight="semibold" fontSize={"1.6rem"} mb={"10px"} mt={"10px"}>₹1,229</Text>
+                    <Text fontWeight="semibold" fontSize={"1.6rem"} mb={"10px"} mt={"10px"}>₹{offerPrice}</Text>
                     <Text>FREE Delivery  </Text>
                     <Text fontWeight={"bold"}  color={"#007185"}>within 5 days
                     </Text>

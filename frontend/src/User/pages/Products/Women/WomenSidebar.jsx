@@ -1,4 +1,4 @@
-import { Box, Checkbox, Flex, Radio, RadioGroup, Select, Text } from '@chakra-ui/react'
+import { Box, Checkbox, Flex, Heading, Radio, RadioGroup, Select, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 import { useSearchParams } from 'react-router-dom'
@@ -11,7 +11,6 @@ function WomenSidebar() {
   const [brand, setBrand] = useState(initialBrand || [])
   const initialOrder = searchParams.get("order")
   const [order, setOrder] = useState(initialOrder || "")
-  // const [rating,setRating]= useState(searchParams.get("rating")||"")
 
   const handleChange = (e) => {
     // console.log(e.target.value)
@@ -25,6 +24,7 @@ function WomenSidebar() {
     setCategory(newCategory)
     console.log("22", category)
   }
+
   const handleChangeBrand = (e) => {
     // console.log(e.target.value)
     let newBrand = [...brand]
@@ -37,7 +37,7 @@ function WomenSidebar() {
     setBrand(newBrand)
     console.log("22", category)
   }
-  const handleSort = (e) => {
+ const handleSort = (e) => {
     setOrder(e.target.value)
   }
 
@@ -52,34 +52,39 @@ function WomenSidebar() {
 
     setSearchParams(params)
 
-  }, [category, brand, order])
+  }, [category, brand,order])
 
   //  console.log("34",searchParams.getAll())
   return (
     <>
       <Box>
         <Flex flexDir="column" ml="10px">
-          <Box mt={3} mr="10px" mb="50px">
+
+
+        <Box mt={3} mr="10px" mb="50px">
             <Select placeholder='Sort by: Featured' size='sm' borderRadius={20} bgColor='gray.200' _hover={{ bgColor: 'gray.300' }} borderColor='#e78420' onChange={handleSort}>
               <option value='1' name="order" >Price: Low to High</option>
               <option value='-1' name="order">Price: High to Low</option>
             </Select>
           </Box>
-
           <Text fontWeight={"bold"} fontSize={"1.2rem"} color={"#d68009"} _hover={{ color: "#463012", cursor: "pointer" }}>Filter your Products </Text>
+
+
+
 
           <Text fontWeight={"bold"} mt="20px">Category</Text>
           <Flex flexDir={"column"} fontWeight={"semibold"}>
-            <Checkbox value={"Joggers"} onChange={handleChange} defaultChecked={category.includes("Joggers")} >Joggers</Checkbox>
-            <Checkbox value={"shirt"} onChange={handleChange} defaultChecked={category.includes("shirt")} >Shirts</Checkbox>
-            <Checkbox value={"Chino"} onChange={handleChange} defaultChecked={category.includes("Chino")}>Chinos</Checkbox>
+
             <Checkbox value={"Jeans"} onChange={handleChange} defaultChecked={category.includes("Jeans")} >Jeans</Checkbox>
-            <Checkbox value={"Trousers"} onChange={handleChange} defaultChecked={category.includes("Trousers")} >Trousers</Checkbox>
             <Checkbox value={"SweatShirt"} onChange={handleChange} defaultChecked={category.includes("SweatShirt")} >SweatShirt</Checkbox>
             <Checkbox value={"Tshirt"} onChange={handleChange} defaultChecked={category.includes("Tshirt")} >Tshirt</Checkbox>
             <Checkbox value={"Jacket"} onChange={handleChange} defaultChecked={category.includes("Jacket")}>Jacket</Checkbox>
-            <Checkbox value={"Pants"} onChange={handleChange} defaultChecked={category.includes("Pants")}>Pants</Checkbox>
-            <Checkbox value={"Shorts"} onChange={handleChange} defaultChecked={category.includes("Shorts")}>Shorts</Checkbox>
+            <Checkbox value={"KurtaSet"} onChange={handleChange} defaultChecked={category.includes("KurtaSet")}>KurtaSet</Checkbox>
+            <Checkbox value={"PlazzoSet"} onChange={handleChange} defaultChecked={category.includes("PlazzoSet")}>PlazzoSet</Checkbox>
+
+            <Checkbox value={"Kurta"} onChange={handleChange} defaultChecked={category.includes("Kurta")} >Kurta</Checkbox>
+            <Checkbox value={"WesternDress"} onChange={handleChange} defaultChecked={category.includes("WesternDress")}>WesternDress</Checkbox>
+
           </Flex>
 
 
@@ -96,18 +101,9 @@ function WomenSidebar() {
             <Checkbox value="Levis" onChange={handleChangeBrand} defaultChecked={brand.includes("evis")}>Levis</Checkbox>
             <Checkbox value="Urbano Fashion" onChange={handleChangeBrand} defaultChecked={brand.includes("Urbano Fashion")}>Urbano Fashion</Checkbox>
 
-            <Checkbox value="HERE&NOW">HERE&NOW</Checkbox>
+            <Checkbox value="HERE&NOW" onChange={handleChangeBrand} defaultChecked={brand.includes("HERE&NOW")}>HERE&NOW</Checkbox>
           </Flex>
 
-
-          {/* <Text fontWeight={"bold"} mt="20px">Price</Text>
-          <Flex flexDir={"column"} fontWeight={"semibold"}>
-            <Text _hover={{ cursor: "pointer", color: "#c4770c" }}>Under ₹300</Text>
-            <Text _hover={{ cursor: "pointer", color: "#c4770c" }}>₹300 - ₹500</Text>
-            <Text _hover={{ cursor: "pointer", color: "#c4770c" }}>₹500 - ₹1,000</Text>
-            <Text _hover={{ cursor: "pointer", color: "#c4770c" }}>₹1,000 - ₹1,500</Text>
-            <Text _hover={{ cursor: "pointer", color: "#c4770c" }}>Over ₹1,500</Text>
-          </Flex> */}
 
         </Flex>
       </Box>

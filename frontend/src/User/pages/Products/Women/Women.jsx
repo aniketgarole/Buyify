@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Checkbox, Flex, Heading, Image, Select, Text, Grid, Stack, Skeleton } from "@chakra-ui/react"
 import { useLocation, useSearchParams } from "react-router-dom"
-// import MenProducts from './MenProducts'
-import Sidebar from './Sidebar'
-import FiltersDrawer from './FiltersDrawer'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetProduct } from '../../../../redux/productReducer/action'
-import ProductCard from '../../../components/Product/ProductCard'
+import ProductCard from "../../../components/Product/ProductCard"
+import WomenSidebar from "./WomenSidebar"
+import WomenDrawer from './WomenDrawer'
 
 
-function Men() {
+function Women() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { product, isLoading, isError } = useSelector((store) => store.ProductReducer)
@@ -18,25 +17,26 @@ function Men() {
   const [order, setOrder] = useState(initialOrder || "")
   const initialCategory = searchParams.getAll("category")
   const [category] = useState(initialCategory || [])
- 
+  
   const initialBrand = searchParams.getAll("brand")
   const [brand] = useState(initialBrand || [])
-  // const [rating,setRating]= useState(searchParams.get("rating")||"")
  
+
   const data = product.filter((item) => {
-    if (item.category == "Mens" || item.category=="Child") {
+    if (item.category == "Womens") {
       return item;
     }
   })
 
-  
+  console.log(data)
+ 
   let obj = {
     params: {
       subCategory: searchParams.getAll("category"),
       sort: searchParams.get("order") && "offerPrice",
       order: searchParams.get("order"),
       brand: searchParams.getAll("brand"),
-      rating: searchParams.get("rating"),
+      // rating: searchParams.get("rating"),
     }
 
   }
@@ -57,7 +57,7 @@ function Men() {
     order && (params.order = order)
     category && (params.category = category)
     brand && (params.brand = brand)
-    // rating && (params.rating =rating)
+    // rating && (params.rating = Math.floor(rating))
 
     setSearchParams(params)
   }, [order, category, brand])
@@ -78,7 +78,13 @@ function Men() {
           </Flex>
         </Box>
 
-        
+        {/* <Box mt={3} mr="10px">
+          <Select placeholder='Sort by: Featured' size='sm' borderRadius={20} bgColor='gray.200' _hover={{ bgColor: 'gray.300' }} borderColor='#e78420' onChange={handleSort}>
+            <option value='1' name="order" >Price: Low to High</option>
+            <option value='-1' name="order">Price: High to Low</option>
+
+          </Select>
+        </Box> */}
 
 
       </Flex>
@@ -90,7 +96,7 @@ function Men() {
         <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }} width="300px"
         //  border="1px solid #dadede"
         >
-          <Sidebar />
+          <WomenSidebar/>
         </Box>
         <Box width="100%"
         // border="1px solid red" 
@@ -122,7 +128,7 @@ function Men() {
 
 
       <Flex pos={"fixed"} bottom="0" width="100%" display={{ base: "block", sm: "block", md: "none", lg: "none" }}>
-        <FiltersDrawer />
+        <WomenDrawer/>
       </Flex>
 
     </Box>
@@ -130,4 +136,4 @@ function Men() {
   )
 }
 
-export default Men
+export default Women
