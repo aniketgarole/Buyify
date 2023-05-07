@@ -1,0 +1,29 @@
+.paginate{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    gap: 30px;
+}
+
+.paginate :nth-child(1) {
+    border: 1px solid red;
+    padding: 5px 10px;
+    border-radius: 8px;
+    
+}
+
+
+.paginate :nth-child(3) {
+    border: 1px solid green;
+    padding: 5px 10px;
+    border-radius: 8px;
+    
+}
+
+.paginate :nth-child(2) {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(236, 65, 65)
+    
+}

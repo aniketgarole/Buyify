@@ -1,0 +1,223 @@
+import React, { useState } from 'react'
+import "./addproduct.css"
+import axios from 'axios'
+import Navbar from '../../components/Navbar/Navbar'
+
+const intitProduct = {
+    category: "",
+  subCategory: "",
+  brand: "",
+  title: "",
+  offerPrice: "",
+  originalPrice: "",
+  discount: "",
+  quantity: "",
+  images: "",
+  size: [],
+  rating: "",
+  ratingCount: ""
+}
+
+const Addproduct = () => {
+
+    const [product, setProduct] = useState(intitProduct)
+
+    const handleChange = (e) => {
+        // console.log(e.target)
+        let {name, value} = e.target
+
+        
+        if (name == "originalPrice" || name == "offerPrice" || name == "quantity" || name == "rating") {
+            value = +value
+        } else {
+            value = value
+        }
+
+        if(name == "size") {
+            
+             if (product.size.includes(value)) {
+                let arr = product.size.filter((item)=> {
+                    return item !== value
+                })
+
+                value = [...arr]
+             } else {
+                value = [...product.size, value]
+             }
+        }
+
+       
+
+
+        setProduct({...product, [name]: value})
+    }
+
+    const handleSubmit = async(e) => {
+            e.preventDefault()
+
+            let newProduct = {
+                category : product.category,
+                subCategory: product.subCategory,
+                brand: product.brand,
+                title: product.title,
+                offerPrice: +product.offerPrice,
+                originalPrice: +product.originalPrice,
+                discount: product.discount,
+                quantity: +product.quantity,
+                images: [product.images],
+                size: product.size,
+                rating: +product.rating,
+                ratingCount: product.ratingCount
+
+            }
+
+            if (!newProduct.category || !newProduct.subCategory || !newProduct.brand || !newProduct.title || !newProduct.offerPrice || !newProduct.originalPrice || !newProduct.discount || !newProduct.quantity || !newProduct.images || !newProduct.size || !newProduct.rating || !newProduct.ratingCount) {
+                alert("Please fill all the fields")
+                
+            } else {
+                try {
+                
+                    let res = await axios.post(`http://localhost:8000/adminProduct/addProduct`, newProduct)
+                    alert(res.data.msg)
+                    setProduct(intitProduct)
+                } catch (error) {
+                    console.log(error)
+                }
+
+            }
+            
+    }
+
+    console.log(product)
+
+    
+
+  return (
+    <>
+    <Navbar/>
+    <div className='product-main'>
+       
+         <form className='product-form'>
+         <h1>Add new product</h1>
+        <br />
+        <br />
+                <label>Title</label>
+                <br />
+                <input name="title" type="text" placeholder="product Name" className='form-input' value={product.title} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Brand</label>
+                <br />
+                <input name="brand" type="text" placeholder="Product brand" className='form-input' value={product.brand} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Category</label>
+                <br />
+                <input name="category" type="text" placeholder="category" className='form-input' value={product.category} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Subcategory</label>
+                <br />
+                <input name="subCategory" type="text" placeholder="subCategory" className='form-input' value={product.subCategory} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Price</label>
+                <br />
+                <input name="originalPrice" type="number" placeholder="originalPrice" className='form-input' value={product.originalPrice} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Discount</label>
+                <br />
+                <input name="discount" type="number" placeholder="discount" className='form-input' value={product.discount} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>offerPrice</label>
+                <br />
+                <input name="offerPrice" type="number" placeholder="offerPrice" className='form-input' value={product.offerPrice} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Quantity</label>
+                <br />
+                <input name="quantity" type="number" placeholder="quantity" className='form-input' value={product.quantity} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Image</label>
+                <br />
+                <input name="images" type="text" placeholder="image" className='form-input' value={product.images} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>Sizes</label>
+                <br />
+                <div className="check">
+                    <span>XS</span>
+                    <input name="size" type="checkbox" placeholder="size" className='form-input' value={"XS"} onChange={(e)=>handleChange(e)} checked={product.size.includes("XS")}/>
+                </div>
+                <br />
+                <div className="check">
+                    <span>S</span>
+                    <input name="size" type="checkbox" placeholder="size" className='form-input' value={"S"} onChange={(e)=>handleChange(e)} checked={product.size.includes("S")}/>
+                </div>
+                <br />
+                <div className="check">
+                    <span>M</span>
+                    <input name="size" type="checkbox" placeholder="size" className='form-input' value={"M"} onChange={(e)=>handleChange(e)} checked={product.size.includes("M")}/>
+                </div>
+                <br />
+                <div className="check">
+                    <span>L</span>
+                    <input name="size" type="checkbox" placeholder="size" className='form-input' value={"L"} onChange={(e)=>handleChange(e)} checked={product.size.includes("L")}/>
+                </div>
+                <br />
+                <div className="check">
+                    <span>XL</span>
+                    <input name="size" type="checkbox" placeholder="size" className='form-input' value={"XL"} onChange={(e)=>handleChange(e)} checked={product.size.includes("XL")}/>
+                </div>
+                <br />
+                <div className="check">
+                    <span>XXL</span>
+                    <input name="size" type="checkbox" placeholder="size" className='form-input' value={"XXL"} onChange={(e)=>handleChange(e)} checked={product.size.includes("XXL")}/>
+                </div>
+                
+                <br />
+                <br />
+                <label>Rating</label>
+                <br />
+                <input name="rating" type="number" placeholder="rating" className='form-input' value={product.rating} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <label>RatingCount</label>
+                <br />
+                <input name="ratingCount" type="number" placeholder="ratingCount" className='form-input' value={product.ratingCount} onChange={(e)=>handleChange(e)}/>
+                <br />
+                <br />
+                <input type="submit" className='form-input submit-btn' onClick={handleSubmit}/>
+            </form>
+    </div>
+    </>
+  )
+}
+
+export default Addproduct
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ratingCount: String,
+
+// "XS",
+//                   "S",
+//                   "M",
+//                   "L",
+//                   "XL",
+//                   "XXL"

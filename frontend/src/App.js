@@ -1,5 +1,5 @@
+import Addproduct from "./Admin/pages/Addproduct/Addproduct";
 import "./App.css";
-
 import Cart from "./User/pages/Cart";
 
 import Checkout from "./User/pages/Checkout";
@@ -9,18 +9,20 @@ import SingleProduct from "./User/pages/Products/SingleProduct";
 import AllRoutes from "./routes/AllRoutes";
 
 
-
 function App() {
   return (
     <div>
 
-<AllRoutes/>
      
       {/* <Men/> */}
 {/* <SingleProduct/> */}
 
 {/* <Checkout/> */}
-   
+
+      <AllRoutes/>
+      {/* <Addproduct/> */}
+     
+
     </div>
   );
 }

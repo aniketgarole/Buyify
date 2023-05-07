@@ -1,0 +1,46 @@
+.navbar{
+    /* width: 100vw; */
+    display: flex;
+    padding: 20px 30px;
+    border-bottom: 1px solid rgb(210, 209, 209);
+    /* flex: 1; */
+    /* border: 1px solid red; */
+}
+
+.left{
+    flex: 15%;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid blue; */
+    /* height: 100%; */
+    
+}
+
+.middle{
+    width: 70%;
+    font-size: 17px;
+    color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-left: 20px;
+    margin-right: 200px;
+
+
+}
+
+.ui-tag{
+    display: flex;
+    gap: 50px;
+    list-style: none;
+}
+
+.right{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    
+}
