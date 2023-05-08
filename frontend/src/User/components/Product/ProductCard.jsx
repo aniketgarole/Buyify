@@ -1,4 +1,3 @@
-
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import "./ProductCard.css";
@@ -11,7 +10,7 @@ import { addCartData, getCartProducts } from "../../../redux/Cart/Action";
 
 function ProductCard({ data }) {
   const dispatch = useDispatch();
-  console.log("dataaa",data)
+  console.log("dataaa", data);
 
   let ratingFillArray = [];
   for (let i = 1; i <= Math.ceil(+data.rating); i++) {
@@ -23,12 +22,17 @@ function ProductCard({ data }) {
   }
 
   const handleAddToCart = () => {
-    const payload = { title: data.title, brand:data.brand, offerPrice : data.offerPrice, quantity:1 , images:data.images[0] }
-    localStorage.setItem("cartData",JSON.stringify(payload) )
+    const payload = {
+      title: data.title,
+      brand: data.brand,
+      offerPrice: data.offerPrice,
+      quantity: 1,
+      images: data.images[0],
+    };
+    localStorage.setItem("cartData", JSON.stringify(payload));
     dispatch(addCartData(payload));
-    
   };
- 
+
   return (
     <Box
       //  border="2px solid blue"
@@ -40,15 +44,11 @@ function ProductCard({ data }) {
       className="product-card"
     >
       {/* Image */}
-
-      
-
       <Link to={`/product/${data.id}`}>
-      <Box>
-        <Image  width={"100%"} height={"100%"} src={data.images[0]} />
-      </Box>
+        <Box>
+          <Image width={"100%"} height={"100%"} src={data.images[0]} />
+        </Box>
       </Link>
-
       <Box mt={4} align={"center"}>
         <Flex gap={1} justify={"center"}>
           <Text
@@ -154,7 +154,16 @@ function ProductCard({ data }) {
           src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"
         />
       </Box>
-
+      {/* <Button
+        className="add-to-cart-btn"
+        bgColor={"#ff8800"}
+        p="30px"
+        position="absolute"
+        fontSize="18px"
+        width="100%"
+        _hover={{ bgColor: "#232f3e" }}
+        onClick={handleAddToCart}
+      > */}
 
       <Button
         className="add-to-cart-btn"
@@ -166,8 +175,6 @@ function ProductCard({ data }) {
         _hover={{ bgColor: "#232f3e" }}
         onClick={handleAddToCart}
       >
-//       <Button className="add-to-cart-btn"  bgColor={"#ff8800"} p="30px"  position= "absolute"  fontSize="18px" width= "100%" _hover={{ bgColor:"#232f3e"}} onClick={handleAddToCart} >
-
         Add To Cart
       </Button>
     </Box>

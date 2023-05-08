@@ -8,18 +8,20 @@ import Signup from "../User/pages/Signup";
 import Cart from "../User/pages/Cart";
 import Checkout from "../User/pages/Checkout";
 
-import AllProducts from '../Admin/pages/AllProducts/AllProducts'
-import Users from '../Admin/pages/Users/Users'
-import Editproduct from '../Admin/pages/Editproduct/Editproduct'
-import Addproduct from '../Admin/pages/Addproduct/Addproduct'
-import Orders from '../Admin/pages/Orders/Orders'
-import Order from '../Admin/pages/Order/Order'
-import Home from '../Admin/pages/Home/Home'
-import NotFound from '../User/pages/Products/NotFound'
+import AllProducts from "../Admin/pages/AllProducts/AllProducts";
+import Users from "../Admin/pages/Users/Users";
+import Editproduct from "../Admin/pages/Editproduct/Editproduct";
+import Addproduct from "../Admin/pages/Addproduct/Addproduct";
+import Orders from "../Admin/pages/Orders/Orders";
+import Order from "../Admin/pages/Order/Order";
+import Home from "../Admin/pages/Home/Home";
+import NotFound from "../User/pages/Products/NotFound";
+import { HomePage } from "../User/pages/Homepage/HomePage";
 
 function AllRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/men" element={<Men />} />
       <Route path="/women" element={<Women />} />
       <Route path="/product/:id" element={<SingleProduct />} />

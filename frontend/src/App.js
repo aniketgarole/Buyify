@@ -7,22 +7,21 @@ import Checkout from "./User/pages/Checkout";
 import Men from "./User/pages/Products/Men/Men";
 import SingleProduct from "./User/pages/Products/SingleProduct";
 import AllRoutes from "./routes/AllRoutes";
-
+import { UpperNavbar } from "./User/pages/Homepage/UpperNavbar";
+import Footer from "./User/pages/Homepage/Footer";
 
 function App() {
   return (
     <div>
-
-     
       {/* <Men/> */}
-{/* <SingleProduct/> */}
+      {/* <SingleProduct/> */}
 
-{/* <Checkout/> */}
+      {/* <Checkout/> */}
 
-      <AllRoutes/>
+      <UpperNavbar />
+      <AllRoutes />
+      <Footer />
       {/* <Addproduct/> */}
-     
-
     </div>
   );
 }
