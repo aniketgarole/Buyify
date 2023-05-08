@@ -25,11 +25,6 @@ const initialData = {
   password: "",
 };
 
-// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import axios from "axios";
-import { Link } from "react-router-dom";
-
-
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +42,6 @@ export default function Signup() {
 
   //  onSubmit handler for the form to make the API call
   const handleSubmit = async () => {
-   
     let payload = { name, email, contact, password };
 
     if (!name || !email || !contact || !password) {
