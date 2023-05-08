@@ -2,7 +2,13 @@ import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFoo
 import WomenSidebar from "./WomenSidebar"
 import React from "react"
 
-function WomenDrawer() {
+function WomenDrawer({
+  subcategory,
+  setsubCategory,
+  brand,
+  setBrand,
+  setPage,
+}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
   
@@ -20,10 +26,15 @@ function WomenDrawer() {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
-            {/* <DrawerHeader>Filter your Product</DrawerHeader> */}
+            <DrawerHeader>Filter Options</DrawerHeader>
   
             <DrawerBody>
-              <WomenSidebar/>
+              <WomenSidebar 
+               brand={brand}
+               setBrand={setBrand}
+               subcategory={subcategory}
+               setsubCategory={setsubCategory}
+               setPage={setPage}/>
             </DrawerBody>
   
             <DrawerFooter>

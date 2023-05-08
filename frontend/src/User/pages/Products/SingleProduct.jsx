@@ -14,7 +14,7 @@ function SingleProduct() {
     const [item] = product.filter((element)=>{
         return element.id==id
     })
-    console.log(item)
+    // console.log(item)
     const {originalPrice,offerPrice,discount,title,brand,images} = item
     return (
         <>
@@ -36,19 +36,19 @@ function SingleProduct() {
                 <Text fontSize={"1.2rem"} fontWeight={"bold"}
                     color="blackAlpha.900">{title}</Text>
             </Box>
-            <Flex flexDir={{base:"column",sm:"column",md:"row",lg:"row"}} align={"center"}>
+            <Flex flexDir={{base:"column",sm:"column",md:"column",lg:"row"}} align={"center"}>
 
                 <Box   mb="20px" > 
-                    <Flex gap={10} ml={"10px"}>
+                    <Flex gap={10} ml={"20px"}>
                         <Flex mt="15px" flexDir={"column"} gap={2}>
                             {images?.map((item, i) => {
-                                return <Box key={i} border={"1px solid grey"} p={"5px"} borderRadius={10}>
-                                    <Image width={"30px"} height={"100%"} src={item} />
+                                return <Box className='SingleImage'  key={i} border={"1px solid grey"} p={"5px"} borderRadius={10}>
+                                    <Image  width={"30px"} height={"100%"} src={item} />
                                 </Box>
                             })}
                         </Flex>
-                        <Box>
-                            <Image width={"370px"} height={"100%"} src={images[0]} />
+                        <Box p="35px" borderRadius={"20px"}>
+                            <Image className='SingleImage' width={"320px"} borderRadius={"20px"}  height={"100%"} src={images[0]} />
                         </Box>
 
                     </Flex>
@@ -72,7 +72,7 @@ function SingleProduct() {
                         </Flex>
                     </Box>
                 </Box>
-                <Box  width={{base:"90%",sm:"90%",md:"40%",lg:"60%"}} pr={"30px"} pl="30px" >
+                <Box  width={{base:"90%",sm:"90%",md:"80%",lg:"60%"}} pr={"30px"} pl="30px"  >
                     <Divider />
                     <Text mb={"20px"} mt="5px" color={'teal.500'} >Visit the {brand} Store</Text>
                     <Divider />
@@ -267,7 +267,7 @@ function SingleProduct() {
 
                 </Box>
                 
-                <Box  width={{base:"90%",sm:"90%",md:"20%",lg:"20%"}}  
+                <Box mt={{lg:"-100px",base:0}} width={{base:"90%",sm:"90%",md:"90%",lg:"20%"}}  
                 pr="10px" >
                     <Divider/>
                    
