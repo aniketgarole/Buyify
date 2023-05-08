@@ -14,7 +14,11 @@ const cartSchema = mongoose.Schema({
   // size: Array,
   // rating: Number,
   // ratingCount: String,
-  cart : Array,
+  images : String,
+  brand : String,
+  title : String,
+  quantity : Number,
+  offerPrice : Number,
   authorId : String
 });
 
