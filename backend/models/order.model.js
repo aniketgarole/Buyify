@@ -2,19 +2,22 @@ const mongoose = require("mongoose");
 
 // Cart Schema
 const orderSchema = mongoose.Schema({
-  category: String,
-  subCategory: String,
-  brand: String,
-  title: String,
-  offerPrice: Number,
-  originalPrice: Number,
-  discount: String,
-  quantity: Number,
-  images: Array,
-  size: Array,
-  rating: Number,
-  ratingCount: String,
-  authorId : String
+  // category: String,
+  // subCategory: String,
+  // brand: String,
+  // title: String,
+  // offerPrice: Number,
+  // originalPrice: Number,
+  // discount: String,
+  // quantity: Number,
+  // images: Array,
+  // size: Array,
+  // rating: Number,
+  // ratingCount: String,
+  orders : Array,
+  totalPrice : Number,
+  authorId : String,
+  time : String
 });
 
 // Cart Model
