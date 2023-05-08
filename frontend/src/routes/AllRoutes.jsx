@@ -7,21 +7,23 @@ import Login from "../User/pages/Login";
 import Signup from "../User/pages/Signup";
 import Cart from "../User/pages/Cart";
 import Checkout from "../User/pages/Checkout";
-import AllProducts from "../Admin/pages/AllProducts/AllProducts";
-import Users from "../Admin/pages/Users/Users";
-import Editproduct from "../Admin/pages/Editproduct/Editproduct";
-import Addproduct from "../Admin/pages/Addproduct/Addproduct";
-import Orders from "../Admin/pages/Orders/Orders";
-import Order from "../Admin/pages/Order/Order";
-import Home from "../Admin/pages/Home/Home";
+
+import AllProducts from '../Admin/pages/AllProducts/AllProducts'
+import Users from '../Admin/pages/Users/Users'
+import Editproduct from '../Admin/pages/Editproduct/Editproduct'
+import Addproduct from '../Admin/pages/Addproduct/Addproduct'
+import Orders from '../Admin/pages/Orders/Orders'
+import Order from '../Admin/pages/Order/Order'
+import Home from '../Admin/pages/Home/Home'
+import NotFound from '../User/pages/Products/NotFound'
 
 function AllRoutes() {
   return (
     <Routes>
       <Route path="/men" element={<Men />} />
       <Route path="/women" element={<Women />} />
-      <Route path="/men/:id" element={<SingleProduct />} />
-      <Route path="*" element={<h1>404 Page Not Found</h1>} />
+      <Route path="/product/:id" element={<SingleProduct />} />
+      <Route path="*" element={<NotFound />} />
       <Route path="/checkout" element={<Checkout />}></Route>
       <Route path="/cart" element={<Cart />}></Route>
       <Route path="/login" element={<Login />}></Route>

@@ -13,6 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
+
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -23,6 +24,11 @@ const initialData = {
   contact: "",
   password: "",
 };
+
+// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
