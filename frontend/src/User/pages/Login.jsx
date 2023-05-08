@@ -10,28 +10,83 @@ import {
   Text,
   useColorModeValue,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
+  const toast = useToast()
 
   const handleSignIn = async () => {
-    try {
-      const response = await axios.post("/api/login", {
-        email,
-        password,
-      });
-      console.log(response.data);
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      console.error(error);
+
+    let payload = { email, password }
+
+    if (!email || !password) {
+      toast({
+        title: 'Enter both email and password to login',
+        description: 'All fields are required',
+        status: 'error',
+        duration: 5000,
+        position: 'top',
+        isClosable: true,
+      })
+      return
     }
-  };
+
+    try {
+      setIsLoading(true)
+      let res = await fetch(
+        'https://tame-tan-bee-fez.cyclic.app/user/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+      )
+      let data = await res.json()
+      
+      setIsLoading(false)
+      
+      console.log(payload, res)
+      
+      if (res.status === 200) {
+        toast({
+          title: 'Login successful',
+          description: 'Have a great day',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+          position: 'top',
+        })
+        localStorage.setItem('token', data.token)
+        navigate('/')
+        console.log(data)
+      } else {
+        toast({
+          title: 'Login failed',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+          position: 'top',
+        })
+      }
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error)
+    }
+  }
+
+  const isEmailError = email === ''
+  const isPasswordError = password === ''
+
   return (
     <>
       <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>

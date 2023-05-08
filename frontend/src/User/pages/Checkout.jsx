@@ -1,450 +1,563 @@
-// import {
-//   Accordion,
-//   AccordionButton,
-//   AccordionIcon,
-//   AccordionItem,
-//   AccordionPanel,
-//   Box,
-//   Button,
-//   Divider,
-//   Flex,
-//   FormControl,
-//   FormLabel,
-//   Input,
-//   Modal,
-//   ModalBody,
-//   ModalCloseButton,
-//   ModalContent,
-//   ModalFooter,
-//   ModalHeader,
-//   ModalOverlay,
-//   Radio,
-//   RadioGroup,
-//   Select,
-//   Stack,
-//   Text,
-//   useDisclosure,
-//   useToast,
-// } from "@chakra-ui/react";
-// import React, { useCallback, useState } from "react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  Button,
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+  Text,
+  useDisclosure,
+  useToast,
+  Icon,
+} from "@chakra-ui/react";
+import React, { useCallback, useEffect, useState } from "react";
+import { AiFillDelete } from "react-icons/ai";
+import axios from "axios";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import useRazorpay from "react-razorpay";
+import { getCartProducts } from "../../redux/Cart/Action";
+import { useNavigate } from "react-router-dom";
 
-// import axios from "axios";
-// import { useSelector } from "react-redux";
-// import useRazorpay from "react-razorpay";
+const addressInitislState = {
+  country: "",
+  fullName: "",
+  mobileNumber: "",
+  pincode: "",
+  houseNo: "",
+  area: "",
+  landmark: "",
+  city: "",
+  state: "",
+};
 
-// let arr = [];
-// const Checkout = () => {
-//   const [value, setValue] = React.useState("");
-//   const [Pvalue, setPValue] = React.useState("");
-//   const { isOpen, onOpen, onClose } = useDisclosure();
-//   const toast = useToast();
-//   const [address, setAddress] = useState("");
-//   const Razorpay = useRazorpay();
+const Checkout = () => {
+  const [value, setValue] = useState("1");
+  const [Pvalue, setPValue] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const [addressForm, setAddressForm] = useState(addressInitislState);
 
-//   const handleSaveAddress = () => {
-//     const formData = {
-//       country: document.getElementById("country").value,
-//       fullName: document.getElementById("fullName").value,
-//       mobileNumber: document.getElementById("mobileNumber").value,
-//       pincode: document.getElementById("pincode").value,
-//       flatHouseNo: document.getElementById("flatHouseNo").value,
-//       areaStreetVillage: document.getElementById("areaStreetVillage").value,
-//       landmark: document.getElementById("landmark").value,
-//       townCity: document.getElementById("townCity").value,
-//       state: document.getElementById("state").value,
-//     };
+  function HandleChange(e) {
+    setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
+  }
 
-//     setAddress(formData);
-//     arr.push(formData);
+  const {
+    country,
+    fullName,
+    mobileNumber,
+    pincode,
+    houseNo,
+    area,
+    landmark,
+    city,
+    state,
+  } = addressForm;
 
-//     localStorage.setItem("D_address", JSON.stringify(arr));
+  function HandleSubmit(e) {
+    e.preventDefault();
 
-//     toast({
-//       title: "Added New Delivery address.",
-//       description: "We've saved your new shipping address.",
-//       status: "success",
-//       duration: 5000,
-//       isClosable: true,
-//     });
+    if (
+      country == "" ||
+      fullName == "" ||
+      mobileNumber == "" ||
+      pincode == "" ||
+      houseNo == "" ||
+      area == "" ||
+      landmark == "" ||
+      city == "" ||
+      state == ""
+    ) {
+      toast({
+        title: "All Feilds Required",
+        position: "top",
+        isClosable: true,
+      });
+    } else {
+      localStorage.setItem("address", JSON.stringify(addressForm));
+      toast({
+        title: "Added New Delivery address.",
+        description: "We've saved your new shipping address.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
 
-//     onClose();
-//   };
-//   let useradd = JSON.parse(localStorage.getItem("D_address"));
+      onClose();
+    }
+  }
 
-//   const data = useSelector((store) => {
-//     return store.cartReducer.cart;
-//   });
+  const { cart, isLoading, isError } = useSelector((store) => {
+    return {
+      cart: store.CartReducer.cart,
+      isLoading: store.CartReducer.isLoading,
+      isError: store.CartReducer.isError,
+    };
+  }, shallowEqual);
+  console.log(cart);
 
-//   const totalCartPrice = data
-//     .reduce((accumulator, currentItem) => {
-//       return accumulator + currentItem.price;
-//     }, 0)
-//     .toFixed(2);
+  let dispatch = useDispatch();
+  const Razorpay = useRazorpay();
+  const navigate = useNavigate();
 
-//   const orderPrice = +totalCartPrice + 40;
-//   const handlePayment = useCallback(() => {
-//     const options = {
-//       key: "rzp_test_8soKTDQ4yrJnr9",
-//       amount: +orderPrice * 100,
-//       currency: "INR",
-//       name: "Buyify.com",
-//       description: "Test Transaction",
-//       image: "./logo.jpg",
+  let totalCartPrice = cart
+    .reduce((acc, el) => {
+      return acc + Number(el.offerPrice);
+    }, 0)
+    .toFixed(2);
 
-//       handler: async (res) => {
-//         console.log(res);
-//         const addOrders = async (id, cartData, address) => {
-//           try {
-//             const sameId = Date.now() + id;
-//             await axios.post("/api/orders", {
-//               cart: cartData, // this should be array of objects cart
-//               userId: id, //"userId which you get from authreducer",
-//               address: address,
-//               timestamp: Date.now(), // this can be used for sorting
-//               orderId: sameId,
-//               status: "pending",
-//             });
-//           } catch (error) {
-//             console.log(error);
-//           }
-//         };
-//         await addOrders(data, address);
-//         if (res) {
-//           let mydata = [];
-//           // dispatch(addToCart(id, mydata))
-//         }
-//       },
-//       prefill: {
-//         name: "userName",
-//         // email: userData?.email,
-//         contact: "8496080933",
-//       },
-//       notes: {
-//         address: "Razorpay Corporate Office",
-//       },
-//       theme: {
-//         color: "#3399cc",
-//       },
-//     };
-//     const rzpay = new Razorpay(options);
-//     rzpay.open();
-//   }, [Razorpay]);
+  const address = JSON.parse(localStorage.getItem("address"));
 
-//   console.log(useradd);
-//   return (
-//     <>
-//       <Box
-//         h={"80px"}
-//         width={"98%"}
-//         margin={"auto"}
-//         boxShadow="base"
-//         display="flex"
-//         alignItems="center"
-//         justifyContent="center"
-//         padding={4}
-//         bgGradient="linear(to-t, blackAlpha.100, white)"
-//       >
-//         <Text textAlign="center" fontSize="3xl">
-//           Checkout
-//         </Text>
-//       </Box>
+  useEffect(() => {
+    dispatch(getCartProducts());
+  }, []);
 
-//       <Flex
-//         // border={"1px solid red"}
-//         width={"75%"}
-//         margin={"auto"}
-//         h={"100vh"}
-//         gap={"3%"}
-//         p={"12px"}
-//       >
-//         <Box width={"70%"}>
-//           <Accordion allowToggle>
-//             <AccordionItem>
-//               <h2>
-//                 <AccordionButton>
-//                   <Box as="span" flex="1" textAlign="left">
-//                     <Text fontSize="xl" fontWeight={"bold"} color={"#c45500"}>
-//                       {" "}
-//                       1.{"  "} Select a delivery address
-//                     </Text>
-//                   </Box>
-//                   <AccordionIcon />
-//                 </AccordionButton>
-//               </h2>
-//               <AccordionPanel
-//                 pb={4}
-//                 border={"1px solid grey"}
-//                 m={"20px"}
-//                 borderRadius={"10px"}
-//               >
-//                 <RadioGroup onChange={setValue} value={value}>
-//                   <Stack direction="column">
-//                     <Radio value="1">
-//                       <span style={{ fontWeight: "bold" }}>Gyan Prakash</span>{" "}
-//                       Type 1 Spl Qtr No 56 ,CRPF Campus, Gandhi Nagar,
-//                       GANDHINAGAR, GUJARAT, 382042, India, Phone number:
-//                       7779898987{" "}
-//                       <span style={{ color: "#007185" }}>Edit address</span> |{" "}
-//                       <span style={{ color: "#007185" }}>
-//                         Add delivery instructions
-//                       </span>
-//                     </Radio>
-//                     {useradd?.map((el) => (
-//                       <Radio value="2">
-//                         <span style={{ fontWeight: "bold" }}>
-//                           {el.fullName}
-//                         </span>{" "}
-//                         House Number: {el.flatHouseNo} ,{el.areaStreetVillage},
-//                         {el.landmark},{el.townCity}, {el.state}, {el.pincode},{" "}
-//                         {el.country}, Phone Number:{el.mobileNumber}{" "}
-//                         <span style={{ color: "#007185" }}>Edit address</span> |{" "}
-//                         <span style={{ color: "#007185" }}>
-//                           Add delivery instructions
-//                         </span>
-//                       </Radio>
-//                     ))}
-//                     {/* <Radio value="1">
-//                       <span style={{ fontWeight: "bold" }}>Gyan Prakash</span>{" "}
-//                       Type 1 Spl Qtr No 56 ,CRPF Campus, Gandhi Nagar,
-//                       GANDHINAGAR, GUJARAT, 382042, India, Phone number:
-//                       7779898987{" "}
-//                       <span style={{ color: "#007185" }}>Edit address</span> |{" "}
-//                       <span style={{ color: "#007185" }}>
-//                         Add delivery instructions
-//                       </span>
-//                     </Radio> */}
-//                   </Stack>
-//                 </RadioGroup>
-//                 <Text
-//                   onClick={onOpen}
-//                   style={{
-//                     color: "#007185",
-//                     marginTop: "20px",
-//                     cursor: "pointer",
-//                   }}
-//                 >
-//                   + Add a new address
-//                 </Text>
-//                 <Modal isOpen={isOpen} onClose={onClose}>
-//                   <ModalOverlay />
-//                   <ModalContent>
-//                     <ModalHeader>Enter a new delivery address</ModalHeader>
-//                     <ModalCloseButton />
-//                     <ModalBody>
-//                       <Stack spacing={"4"}>
-//                         <form>
-//                           <FormControl id="country">
-//                             <FormLabel>Country/Region</FormLabel>
-//                             <Select>
-//                               <option value="India">India</option>
-//                               <option value="USA">USA</option>
-//                               <option value="Canada">Canada</option>
-//                             </Select>
-//                           </FormControl>
+  console.log("address", address);
 
-//                           <FormControl id="fullName">
-//                             <FormLabel>Full Name</FormLabel>
-//                             <Input type="text" />
-//                           </FormControl>
+  const handlePayment = useCallback(
+    async (prod) => {
+      const options = {
+        key: "rzp_test_Q6qLBPFz8pzc23",
+        amount: +totalCartPrice * 100,
+        currency: "INR",
+        name: "Buyify.com",
+        description: "Test Transaction",
+        image: "/buyify.jpg",
+        handler: async (response) => {
+          let postOrder = async () => {
+            try {
+              console.log("inside post", prod);
+              let res = await fetch("BaseUrl/order/addOrder", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: localStorage.getItem("user_token"),
+                },
+                body: JSON.stringify({
+                  products: prod,
+                  userId: "123456",
+                  createdAt: Date.now(),
+                  totalAmount: totalCartPrice,
+                  address: {
+                    fullname: address.fullname,
+                    mobileNumber: address.mobileNumber,
+                    email: address.email,
+                    houseNo: address.houseNo,
+                    area: address.area,
+                    pincode: address.pincode,
+                    landmark: address.landmark,
+                    city: address.city,
+                    state: address.state,
+                    country: address.country,
+                  },
+                }),
+              });
+              console.log(res.status);
+            } catch (error) {
+              console.log("error", error);
+            }
+          };
 
-//                           <FormControl id="mobileNumber">
-//                             <FormLabel>Mobile Number</FormLabel>
-//                             <Input type="tel" />
-//                           </FormControl>
+          const deleteAllCart = async () => {
+            try {
+              await axios.delete(`baseUrl/cart/delete`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: localStorage.getItem("user_token"),
+                },
+              });
+            } catch (err) {
+              console.log(err);
+            }
+          };
 
-//                           <FormControl id="pincode">
-//                             <FormLabel>Pincode</FormLabel>
-//                             <Input type="text" />
-//                           </FormControl>
+          postOrder();
+          deleteAllCart();
+          navigate("/");
+        },
+        prefill: {
+          name: address.name,
+          email: address.email,
+          contact: address.mobileNumber,
+        },
+        notes: {
+          address: "Buyify.com",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
 
-//                           <FormControl id="flatHouseNo">
-//                             <FormLabel>Flat, House No.</FormLabel>
-//                             <Input type="text" />
-//                           </FormControl>
+      const rzpay = new Razorpay(options);
+      rzpay.open();
+    },
+    [Razorpay]
+  );
 
-//                           <FormControl id="areaStreetVillage">
-//                             <FormLabel>Area/Street/Sector/Village</FormLabel>
-//                             <Input type="text" />
-//                           </FormControl>
+  return (
+    <>
+      <Box
+        h={"80px"}
+        width={"98%"}
+        margin={"auto"}
+        boxShadow="base"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        padding={4}
+        bgGradient="linear(to-t, blackAlpha.100, white)"
+      >
+        <Text textAlign="center" fontSize="3xl">
+          Checkout
+        </Text>
+      </Box>
 
-//                           <FormControl id="landmark">
-//                             <FormLabel>Landmark</FormLabel>
-//                             <Input type="text" />
-//                           </FormControl>
+      <Flex
+        // border={"1px solid red"}
+        width={"75%"}
+        margin={"auto"}
+        h={"100vh"}
+        gap={"3%"}
+        p={"12px"}
+      >
+        <Box width={"70%"}>
+          <Accordion allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    <Text fontSize="xl" fontWeight={"bold"} color={"#c45500"}>
+                      1.{"  "} Select a delivery address
+                    </Text>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel
+                pb={4}
+                border={"1px solid grey"}
+                m={"20px"}
+                borderRadius={"10px"}
+              >
+                {address ? (
+                  <ul style={{ marginLeft: "10px" }}>
+                    <li style={{ fontWeight: "bold" }}>
+                      {" "}
+                      {address.fullName}, {address.mobileNumber} ,{"House No:"}
+                      {address.houseNo},{address.area},{address.landmark},
+                      {address.city},{address.state},{address.pincode},
+                      {address.country}
+                      {<AiFillDelete color="red" size={"25px"} />}
+                    </li>
+                  </ul>
+                ) : (
+                  <Text
+                    onClick={onOpen}
+                    style={{
+                      color: "#007185",
+                      marginTop: "20px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    + Add a new address
+                  </Text>
+                )}
+                {/* <Text
+                  onClick={onOpen}
+                  style={{
+                    color: "#007185",
+                    marginTop: "20px",
+                    cursor: "pointer",
+                  }}
+                >
+                  + Add a new address
+                </Text> */}
+                <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Enter a new delivery address</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      <Stack spacing={"4"}>
+                        <form onSubmit={HandleSubmit}>
+                          <FormControl id="country">
+                            <FormLabel>Country/Region</FormLabel>
+                            <Select
+                              name="country"
+                              value={country}
+                              onChange={HandleChange}
+                            >
+                              <option value="India">Select a Country</option>
+                              <option value="India">India</option>
+                              <option value="USA">USA</option>
+                              <option value="Canada">Canada</option>
+                            </Select>
+                          </FormControl>
 
-//                           <FormControl id="townCity">
-//                             <FormLabel>Town/City</FormLabel>
-//                             <Input type="text" />
-//                           </FormControl>
+                          <FormControl id="fullName">
+                            <FormLabel>Full Name</FormLabel>
+                            <Input
+                              type="text"
+                              name="fullName"
+                              value={fullName}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//                           <FormControl id="state">
-//                             <FormLabel>State</FormLabel>
-//                             <Select placeholder="Select state">
-//                               <option value="Andhra Pradesh">
-//                                 Andhra Pradesh
-//                               </option>
-//                               <option value="Bihar">Bihar</option>
-//                               <option value="Delhi">Delhi</option>
-//                             </Select>
-//                           </FormControl>
+                          <FormControl id="mobileNumber">
+                            <FormLabel>Mobile Number</FormLabel>
+                            <Input
+                              type="tel"
+                              name="mobileNumber"
+                              value={mobileNumber}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//                           <Button
-//                             onClick={handleSaveAddress}
-//                             mt={"20px"}
-//                             colorScheme="yellow"
-//                           >
-//                             Use this address
-//                           </Button>
-//                         </form>
-//                       </Stack>
-//                     </ModalBody>
+                          <FormControl id="pincode">
+                            <FormLabel>Pincode</FormLabel>
+                            <Input
+                              type="text"
+                              name="pincode"
+                              value={pincode}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//                     <ModalFooter></ModalFooter>
-//                   </ModalContent>
-//                 </Modal>
+                          <FormControl id="flatHouseNo">
+                            <FormLabel>Flat, House No.</FormLabel>
+                            <Input
+                              type="text"
+                              name="houseNo"
+                              value={houseNo}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//                 <Button
-//                   colorScheme="yellow"
-//                   size="sm"
-//                   mt={"20px"}
-//                   onClick={() =>
-//                     toast({
-//                       title: "Delivery address.",
-//                       description: "We've saved your shipping address.",
-//                       status: "success",
-//                       duration: 5000,
-//                       isClosable: true,
-//                     })
-//                   }
-//                 >
-//                   Use this address
-//                 </Button>
-//               </AccordionPanel>
-//             </AccordionItem>
+                          <FormControl id="areaStreetVillage">
+                            <FormLabel>Area/Street/Sector/Village</FormLabel>
+                            <Input
+                              type="text"
+                              name="area"
+                              value={area}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//             <AccordionItem>
-//               <h2>
-//                 <AccordionButton>
-//                   <Box as="span" flex="1" textAlign="left">
-//                     <Text fontSize="xl" fontWeight={"bold"} color={"#c45500"}>
-//                       2. Payment method
-//                     </Text>
-//                   </Box>
-//                   <AccordionIcon />
-//                 </AccordionButton>
-//               </h2>
-//               <AccordionPanel
-//                 p={8}
-//                 border={"1px solid grey"}
-//                 m={"20px"}
-//                 borderRadius={"10px"}
-//               >
-//                 <RadioGroup onChange={setPValue} value={Pvalue}>
-//                   <Stack direction="column" gap={"40px"}>
-//                     <Radio value="card">
-//                       {" "}
-//                       <Text fontWeight={"medium"}>
-//                         Pay with Debit/Credit/ATM Cards
-//                       </Text>
-//                     </Radio>
-//                     <Stack>
-//                       <Radio value="netbanking">
-//                         <Text fontWeight={"medium"}>Net Banking</Text>{" "}
-//                       </Radio>
-//                       <Select placeholder="Select option" width={"22%"}>
-//                         <option value="option1">SBI</option>
-//                         <option value="option2">Bank of America</option>
-//                         <option value="option3">icici</option>
-//                         <option value="option3">HDFC</option>
-//                       </Select>{" "}
-//                     </Stack>
+                          <FormControl id="landmark">
+                            <FormLabel>Landmark</FormLabel>
+                            <Input
+                              type="text"
+                              name="landmark"
+                              value={landmark}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//                     <Radio value="upi" fontWeight={"medium"}>
-//                       {" "}
-//                       <Text fontWeight={"medium"}>Other UPI Apps</Text>
-//                     </Radio>
+                          <FormControl id="towncity">
+                            <FormLabel>Town/city</FormLabel>
+                            <Input
+                              type="text"
+                              name="city"
+                              value={city}
+                              onChange={HandleChange}
+                            />
+                          </FormControl>
 
-//                     <Radio value="emi">
-//                       {" "}
-//                       <Text fontWeight={"medium"}>EMI</Text>
-//                     </Radio>
+                          <FormControl id="state">
+                            <FormLabel>State</FormLabel>
+                            <Select
+                              name="state"
+                              placeholder="Select state"
+                              value={state}
+                              onChange={HandleChange}
+                            >
+                              <option value="Andhra Pradesh">
+                                Andhra Pradesh
+                              </option>
+                              <option value="Bihar">Bihar</option>
+                              <option value="Delhi">Delhi</option>
+                            </Select>
+                          </FormControl>
 
-//                     <Radio value="cod">
-//                       <Text fontWeight={"medium"}>
-//                         Cash on Delivery/ Pay on Delivery
-//                       </Text>
-//                     </Radio>
-//                   </Stack>
-//                 </RadioGroup>
-//                 <Button
-//                   colorScheme="yellow"
-//                   size="sm"
-//                   mt={"40px"}
-//                   isDisabled={!Pvalue}
-//                 >
-//                   Use this payment method
-//                 </Button>
-//               </AccordionPanel>
-//             </AccordionItem>
-//           </Accordion>
-//         </Box>
-//         <Box
-//           border={"1px solid grey"}
-//           width={"27%"}
-//           borderRadius={"10px"}
-//           p={15}
-//           h={"350px"}
-//         >
-//           <Box>
-//             {/* <Box isDisabled={!Pvalue}>{<PayPal />}</Box> */}
-//             <Button
-//               colorScheme="yellow"
-//               size="sm"
-//               w={"100%"}
-//               isDisabled={!Pvalue}
-//               onClick={handlePayment}
-//             >
-//               Pay Now
-//             </Button>
-//             <Text textAlign={"center"} fontSize="xs" mt={"12px"}>
-//               Choose a payment method to continue checking out. You will still
-//               have a chance to review and edit your order before it is final
-//             </Text>
-//           </Box>
-//           <Divider mt={"15"} />
-//           <Text mt={"10px"} fontSize="xl" fontWeight={"bold"} mb={"15px"}>
-//             Order Summary
-//           </Text>
-//           <Box lineHeight={"25px"}>
-//             <Flex justifyContent={"space-between"}>
-//               <Text fontSize="sm">item:</Text>
-//               <Text fontSize="sm">₹ {totalCartPrice}</Text>
-//             </Flex>
-//             <Flex justifyContent={"space-between"}>
-//               {" "}
-//               <Text fontSize="sm">Delivery:</Text>
-//               <Text fontSize="sm">₹ {"40.00"}</Text>
-//             </Flex>
-//             <Flex justifyContent={"space-between"}>
-//               <Text fontSize="sm">Total:</Text>
-//               <Text fontSize="sm">₹ {(+totalCartPrice + 40).toFixed(2)}</Text>
-//             </Flex>
-//           </Box>
+                          <Button
+                            type="submit"
+                            mt={"20px"}
+                            colorScheme="yellow"
+                          >
+                            Use this address
+                          </Button>
+                        </form>
+                      </Stack>
+                    </ModalBody>
 
-//           <Divider mt={"8px"} />
-//           <Flex justifyContent={"space-between"} mt={"8px"}>
-//             <Text fontSize="xl" fontWeight={"bold"} color={"#b12704"}>
-//               Order Total:
-//             </Text>
-//             <Text fontSize="xl" fontWeight={"bold"} color={"#b12704"}>
-//               ₹ {(+totalCartPrice + 40).toFixed(2)}
-//             </Text>
-//           </Flex>
-//           <Divider mt={"8px"} />
-//         </Box>
-//       </Flex>
-//     </>
-//   );
-// };
+                    <ModalFooter></ModalFooter>
+                  </ModalContent>
+                </Modal>
 
-// export default Checkout;
+                <Button
+                  colorScheme="yellow"
+                  size="sm"
+                  mt={"20px"}
+                  onClick={() =>
+                    toast({
+                      title: "Delivery address.",
+                      description: "We've saved your shipping address.",
+                      status: "success",
+                      duration: 5000,
+                      isClosable: true,
+                    })
+                  }
+                >
+                  Use this address
+                </Button>
+              </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    <Text fontSize="xl" fontWeight={"bold"} color={"#c45500"}>
+                      2. Payment method
+                    </Text>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel
+                p={8}
+                border={"1px solid grey"}
+                m={"20px"}
+                borderRadius={"10px"}
+              >
+                <RadioGroup onChange={setPValue} value={Pvalue}>
+                  <Stack direction="column" gap={"40px"}>
+                    <Radio value="card">
+                      {" "}
+                      <Text fontWeight={"medium"} color="black">
+                        Pay with Debit/Credit/ATM Cards
+                      </Text>
+                    </Radio>
+                    <Stack>
+                      <Radio value="netbanking">
+                        <Text fontWeight={"medium"} color="black">
+                          Net Banking
+                        </Text>{" "}
+                      </Radio>
+                      <Select placeholder="Select option" width={"22%"}>
+                        <option value="option1">SBI</option>
+                        <option value="option2">Bank of America</option>
+                        <option value="option3">icici</option>
+                        <option value="option3">HDFC</option>
+                      </Select>{" "}
+                    </Stack>
+
+                    <Radio value="upi" fontWeight={"medium"}>
+                      {" "}
+                      <Text fontWeight={"medium"} color="black">
+                        Other UPI Apps
+                      </Text>
+                    </Radio>
+
+                    <Radio value="emi">
+                      {" "}
+                      <Text fontWeight={"medium"} color="black">
+                        EMI
+                      </Text>
+                    </Radio>
+
+                    <Radio value="cod">
+                      <Text fontWeight={"medium"} color="black">
+                        Cash on Delivery/ Pay on Delivery
+                      </Text>
+                    </Radio>
+                  </Stack>
+                </RadioGroup>
+                <Button
+                  colorScheme="yellow"
+                  size="sm"
+                  mt={"40px"}
+                  isDisabled={!Pvalue}
+                >
+                  Use this payment method
+                </Button>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </Box>
+        <Box
+          border={"1px solid grey"}
+          width={"27%"}
+          borderRadius={"10px"}
+          p={15}
+          h={"350px"}
+        >
+          <Box>
+            <Button
+              colorScheme="yellow"
+              size="sm"
+              w={"100%"}
+              isDisabled={!Pvalue}
+              onClick={handlePayment}
+            >
+              Pay Now
+            </Button>
+            <Text textAlign={"center"} fontSize="xs" mt={"12px"}>
+              Choose a payment method to continue checking out. You will still
+              have a chance to review and edit your order before it is final
+            </Text>
+          </Box>
+          <Divider mt={"15"} />
+          <Text mt={"10px"} fontSize="xl" fontWeight={"bold"} mb={"15px"}>
+            Order Summary
+          </Text>
+          <Box lineHeight={"25px"}>
+            <Flex justifyContent={"space-between"}>
+              <Text fontSize="sm">item:</Text>
+              <Text fontSize="sm">₹ {totalCartPrice}</Text>
+            </Flex>
+            <Flex justifyContent={"space-between"}>
+              {" "}
+              <Text fontSize="sm">Delivery:</Text>
+              <Text fontSize="sm"> {"Free"}</Text>
+            </Flex>
+            <Flex justifyContent={"space-between"}>
+              <Text fontSize="sm">Total:</Text>
+              <Text fontSize="sm">₹ {(+totalCartPrice + 40).toFixed(2)}</Text>
+            </Flex>
+          </Box>
+
+          <Divider mt={"8px"} />
+          <Flex justifyContent={"space-between"} mt={"8px"}>
+            <Text fontSize="xl" fontWeight={"bold"} color={"#b12704"}>
+              Order Total:
+            </Text>
+            <Text fontSize="xl" fontWeight={"bold"} color={"#b12704"}>
+              ₹ {totalCartPrice}
+            </Text>
+          </Flex>
+          <Divider mt={"8px"} />
+        </Box>
+      </Flex>
+    </>
+  );
+};
+
+export default Checkout;

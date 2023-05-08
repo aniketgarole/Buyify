@@ -1,13 +1,13 @@
-
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Men from '../User/pages/Products/Men/Men'
-import SingleProduct from '../User/pages/Products/SingleProduct'
-import Women from '../User/pages/Products/Women/Women'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Men from "../User/pages/Products/Men/Men";
+import SingleProduct from "../User/pages/Products/SingleProduct";
+import Women from "../User/pages/Products/Women/Women";
 import Login from "../User/pages/Login";
 import Signup from "../User/pages/Signup";
 import Cart from "../User/pages/Cart";
 import Checkout from "../User/pages/Checkout";
+
 import AllProducts from '../Admin/pages/AllProducts/AllProducts'
 import Users from '../Admin/pages/Users/Users'
 import Editproduct from '../Admin/pages/Editproduct/Editproduct'
@@ -36,9 +36,7 @@ function AllRoutes() {
       <Route path="/admin/orders/:id" element={<Orders />}></Route>
       <Route path="/admin/singleorder/:id" element={<Order />}></Route>
     </Routes>
-  )
+  );
 }
 
-export default AllRoutes
-
-
+export default AllRoutes;
