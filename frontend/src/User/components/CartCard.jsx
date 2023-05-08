@@ -1,17 +1,27 @@
 import { Box, Divider, Flex, Image, Select, Text } from "@chakra-ui/react";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/Cart/cart.actions";
+import { useDispatch } from "react-redux";
+import { deleteCartdata, getCartProducts } from "../../redux/Cart/Action";
 
-const CartCard = ({ title, price, image, rating, description }) => {
-  
+const CartCard = ({ _id, title, offerPrice, images, rating, description }) => {
+  let dispatch = useDispatch();
 
-  const handledelete = (el) => {
-    // const filterdata = data.filter((t) => t.id != el.id);
+  async function HandleCartDelete() {
+    await dispatch(deleteCartdata(_id));
+    dispatch(getCartProducts());
+  }
 
-    // dispatch(addToCart(data.id, filterdata));
-    console.log("data deleted !!");
-  };
+  // const handleChangeQty = (prodId, qtt) => {
+  //   let newData = data.map((item) => {
+  //     if (item.id == prodId) {
+  //       return { ...item, qtt: qtt };
+  //     }
+  //     return item;
+  //   });
+  //   dispatch(addToCart(id, newData));
+  // };
+
+  let cartQuantity = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <Flex
@@ -25,12 +35,12 @@ const CartCard = ({ title, price, image, rating, description }) => {
     >
       <Box width={{ base: "100%", md: "18%" }}>
         {/* Product Image */}
-        <Image width={"100%"} src={image} />
+        <Image width={"100%"} src={images} />
       </Box>
       <Box width={{ base: "100%", md: "70%" }}>
         {/* Product Name or title or description */}
         <Text fontSize="xl" fontWeight={"medium"} mb={"8px"}>
-          {description}
+          {title}
         </Text>
 
         <Text fontSize="xs" color={"green"} mb={"5px"}>
@@ -53,10 +63,10 @@ const CartCard = ({ title, price, image, rating, description }) => {
         >
           {/* Product Quantity */}
           <Box width={{ base: "100%", md: "auto" }}>
-            <Select placeholder="Qty: 1" boxShadow="xl" h={"100%"}>
-              <option value="1">1</option>
-              <option value="option2">2</option>
-              <option value="option3">3</option>
+            <Select placeholder="Qty" boxShadow="xl" h={"100%"}>
+              {cartQuantity?.map((el) => {
+                return <option value={el}>{el}</option>;
+              })}
             </Select>
           </Box>
           <Divider orientation="vertical" colorScheme={"black"} />
@@ -70,7 +80,7 @@ const CartCard = ({ title, price, image, rating, description }) => {
                 textDecoration: "underline",
                 color: "red",
               }}
-              onClick={handledelete}
+              onClick={HandleCartDelete}
             >
               Delete
             </Text>
@@ -125,7 +135,7 @@ const CartCard = ({ title, price, image, rating, description }) => {
       <Box>
         {/* Product Price */}
         <Text textAlign={"end"} fontSize="19.5px" fontWeight={"extrabold"}>
-          ₹ {price}
+          ₹ {offerPrice}
         </Text>
       </Box>
     </Flex>
