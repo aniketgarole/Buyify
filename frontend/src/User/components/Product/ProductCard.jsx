@@ -4,9 +4,13 @@ import "./ProductCard.css"
 import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 import { FaInfoCircle } from "react-icons/fa"
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from '../../../redux/Cart/cart.actions'
+import { GetCartAPI, addToCartAPI } from '../../../redux/Cart/cart.api'
 function ProductCard({ data }) {
-
-//  console.log(data.rating)
+const dispatch = useDispatch();
+const cartData = useSelector((store)=>store.cartReducer)
+console.log(cartData,"X")
   let ratingFillArray = [];
   for (let i = 1; i <= Math.ceil(+data.rating); i++) {
     ratingFillArray.push(i)
@@ -14,6 +18,10 @@ function ProductCard({ data }) {
   let ratingVacantArray = [];
   for (let i = 1; i <= (5 - Math.ceil(+data.rating)); i++) {
     ratingVacantArray.push(i)
+  }
+
+  const handleAddToCart=()=>{
+    dispatch(GetCartAPI)
   }
   
   return (
@@ -25,9 +33,9 @@ function ProductCard({ data }) {
       // _hover={{ transform: "translateY(0)"}}
       width={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }} className="product-card">
       {/* Image */}
-      <Link to={`/men/${data.id}`}>
+      <Link to={`/product/${data.id}`}>
       <Box>
-        <Image width={"100%"} height={"100%"} src={data.images[0]} />
+        <Image  width={"100%"} height={"100%"} src={data.images[0]} />
       </Box>
       </Link>
 
@@ -107,7 +115,7 @@ function ProductCard({ data }) {
         <Image width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }} src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg" />
       </Box>
 
-      <Button className="add-to-cart-btn"  bgColor={"#ff8800"} p="30px"  position= "absolute"  fontSize="18px" width= "100%" _hover={{ bgColor:"#232f3e"}} >
+      <Button className="add-to-cart-btn"  bgColor={"#ff8800"} p="30px"  position= "absolute"  fontSize="18px" width= "100%" _hover={{ bgColor:"#232f3e"}} onClick={handleAddToCart} >
         Add To Cart
       </Button>
 

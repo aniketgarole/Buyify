@@ -1,66 +1,67 @@
+
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Checkbox, Flex, Heading, Image, Select, Text, Grid, Stack, Skeleton } from "@chakra-ui/react"
+import { Box, Button, Checkbox, ButtonGroup, Flex, Heading, Image, Select, Text, Grid, Stack, Skeleton } from "@chakra-ui/react"
 import { useLocation, useSearchParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { GetProduct } from '../../../../redux/productReducer/action'
 import ProductCard from "../../../components/Product/ProductCard"
 import WomenSidebar from "./WomenSidebar"
 import WomenDrawer from './WomenDrawer'
-
+import Nodata from "../../../Assets/Nodata.jpg"
 
 function Women() {
-  const location = useLocation();
   const dispatch = useDispatch();
-  const { product, isLoading, isError } = useSelector((store) => store.ProductReducer)
   const [searchParams, setSearchParams] = useSearchParams()
-  const initialOrder = searchParams.get("order")
-  const [order, setOrder] = useState(initialOrder || "")
-  const initialCategory = searchParams.getAll("category")
-  const [category] = useState(initialCategory || [])
-  
-  const initialBrand = searchParams.getAll("brand")
-  const [brand] = useState(initialBrand || [])
+  const [order, setOrder] = useState(searchParams.get("order") || "")
+  const [subcategory,setsubCategory] = useState( searchParams.getAll("subcategory")|| [])
+  const [brand,setBrand] = useState(searchParams.getAll("brand") || [])
+  const [page, setPage] = useState(+searchParams.get("page") || 1)
+  const [category,setCategory]= useState(searchParams.getAll("category")||[])
+
+  const { product, isLoading, isError } = useSelector((store) => store.ProductReducer)
+
+  let limit = 20
  
 
-  const data = product.filter((item) => {
-    if (item.category == "Womens") {
-      return item;
-    }
-  })
-
-  console.log(data)
- 
   let obj = {
     params: {
-      subCategory: searchParams.getAll("category"),
+      subCategory: subcategory,
       sort: searchParams.get("order") && "offerPrice",
-      order: searchParams.get("order"),
-      brand: searchParams.getAll("brand"),
-      // rating: searchParams.get("rating"),
+      order: order,
+      brand: brand,
+      limit: limit,
+      page: page,
+      category:category,
     }
-
   }
 
-  useEffect(() => {
-    dispatch(GetProduct(obj))
-  }, [location.search])
+  let params = {
+  }
+  params.category="Womens"
+  order && (params.order = order)
+  subcategory && (params.subcategory = subcategory)
+  brand && (params.brand = brand)
+  page && (params.page = page)
+  params.limit = limit
+  
+  
+
+  const handlePage =(val)=>{
+    setPage(page+val)
+  }
+  const handleSort = (e) => {
+    setOrder(e.target.value)
+    setPage(1)
+  }
+  
 
   useEffect(() => {
-    let params = {
-    }
-    if (order && category && brand) {
-      params.order = order
-      params.sort= "offerPrice"
-      params.category = category
-      params.brand = brand
-    }
-    order && (params.order = order)
-    category && (params.category = category)
-    brand && (params.brand = brand)
-    // rating && (params.rating = Math.floor(rating))
-
+    setCategory("Womens")
     setSearchParams(params)
-  }, [order, category, brand])
+    dispatch(GetProduct(obj))
+  }, [order, subcategory, brand, page,category])
+
+
   return (
 
     <Box>
@@ -77,58 +78,95 @@ function Women() {
             <Image width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }} src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg" />
           </Flex>
         </Box>
+        <Box mt={3} mr="10px" mb="50px">
+            <Select placeholder='Sort by: Featured' size='sm' borderRadius={20} bgColor='gray.200' _hover={{ bgColor: 'gray.300' }} borderColor='#e78420' onChange={handleSort}>
+              <option value='1' name="order" >Price: Low to High</option>
+              <option value='-1' name="order">Price: High to Low</option>
+            </Select>
+          </Box>
 
-        {/* <Box mt={3} mr="10px">
-          <Select placeholder='Sort by: Featured' size='sm' borderRadius={20} bgColor='gray.200' _hover={{ bgColor: 'gray.300' }} borderColor='#e78420' onChange={handleSort}>
-            <option value='1' name="order" >Price: Low to High</option>
-            <option value='-1' name="order">Price: High to Low</option>
 
-          </Select>
-        </Box> */}
 
 
       </Flex>
 
 
-      <Flex mt={3}
+      <Flex mt={"-10px"}
         // border="1px solid #dadede"
         justifyContent={"center"}>
         <Box display={{ base: "none", sm: "none", md: "block", lg: "block" }} width="300px"
         //  border="1px solid #dadede"
         >
-          <WomenSidebar/>
+          <WomenSidebar
+          brand={brand}
+          setBrand={setBrand}
+          subcategory={subcategory}
+          setsubCategory={setsubCategory}
+          setPage={setPage}
+    
+           />
         </Box>
+
+
         <Box width="100%"
-        // border="1px solid red" 
+          // border="1px solid red" 
+          height="100vh"
+          overflowY={"scroll"}
+          css={{
+            '&::-webkit-scrollbar': {
+              width: '4px',
+            }
+          }}
         >
-          <Grid pr="5px" pl="5px" templateColumns={{ sm: 'repeat(2, 1fr)', base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={{ base: 1, sm: 5, md: 8, lg: 8 }}>
-            {isLoading ? [...Array(15).keys()].map((item) => {
-              return (
-                <Stack key={item}>
-                  <Skeleton
-                    height={{ base: "210px", md: "280px" }}
-                    width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }}
-                    borderRadius={"sm"}
-                  />
-                  <Skeleton width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }} height="16px" borderRadius={"sm"} />
-                  <Skeleton width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }} height="16px" borderRadius={"sm"} />
-                  <Skeleton width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }} height="16px" borderRadius={"sm"} />
-                </Stack>
-              );
-            }) :
-              data.map((item, i) => {
+          {product.length === 0 && isLoading == false ?
+
+            <Box width="100%">
+              {/* <Heading>No Product</Heading> */}
+              <Image margin={"auto"} width="80%" height={"80%"} src={Nodata} />
+            </Box> :
+            <Grid pr="5px" pl="5px" templateColumns={{ sm: 'repeat(2, 1fr)', base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={{ base: 1, sm: 5, md: 8, lg: 8 }}>
+              {isLoading ? [...Array(20).keys()].map((item) => {
                 return (
-                  <ProductCard key={item.id} data={item} />
-                )
-              })}
-          </Grid>
+                  <Stack key={item}>
+                    <Skeleton
+                      height={{ base: "210px", md: "280px" }}
+                      width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }}
+                      borderRadius={"sm"}
+                    />
+                    <Skeleton width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }} height="16px" borderRadius={"sm"} />
+                    <Skeleton width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }} height="16px" borderRadius={"sm"} />
+                    <Skeleton width={{ base: "150px", sm: "280px", md: "150px", lg: "280px" }} height="16px" borderRadius={"sm"} />
+                  </Stack>
+                );
+              })
+                :
+                product?.map((item, i) => {
+                  return (
+                    <ProductCard key={item.id} data={item} />
+                  )
+                })
+              }
+            </Grid>
+          }
+          <Box align="center" mt="30px" mb="30px">
+          <ButtonGroup gap={5}>
+            <Button  isDisabled={page==1} _hover={{ bgColor:"#232f3e",color:"white"}} bgColor={"#ffc266"} onClick={()=>handlePage(-1)}>≪Prev</Button>
+            <Button   _hover={{ bgColor:"#232f3e",color:"white"}}bgColor={"#ffc266"}>{page}</Button>
+            <Button  _hover={{ bgColor:"#232f3e",color:"white"}} bgColor={"#ffc266"} onClick={()=>handlePage(1)}>Next≫</Button>
+          </ButtonGroup>
+          </Box>
         </Box>
+
       </Flex>
-      <Heading>Pagination</Heading>
+
 
 
       <Flex pos={"fixed"} bottom="0" width="100%" display={{ base: "block", sm: "block", md: "none", lg: "none" }}>
-        <WomenDrawer/>
+        <WomenDrawer brand={brand}
+          setBrand={setBrand}
+          subcategory={subcategory}
+          setsubCategory={setsubCategory}
+          setPage={setPage} />
       </Flex>
 
     </Box>
