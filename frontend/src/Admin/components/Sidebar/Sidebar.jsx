@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./sidebar.css"
+import "./sidebar.styles.css"
 import { useSearchParams } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -10,6 +10,7 @@ const Sidebar = () => {
   const [category, setCategory] = useState(searchParams.getAll("category") || [])
   const initPage = searchParams.get("page")
   const [page, setPage] = useState(initPage || 1)
+  const limit = searchParams.get("limit") || 20
 
 
   const handleChangeOrder = (val) => {

@@ -1,8 +1,8 @@
 import React from 'react'
-import "./singleproduct.css"
+import "./singleproduct.styles.css"
 import { Link } from 'react-router-dom'
 
-const Singleproduct = ({_id, title, originalPrice, images, handleDelete}) => {
+const Singleproduct = ({_id, title, offerPrice, images, handleDelete}) => {
 
     
 
@@ -19,7 +19,7 @@ const Singleproduct = ({_id, title, originalPrice, images, handleDelete}) => {
         <img src={images[0]} alt="image" />
         </div>
         <span >{title}</span>
-        <span>{originalPrice}</span>
+        <span>{offerPrice}</span>
         <div className="buttons">
 
         <Link to={`/admin/products/${_id}`}><button className='edit'>Edit</button></Link>

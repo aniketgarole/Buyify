@@ -1,8 +1,19 @@
 import React from 'react'
-import "./navabar.css"
-import { Link } from 'react-router-dom'
+import "./navabar.styles.css"
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+
+  const adminName = JSON.parse(localStorage.getItem("adminName"))
+
+  const navigate = useNavigate()
+
+  const handleLogOut = () => {
+    localStorage.removeItem("adminToken")
+    localStorage.removeItem("adminName")
+    navigate("/admin")
+  }
+
   return (
     <div className='navbar'>
       <div className="left">
@@ -27,7 +38,8 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="right">
-        profile
+       { "profile" && adminName}
+      <button style={adminName ? {display:"inline"} : {display: "none"}} onClick={handleLogOut}>Log out</button>
       </div>
     </div>
   )

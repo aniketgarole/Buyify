@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./editproduct.css"
+import "./editproduct.styles.css"
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
@@ -23,11 +23,14 @@ const Editproduct = () => {
     const {id} = useParams()
     // console.log(id)
 
+    const tok = localStorage.getItem('adminToken')
+    console.log("token", tok)
+
     const getProduct = async() => {
 
         try {
             setLoading(true)
-            let res = await axios.get(`http://localhost:8000/userProduct/${id}`)
+            let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/userProduct/${id}`)
             setLoading(false)
             // console.log(res.data)
             setProduct(res.data[0])
@@ -45,7 +48,11 @@ const Editproduct = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
-          let res = await axios.patch(`http://localhost:8000/adminProduct/patch/${id}`, product)
+          let res = await axios.patch(`https://tame-tan-bee-fez.cyclic.app/adminProduct/patch/${id}`, product, {
+            headers: {
+                token: JSON.parse(localStorage.getItem("adminToken"))
+            }
+          })
             alert(res.data.msg)
         } catch (error) {
             console.log(error)

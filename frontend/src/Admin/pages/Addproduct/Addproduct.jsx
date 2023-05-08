@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./addproduct.css"
+import "./addproduct.styles.css"
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
 
@@ -77,7 +77,12 @@ const Addproduct = () => {
             } else {
                 try {
                 
-                    let res = await axios.post(`http://localhost:8000/adminProduct/addProduct`, newProduct)
+                    let res = await axios.post(`https://tame-tan-bee-fez.cyclic.app/adminProduct/addProduct`, newProduct,{
+                        headers:{
+                            token: JSON.parse(localStorage.getItem("adminToken"))
+                        }, 
+                        
+                    })
                     alert(res.data.msg)
                     setProduct(intitProduct)
                 } catch (error) {

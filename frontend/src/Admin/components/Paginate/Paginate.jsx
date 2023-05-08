@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./paginate.css"
+import "./paginate.styles.css"
 import { useSearchParams } from 'react-router-dom'
 
 const Paginate = () => {
@@ -18,7 +18,7 @@ const Paginate = () => {
 
         useEffect(()=> {
 
-            let params = {page}
+            let params = {page,limit:20}
 
             category.length !== 0 && (params.category = category)
             order &&  (params.order = order) && (params.sort = sort)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./allproducts.css"
+import "./allproducts.styles.css"
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Navbar from '../../components/Navbar/Navbar'
 import Singleproduct from '../../components/Singleproduct/Singleproduct'
@@ -15,7 +15,8 @@ const AllProducts = () => {
   const sort = searchParams.get("sort");
   const order = searchParams.get("order")
   const category = searchParams.getAll("category")
-  const page = useState(searchParams.get("page"))
+  const page = searchParams.get("page")
+  // const limit = searchParams.get("limit") || 20
   const location = useLocation()
 
   const params = {sort, order, category, page}
@@ -32,7 +33,7 @@ const AllProducts = () => {
     //    : category.length !== 0 ? res = await axios.get(`http://localhost:8000/userProduct?category=${category}`)
     //    : res = await axios.get(`http://localhost:8000/userProduct`)
     
-    const res =  await axios.get(`http://localhost:8000/userProduct`, {
+    const res =  await axios.get(`https://tame-tan-bee-fez.cyclic.app/userProduct`, {
         params: params
     })
     //   console.log(res.data)
@@ -52,15 +53,20 @@ const AllProducts = () => {
   const handleDelete = async(id) => {
     console.log("delete the item", id)
     try {
-      setLoading(true)
-      let res = await axios.delete(`http://localhost:8000/adminProduct/delete/${id}`)
-      alert("Product has been deleted")
+      // setLoading(true)
+      let res = await axios.delete(`https://tame-tan-bee-fez.cyclic.app/adminProduct/delete/${id}`,{
+        headers: {
+          token: JSON.parse(localStorage.getItem("adminToken"))
+        }
+      })
       
+      alert(res.data.msg)
       getProducts()
       
     } catch (error) {
-      setLoading(false)
-      setErr(true)
+      // setLoading(false)
+      // setErr(true)
+      console.log(error)
     }
   }
 
