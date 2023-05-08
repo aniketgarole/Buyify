@@ -1,5 +1,5 @@
 import React from 'react'
-import "./orders.css"
+import "./orders.styles.css"
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import Singleorder from '../../components/SingleOrder/Singleorder'

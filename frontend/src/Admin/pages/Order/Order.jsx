@@ -1,5 +1,5 @@
 import React from 'react'
-import "./order.css"
+import "./order.styles.css"
 import Navbar from '../../components/Navbar/Navbar'
 import Prod from '../../components/Prod/Prod'
 

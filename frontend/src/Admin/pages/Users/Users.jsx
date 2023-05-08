@@ -1,41 +1,62 @@
-import React from 'react'
-import "./users.css"
+import React, { useEffect, useState } from 'react'
+import "./users.styles.css"
 import Navbar from '../../components/Navbar/Navbar'
 import Singleuser from '../../components/Singleuser/Singleuser'
+import axios from 'axios'
 
 const Users = () => {
 
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const[err, setErr] = useState(false)
 
-  const users = [
-    { 
-      id: "340394",
-      name: "Tony Stark",
-      email: "tony@gmail.com",
-      contact: "9309209340",
+  const getUsers = async() => {
+    try {
+      setLoading(true)
+      let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/user`)
+      console.log(res.data)
+      setLoading(false)
+      setUsers(res.data)
+    } catch (error) {
+      setLoading(false)
+      setErr(true)
+    }
+  }
+
+  useEffect(()=>{
+    getUsers()
+  },[])
+
+  // const users = [
+  //   { 
+  //     id: "340394",
+  //     name: "Tony Stark",
+  //     email: "tony@gmail.com",
+  //     contact: "9309209340",
       
-    },
-    {
-      id: "340124",
-      name: "Bruce Banner",
-      email: "bruce@gmail.com",
-      contact: "9309209393",
+  //   },
+  //   {
+  //     id: "340124",
+  //     name: "Bruce Banner",
+  //     email: "bruce@gmail.com",
+  //     contact: "9309209393",
       
-    },
-    {
-      id: "340364",
-      name: "Tony Stark",
-      email: "tony@gmail.com",
-      contact: "9309209340",
+  //   },
+  //   {
+  //     id: "340364",
+  //     name: "Tony Stark",
+  //     email: "tony@gmail.com",
+  //     contact: "9309209340",
       
-    },
-    {
-      id: "344494",
-      name: "Bruce Banner",
-      email: "bruce@gmail.com",
-      contact: "9309209393",
+  //   },
+  //   {
+  //     id: "344494",
+  //     name: "Bruce Banner",
+  //     email: "bruce@gmail.com",
+  //     contact: "9309209393",
       
-    },
-  ]
+  //   },
+  // ]
 
   return (
     <>
@@ -52,11 +73,11 @@ const Users = () => {
         <th>Orders</th>
       </tr>
         </thead>
-        <tbody>
+        {loading ? "Loading..." : err ? "Something Went Wrong" : <tbody>
       {users?.map((item)=> {
-        return <Singleuser {...item} key={item.id}/>
+        return <Singleuser {...item} key={item._id}/>
       })}
-      </tbody>
+      </tbody>}
       
       </table>
     </div>

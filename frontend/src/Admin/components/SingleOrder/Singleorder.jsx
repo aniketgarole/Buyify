@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import "./singleorder.styles.css"
 
 const Singleorder = ({id, price, time}) => {
   return (
