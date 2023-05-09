@@ -70,6 +70,7 @@ export default function Footer() {
             Why buy from Buyify ?
           </Link>
         </Center>
+
         <Flex border={"3px solid rgb(254,189,105)"} borderRadius={5} mx={"30%"}>
           <Input
             focusBorderColor="rgb(255,153,0)"
@@ -77,6 +78,7 @@ export default function Footer() {
             borderRadius={"2px 0 0 2px"}
             bg={"white"}
             placeholder="Enter email to get 50% off coupons"
+            fontSize={{ base: "13px", sm: "14px", md: "16px" }}
           />
           <Button
             // color={"white"}
@@ -87,6 +89,7 @@ export default function Footer() {
             // borderColor={"rgb(254,189,105)"}
             color={"black"}
             _hover={{ bg: "rgb(51,51,51)", color: "rgb(254,189,105)" }}
+            fontSize={{ base: "13px", sm: "14px", md: "16px" }}
           >
             Subscribe
           </Button>

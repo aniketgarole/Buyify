@@ -16,19 +16,21 @@ import { Exploremore } from "./Exploremore";
 
 export const HomePage = () => {
   return (
-    <Box bg={"rgb(227,230,230)"}>
-      {/* <UpperNavbar /> */}
-      <Carousel />
-      <Bodyfour />
-      <Bodyfive />
-      <Hotdeals />
-      <Exploremore />
-      <Bodysix />
-      <Bestbuy />
-      <Bodyseven />
-      <Trendingdeals />
-      <Bodyeight />
-      {/* <Footer /> */}
-    </Box>
+    <>
+      <Box bg={"rgb(227,230,230)"}>
+        <UpperNavbar />
+        <Carousel />
+        <Bodyfour />
+        <Bodyfive />
+        <Hotdeals />
+        <Exploremore />
+        <Bodysix />
+        <Bestbuy />
+        <Bodyseven />
+        <Trendingdeals />
+        <Bodyeight />
+      </Box>
+      <Footer />
+    </>
   );
 };

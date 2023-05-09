@@ -18,9 +18,9 @@ function App() {
 
       {/* <Checkout/> */}
 
-      <UpperNavbar />
+      {/* <UpperNavbar /> */}
       <AllRoutes />
-      <Footer />
+      {/* <Footer /> */}
       {/* <Addproduct/> */}
     </div>
   );

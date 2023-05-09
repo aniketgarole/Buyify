@@ -9,6 +9,7 @@ import {
   VStack,
   Image,
   Grid,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -16,12 +17,15 @@ import { Link } from "react-router-dom";
 const BottomNavbar = () => {
   return (
     <>
-      <Flex
+      <Box
+        display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
         justifyContent={"space-between"}
         // marginX={"70px"}
         paddingY={"5px"}
         bgColor={"rgb(35,47,62)"}
         color={"rgb(255,255,255)"}
+        // fontSize={"15px"}
+        fontSize={{ base: "5px", sm: "10px", md: "15px" }}
       >
         <Link to="/">
           <Menu w="10px">
@@ -87,7 +91,7 @@ const BottomNavbar = () => {
           </Menu>
         </Link>
 
-        <Link>
+        {/* <Link>
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -129,7 +133,7 @@ const BottomNavbar = () => {
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
+        </Link> */}
 
         <Menu w="10px">
           <MenuButton
@@ -230,7 +234,7 @@ const BottomNavbar = () => {
           </Menu>
         </Link>
 
-        <Link>
+        {/* <Link>
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -273,7 +277,7 @@ const BottomNavbar = () => {
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
+        </Link> */}
 
         <Link>
           <Menu w="10px">
@@ -465,7 +469,7 @@ const BottomNavbar = () => {
             </MenuButton>
           </Menu>
         </Link>
-      </Flex>
+      </Box>
     </>
   );
 };
