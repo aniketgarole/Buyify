@@ -10,6 +10,7 @@ const userAuth = (req,res,next) => {
             if(decoded){
                 // console.log(decoded)
                 req.body.authorId = decoded.authorId;
+                req.body.name = decoded.name;
                 next();
             }else{
                 res.status(200).send({msg : "Please Login (User)"})
