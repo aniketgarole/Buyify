@@ -21,6 +21,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetProduct } from "../../../../redux/productReducer/action";
 import ProductCard from "../../../components/Product/ProductCard";
 import Nodata from "../../../Assets/Nodata.jpg";
+import { UpperNavbar } from "../../Homepage/UpperNavbar";
+import Footer from "../../Homepage/Footer";
 
 function Men() {
   const dispatch = useDispatch();
@@ -72,6 +74,8 @@ function Men() {
   }, [order, subcategory, brand, page, category,location.search]);
 
   return (
+    <>
+    <UpperNavbar />
     <Box>
       <Flex justifyContent={"space-between"}>
         <Box ml="10px" mt={3}>
@@ -79,7 +83,7 @@ function Men() {
             fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }}
             textAlign={"left"}
             fontWeight={"bold"}
-          >
+            >
             Buyify Prime
           </Text>
           <Flex gap={2}>
@@ -87,7 +91,7 @@ function Men() {
             <Image
               width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }}
               src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"
-            />
+              />
           </Flex>
         </Box>
         <Box mt={3} mr="10px" mb="50px">
@@ -99,7 +103,7 @@ function Men() {
             _hover={{ bgColor: "gray.300" }}
             borderColor="#e78420"
             onChange={handleSort}
-          >
+            >
             <option value="1" name="order">
               Price: Low to High
             </option>
@@ -114,19 +118,19 @@ function Men() {
         mt={"-10px"}
         // border="1px solid #dadede"
         justifyContent={"center"}
-      >
+        >
         <Box
           display={{ base: "none", lg: "block" }}
           width="300px"
           //  border="1px solid #dadede"
-        >
+          >
           <Sidebar
             brand={brand}
             setBrand={setBrand}
             subcategory={subcategory}
             setsubCategory={setsubCategory}
             setPage={setPage}
-          />
+            />
         </Box>
 
         <Box
@@ -140,7 +144,7 @@ function Men() {
               width: "4px",
             },
           }}
-        >
+          >
           {product.length === 0 && isLoading == false ? (
             <Box width="100%">
               {/* <Heading>No Product</Heading> */}
@@ -148,20 +152,20 @@ function Men() {
             </Box>
           ) : (
             <Grid
-              pr="5px"
-              pl="5px"
-              templateColumns={{
-                sm: "repeat(2, 1fr)",
-                base: "repeat(2, 1fr)",
-                md: "repeat(3, 1fr)",
-                lg: "repeat(4, 1fr)",
-              }}
-              gap={{ base: 1, sm: 5, md: 8, lg: 8 }}
+            pr="5px"
+            pl="5px"
+            templateColumns={{
+              sm: "repeat(2, 1fr)",
+              base: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+              lg: "repeat(4, 1fr)",
+            }}
+            gap={{ base: 1, sm: 5, md: 8, lg: 8 }}
             >
               {isLoading
                 ? [...Array(20).keys()].map((item) => {
-                    return (
-                      <Stack key={item}>
+                  return (
+                    <Stack key={item}>
                         <Skeleton
                           height={{ base: "210px", md: "280px" }}
                           width={{
@@ -171,7 +175,7 @@ function Men() {
                             lg: "280px",
                           }}
                           borderRadius={"sm"}
-                        />
+                          />
                         <Skeleton
                           width={{
                             base: "150px",
@@ -191,7 +195,7 @@ function Men() {
                           }}
                           height="16px"
                           borderRadius={"sm"}
-                        />
+                          />
                         <Skeleton
                           width={{
                             base: "150px",
@@ -201,7 +205,7 @@ function Men() {
                           }}
                           height="16px"
                           borderRadius={"sm"}
-                        />
+                          />
                       </Stack>
                     );
                   })
@@ -217,20 +221,20 @@ function Men() {
                 _hover={{ bgColor: "#232f3e", color: "white" }}
                 bgColor={"#ffc266"}
                 onClick={() => handlePage(-1)}
-              >
+                >
                 ≪Prev
               </Button>
               <Button
                 _hover={{ bgColor: "#232f3e", color: "white" }}
                 bgColor={"#ffc266"}
-              >
+                >
                 {page}
               </Button>
               <Button
                 _hover={{ bgColor: "#232f3e", color: "white" }}
                 bgColor={"#ffc266"}
                 onClick={() => handlePage(1)}
-              >
+                >
                 Next≫
               </Button>
             </ButtonGroup>
@@ -243,7 +247,7 @@ function Men() {
         bottom="0"
         width="100%"
         display={{ base: "block", lg: "none" }}
-      >
+        >
         <FiltersDrawer
           brand={brand}
           setBrand={setBrand}
@@ -253,6 +257,8 @@ function Men() {
         />
       </Flex>
     </Box>
+    <Footer /> 
+          </>
   );
 }
 

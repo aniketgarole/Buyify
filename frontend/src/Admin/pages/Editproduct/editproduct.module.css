@@ -19,7 +19,7 @@
 }
 
 
-.form-div{
+.formdiv{
     /* border: 1px solid red; */
     padding: 20px;
     margin-top: 20px;
@@ -28,7 +28,7 @@
     width: 500px;
 }
 
-.form-input{
+.forminput{
     
     outline: 1px solid rgb(218, 216, 216);
     width: 400px;
@@ -39,19 +39,17 @@
     font-weight: 300;
 }
 
-label{
+.formdiv label{
     color: gray;
     font-weight: 600;
 }
 
-.submit-btn{
-    background-color: gray;
+.submitbtn{
+    background-color: #ffd814;
     color: white;
     font-weight: 500;
-}
-
-.submit-btn:hover{
-    background-color: burlywood;
-    cursor: pointer;
+    padding: 5px 50px;
+    border-radius: 8px;
     color: black
 }
+

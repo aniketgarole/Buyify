@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import "./users.styles.css"
+import styles from "./users.module.css"
 import Navbar from '../../components/Navbar/Navbar'
 import Singleuser from '../../components/Singleuser/Singleuser'
 import axios from 'axios'
+import Adminfooter from '../../components/AdminFooter/Adminfooter'
 
 const Users = () => {
 
@@ -61,8 +62,8 @@ const Users = () => {
   return (
     <>
     <Navbar/>
-    <div className="users">
-      <table className='user-table'>
+    <div className={styles.users}>
+      <table className={styles.usertable}>
         <thead>
 
       <tr>
@@ -81,6 +82,7 @@ const Users = () => {
       
       </table>
     </div>
+    <Adminfooter/>
     </>
   )
 }
