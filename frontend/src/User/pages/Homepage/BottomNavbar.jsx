@@ -35,8 +35,10 @@ const BottomNavbar = () => {
               px={"3"}
               as={Text}
               py="1"
+              
             >
-              Home
+              <span style={{color: "white"}}>Home</span>
+              
             </MenuButton>
           </Menu>
         </Link>
@@ -50,7 +52,8 @@ const BottomNavbar = () => {
               as={Text}
               py="1"
             >
-              miniTV
+              <span style={{color: "white"}}>miniTV</span>
+              
             </MenuButton>
           </Menu>
         </Link>
@@ -65,7 +68,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Sell
+              <span style={{color: "white"}}>Sell</span>
+              
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -101,7 +105,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Mobiles
+              <span style={{color: "white"}}>Mobiles</span>
+              
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -144,7 +149,8 @@ const BottomNavbar = () => {
             py="1"
             borderRadius={5}
           >
-            Fashion
+            <span style={{color: "white"}}>Fashion</span>
+            
           </MenuButton>
           <MenuList zIndex={3} color="black">
             <HStack>
@@ -200,7 +206,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Sports
+              <span style={{color: "white"}}>Sports</span>
+              
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -244,7 +251,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Arts & Collectibles
+              <span style={{color: "white"}}>Arts & Collectibles</span>
+              
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -289,7 +297,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Health & Beauty
+              <span style={{color: "white"}}>Health & Beauty</span>
+              
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -333,7 +342,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Customer Service
+              <span style={{color: "white"}}>Customer Service</span>
+             
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -376,7 +386,8 @@ const BottomNavbar = () => {
               as={Text}
               py="1"
             >
-              Electronics
+              <span style={{color: "white"}}>Electronics</span>
+              
             </MenuButton>
 
             <MenuList zIndex={3} color="black">
@@ -421,7 +432,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Home Decor
+              <span style={{color: "white"}}>Home Decor</span>
+              
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <HStack>
@@ -465,7 +477,8 @@ const BottomNavbar = () => {
               py="1"
               borderRadius={5}
             >
-              Today's Deals
+              <span style={{color: "white"}}>Today's Deals</span>
+              
             </MenuButton>
           </Menu>
         </Link>

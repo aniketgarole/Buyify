@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import "./editproduct.styles.css"
+import styles from "./editproduct.module.css"
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
+import Adminfooter from '../../components/AdminFooter/Adminfooter'
   
 const initialState = {
     title : "", 
@@ -81,49 +82,50 @@ const Editproduct = () => {
     <>
     <Navbar/>
     {Loading ? <h1>...Loading</h1>: err ? <h1>something went wrong</h1>:
-    <div className='main'>
-        <div className="image">
+    <div className={styles.main}>
+        <div className={styles.image}>
             <img src={images[0]} alt={title} />
             <span>Men Slim Fit Casual Shirt</span>
         </div>
-        <div className="form-div">
+        <div className={styles.formdiv}>
             <form>
                 <label>Title</label>
                 <br />
-                <input name="title" type="text" placeholder="product Name" className='form-input' value={title} onChange={(e)=>handleChange(e)}/>
+                <input name="title" type="text" placeholder="product Name" className={styles.forminput} value={title} onChange={(e)=>handleChange(e)}/>
                 <br />
                 <br />
                 <label>Brand</label>
                 <br />
-                <input name="brand" type="text" placeholder="Product brand" className='form-input' value={brand} onChange={(e)=>handleChange(e)}/>
+                <input name="brand" type="text" placeholder="Product brand" className={styles.forminput} value={brand} onChange={(e)=>handleChange(e)}/>
                 <br />
                 <br />
                 <label>Category</label>
                 <br />
-                <input name="category" type="text" placeholder="category" className='form-input' value={category} onChange={(e)=>handleChange(e)}/>
+                <input name="category" type="text" placeholder="category" className={styles.forminput} value={category} onChange={(e)=>handleChange(e)}/>
                 <br />
                 <br />
                 <label>Subcategory</label>
                 <br />
-                <input name="subCategory" type="text" placeholder="subCategory" className='form-input' value={subCategory} onChange={(e)=>handleChange(e)}/>
+                <input name="subCategory" type="text" placeholder="subCategory" className={styles.forminput} value={subCategory} onChange={(e)=>handleChange(e)}/>
                 <br />
                 <br />
                 <label>Price</label>
                 <br />
-                <input name="originalPrice" type="number" placeholder="originalPrice" className='form-input' value={originalPrice} onChange={(e)=>handleChange(e)}/>
+                <input name="originalPrice" type="number" placeholder="originalPrice" className={styles.forminput} value={originalPrice} onChange={(e)=>handleChange(e)}/>
                 <br />
                 <br />
                 <label>Discount</label>
                 <br />
-                <input name="discount" type="text" placeholder="discount" className='form-input' value={discount} onChange={(e)=>handleChange(e)}/>
+                <input name="discount" type="text" placeholder="discount" className={styles.forminput} value={discount} onChange={(e)=>handleChange(e)}/>
                 <br />
                 <br />
-                <input type="submit" className='form-input submit-btn' onClick={handleSubmit}/>
+                <input type="submit" className={styles.submitbtn} onClick={handleSubmit}/>
             </form>
         </div>
     </div>
      
 }
+<Adminfooter/>
     </>
     )
 }

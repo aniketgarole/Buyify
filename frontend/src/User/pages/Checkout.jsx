@@ -34,6 +34,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import useRazorpay from "react-razorpay";
 import { getCartProducts } from "../../redux/Cart/Action";
 import { useNavigate } from "react-router-dom";
+import { UpperNavbar } from "./Homepage/UpperNavbar";
+import Footer from "./Homepage/Footer";
 
 const addressInitislState = {
   country: "",
@@ -212,6 +214,7 @@ const Checkout = () => {
 
   return (
     <>
+    <UpperNavbar />
       <Box
         h={"80px"}
         width={"98%"}
@@ -556,6 +559,7 @@ const Checkout = () => {
           <Divider mt={"8px"} />
         </Box>
       </Flex>
+      <Footer />
     </>
   );
 };

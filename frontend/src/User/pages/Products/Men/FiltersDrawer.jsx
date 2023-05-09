@@ -7,6 +7,7 @@ function FiltersDrawer({ brand,
   category,
   setCategory,
   setPage }) {
+    
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 

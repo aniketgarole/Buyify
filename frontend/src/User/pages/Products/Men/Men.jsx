@@ -21,25 +21,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetProduct } from "../../../../redux/productReducer/action";
 import ProductCard from "../../../components/Product/ProductCard";
 import Nodata from "../../../Assets/Nodata.jpg";
+
 import Footer from "../../Homepage/Footer";
 import { UpperNavbar } from "../../Homepage/UpperNavbar";
 
+
 function Men() {
   const dispatch = useDispatch();
+  const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams();
   const [order, setOrder] = useState(searchParams.get("order") || "");
-  const [subcategory, setsubCategory] = useState(
-    searchParams.getAll("subcategory") || []
-  );
+  const [subcategory, setsubCategory] = useState( searchParams.getAll("subcategory") || []);
   const [brand, setBrand] = useState(searchParams.getAll("brand") || []);
   const [page, setPage] = useState(+searchParams.get("page") || 1);
-  const [category, setCategory] = useState(
-    searchParams.getAll("category") || []
-  );
+  const [category, setCategory] = useState(searchParams.getAll("category") || []);
 
-  const { product, isLoading, isError } = useSelector(
-    (store) => store.ProductReducer
-  );
+  const { product, isLoading, isError } = useSelector( (store) => store.ProductReducer);
 
   let limit = 20;
 
@@ -54,7 +51,7 @@ function Men() {
       category: category,
     },
   };
-
+  
   let params = {};
   order && (params.order = order);
   subcategory && (params.subcategory = subcategory);
@@ -66,6 +63,7 @@ function Men() {
   const handlePage = (val) => {
     setPage(page + val);
   };
+
   const handleSort = (e) => {
     setOrder(e.target.value);
     setPage(1);
@@ -75,10 +73,11 @@ function Men() {
     setCategory("Mens");
     setSearchParams(params);
     dispatch(GetProduct(obj));
-  }, [order, subcategory, brand, page, category]);
+  }, [order, subcategory, brand, page, category,location.search]);
 
   return (
     <>
+
       <UpperNavbar />
       <Box>
         <Flex justifyContent={"space-between"}>
@@ -256,17 +255,18 @@ function Men() {
           width="100%"
           display={{ base: "block", lg: "none" }}
         >
-          <FiltersDrawer
-            brand={brand}
-            setBrand={setBrand}
-            subcategory={subcategory}
-            setsubCategory={setsubCategory}
-            setPage={setPage}
-          />
-        </Flex>
-      </Box>
-      <Footer />
-    </>
+        <FiltersDrawer
+          brand={brand}
+          setBrand={setBrand}
+          subcategory={subcategory}
+          setsubCategory={setsubCategory}
+          setPage={setPage}
+        />
+      </Flex>
+    </Box>
+    <Footer /> 
+          </>
+
   );
 }
 

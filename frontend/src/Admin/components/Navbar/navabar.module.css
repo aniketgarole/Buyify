@@ -5,6 +5,8 @@
     border-bottom: 1px solid rgb(210, 209, 209);
     /* flex: 1; */
     /* border: 1px solid red; */
+    background-color: #131921 ;
+    color: white
 }
 
 .left{
@@ -32,7 +34,7 @@
 
 }
 
-.ui-tag{
+.uitag{
     display: flex;
     gap: 50px;
     list-style: none;

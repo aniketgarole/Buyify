@@ -8,7 +8,7 @@ import React from 'react'
     brand,
     setBrand,
     setPage,
-  }) {
+  }){
 
 
     const handleCategory = (e) => {
@@ -33,7 +33,9 @@ import React from 'react'
               _hover={{ color: "#463012", cursor: "pointer" }}
             >Filter your Products
             </Text>
+
             <Text fontWeight={"bold"} mt="20px">Category</Text>
+
             <Flex flexDir={"column"} fontWeight={"semibold"}>
               <CheckboxGroup
                 value={subcategory}
@@ -54,6 +56,7 @@ import React from 'react'
 
 
             <Text fontWeight={"bold"} mt="20px">Brands</Text>
+
             <Flex flexDir={"column"} fontWeight={"semibold"}>
               <CheckboxGroup
                 defaultValue={brand}
@@ -70,6 +73,7 @@ import React from 'react'
                 <Checkbox value="HERE&NOW" >HERE&NOW</Checkbox>
               </CheckboxGroup>
             </Flex>
+
           </Flex>
         </Box>
       </>
