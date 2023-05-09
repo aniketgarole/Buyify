@@ -89,7 +89,7 @@ export default function Login() {
 
   return (
     <>
-      <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
+      <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6} >
         <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={8}>
           <Text fontSize="3xl" fontWeight={"medium"} mt={"-25px"}>
             Sign in
@@ -176,7 +176,7 @@ export default function Login() {
           Help{" "}
         </Text>
       </Flex>
-      <Text mt={"10px"} textAlign={"center"} fontSize="xs" color={"grey"}>
+      <Text mt={"10px"} mb={"50px"} textAlign={"center"} fontSize="xs" color={"grey"}>
         © 1996-2023, Amazon.com, Inc. or its affiliates
       </Text>
     </>

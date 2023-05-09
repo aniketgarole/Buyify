@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const EmptyCart = () => {
   return (
-    <>
+    
       <Flex
         // border={"1px solid black"}
         width={["100%","100%", "80%"]}
@@ -12,6 +12,7 @@ const EmptyCart = () => {
         flexDirection={["column", "row"]}
         boxShadow='base'
         gap={"10px"}
+       
       >
         <Box>
           <Image src="/emptycart.png" h={["200px", "300px"]} />
@@ -29,22 +30,15 @@ const EmptyCart = () => {
             width={["100%", "100%","100%"]}
             flexDirection={["column", "column","row"]}
             gap={"10px"}
+          mb={"50px"}
           >
             <Button colorScheme="yellow"> <Link to="/men">Browse Products</Link></Button>
 
-            {/* <Button
-              bg={"#ffffff"}
-              color={"black"}
-              border={"1px solid black"}
-              
-             
-            >
-            <Link to="/signup">Sign Up Now</Link>  
-            </Button> */}
+            
           </Flex>
         </Box>
       </Flex>
-    </>
+   
   );
 };
 

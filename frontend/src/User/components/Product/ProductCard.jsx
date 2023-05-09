@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import "./ProductCard.css";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
@@ -10,6 +10,8 @@ import { addCartData, getCartProducts } from "../../../redux/Cart/Action";
 
 function ProductCard({ data }) {
   const dispatch = useDispatch();
+  const toast = useToast()
+
   console.log("dataaa", data);
 
   let ratingFillArray = [];
@@ -21,7 +23,10 @@ function ProductCard({ data }) {
     ratingVacantArray.push(i);
   }
 
+  
+
   const handleAddToCart = () => {
+   
     const payload = {
       title: data.title,
       brand: data.brand,
@@ -31,6 +36,8 @@ function ProductCard({ data }) {
     };
     localStorage.setItem("cartData", JSON.stringify(payload));
     dispatch(addCartData(payload));
+    
+    
   };
 
   return (

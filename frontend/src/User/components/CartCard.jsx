@@ -1,9 +1,10 @@
 import { Box, Divider, Flex, Image, Select, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteCartdata, getCartProducts } from "../../redux/Cart/Action";
 
-const CartCard = ({ _id, title, offerPrice, images, rating, description }) => {
+const CartCard = ({ _id, title, offerPrice, images, rating, description,handleQtyChange }) => {
+  const [qty, setQty] = useState(1)
   let dispatch = useDispatch();
 
   async function HandleCartDelete() {
@@ -11,17 +12,24 @@ const CartCard = ({ _id, title, offerPrice, images, rating, description }) => {
     dispatch(getCartProducts());
   }
 
-  // const handleChangeQty = (prodId, qtt) => {
-  //   let newData = data.map((item) => {
-  //     if (item.id == prodId) {
-  //       return { ...item, qtt: qtt };
-  //     }
-  //     return item;
-  //   });
-  //   dispatch(addToCart(id, newData));
-  // };
+  
+
+  const handleQty = (e)=>{
+  setQty(+e.target.value) ;
+    
+  }
+
+  console.log(typeof(offerPrice));
 
   let cartQuantity = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  const fun =()=>{
+    handleQtyChange(offerPrice*qty)
+  }
+  
+  useEffect(()=>{
+    fun()
+  },[qty])
 
   return (
     <Flex
@@ -63,7 +71,7 @@ const CartCard = ({ _id, title, offerPrice, images, rating, description }) => {
         >
           {/* Product Quantity */}
           <Box width={{ base: "100%", md: "auto" }}>
-            <Select placeholder="Qty" boxShadow="xl" h={"100%"}>
+            <Select placeholder="Qty" boxShadow="xl" h={"100%"} onChange={handleQty}>
               {cartQuantity?.map((el) => {
                 return <option value={el}>{el}</option>;
               })}
@@ -135,7 +143,7 @@ const CartCard = ({ _id, title, offerPrice, images, rating, description }) => {
       <Box>
         {/* Product Price */}
         <Text textAlign={"end"} fontSize="19.5px" fontWeight={"extrabold"}>
-          ₹ {offerPrice}
+          ₹ {offerPrice  }
         </Text>
       </Box>
     </Flex>

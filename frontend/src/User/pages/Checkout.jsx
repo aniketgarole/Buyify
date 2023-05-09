@@ -33,7 +33,7 @@ import axios from "axios";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import useRazorpay from "react-razorpay";
 import { getCartProducts } from "../../redux/Cart/Action";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const addressInitislState = {
   country: "",
@@ -74,15 +74,15 @@ const Checkout = () => {
     e.preventDefault();
 
     if (
-      country == "" ||
-      fullName == "" ||
-      mobileNumber == "" ||
-      pincode == "" ||
-      houseNo == "" ||
-      area == "" ||
-      landmark == "" ||
-      city == "" ||
-      state == ""
+      country === "" ||
+      fullName === "" ||
+      mobileNumber === "" ||
+      pincode === "" ||
+      houseNo === "" ||
+      area === "" ||
+      landmark === "" ||
+      city === "" ||
+      state === ""
     ) {
       toast({
         title: "All Feilds Required",
@@ -110,7 +110,8 @@ const Checkout = () => {
       isError: store.CartReducer.isError,
     };
   }, shallowEqual);
-  console.log(cart);
+
+  console.log("chekcoutcart", cart);
 
   let dispatch = useDispatch();
   const Razorpay = useRazorpay();
@@ -131,7 +132,7 @@ const Checkout = () => {
   console.log("address", address);
 
   const handlePayment = useCallback(
-    async (prod) => {
+    async (cart) => {
       const options = {
         key: "rzp_test_Q6qLBPFz8pzc23",
         amount: +totalCartPrice * 100,
@@ -142,32 +143,37 @@ const Checkout = () => {
         handler: async (response) => {
           let postOrder = async () => {
             try {
-              console.log("inside post", prod);
-              let res = await fetch("BaseUrl/order/addOrder", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: localStorage.getItem("user_token"),
-                },
-                body: JSON.stringify({
-                  products: prod,
-                  userId: "123456",
-                  createdAt: Date.now(),
-                  totalAmount: totalCartPrice,
-                  address: {
-                    fullname: address.fullname,
-                    mobileNumber: address.mobileNumber,
-                    email: address.email,
-                    houseNo: address.houseNo,
-                    area: address.area,
-                    pincode: address.pincode,
-                    landmark: address.landmark,
-                    city: address.city,
-                    state: address.state,
-                    country: address.country,
+              console.log("inside post", cart);
+              let res = await fetch(
+                "https://tame-tan-bee-fez.cyclic.app/order/addOrder",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    token: localStorage.getItem("token"),
                   },
-                }),
-              });
+                  body: JSON.stringify({
+                    orders:{
+                      cart,
+                      //  address: {
+                      //   fullname: address.fullname,
+                      //   mobileNumber: address.mobileNumber,
+                      //   email: address.email,
+                      //   houseNo: address.houseNo,
+                      //   area: address.area,
+                      //   pincode: address.pincode,
+                      //   landmark: address.landmark,
+                      //   city: address.city,
+                      //   state: address.state,
+                      //   country: address.country,
+                      // },
+                    }
+                    ,
+                    time: Date.now(),
+                    totalPrice: totalCartPrice,
+                  }),
+                }
+              );
               console.log(res.status);
             } catch (error) {
               console.log("error", error);
@@ -176,12 +182,15 @@ const Checkout = () => {
 
           const deleteAllCart = async () => {
             try {
-              await axios.delete(`baseUrl/cart/delete`, {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: localStorage.getItem("user_token"),
-                },
-              });
+              await axios.delete(
+                `https://tame-tan-bee-fez.cyclic.app/cart/delete`,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    token: localStorage.getItem("token"),
+                  },
+                }
+              );
             } catch (err) {
               console.log(err);
             }
@@ -192,7 +201,7 @@ const Checkout = () => {
           navigate("/");
         },
         prefill: {
-          name: address.name,
+          name: address.fullName,
           email: address.email,
           contact: address.mobileNumber,
         },
@@ -227,6 +236,12 @@ const Checkout = () => {
           Checkout
         </Text>
       </Box>
+      <Link to={"/cart"}>
+        {" "}
+        <Button colorScheme="teal" variant="link" m={"10px 0px 15px 20px"}>
+          {"<"} Go Back
+        </Button>
+      </Link>
 
       <Flex
         // border={"1px solid red"}
@@ -235,6 +250,7 @@ const Checkout = () => {
         h={"100vh"}
         gap={"3%"}
         p={"12px"}
+        direction={{ base: "row", md: "row", sm: "column" }}
       >
         <Box width={"70%"}>
           <Accordion allowToggle>
@@ -504,10 +520,11 @@ const Checkout = () => {
         </Box>
         <Box
           border={"1px solid grey"}
-          width={"27%"}
+          width={{ base: "27%", md: "27%", sm: "100%" }}
           borderRadius={"10px"}
           p={15}
-          h={"350px"}
+          // h={"350px"}
+          h={{ base: "350px", md: "350px", sm: "auto" }}
         >
           <Box>
             <Button
@@ -540,7 +557,7 @@ const Checkout = () => {
             </Flex>
             <Flex justifyContent={"space-between"}>
               <Text fontSize="sm">Total:</Text>
-              <Text fontSize="sm">₹ {(+totalCartPrice + 40).toFixed(2)}</Text>
+              <Text fontSize="sm">₹ {totalCartPrice}</Text>
             </Flex>
           </Box>
 

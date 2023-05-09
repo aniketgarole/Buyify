@@ -3,6 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import CartComponent from "../components/CartComponent";
 import EmptyCart from "../components/EmptyCart";
 import { getCartProducts } from "../../redux/Cart/Action";
+import { Box } from "@chakra-ui/react";
 
 const Cart = () => {
   const { cart, isLoading, isError } = useSelector((store) => {
@@ -20,7 +21,7 @@ const Cart = () => {
   }, []);
 
   return (
-    <>
+    <Box mb={"80px"}>
       
       {isLoading ? (
         <p style={{ color: 'white' }}>Loading</p>
@@ -29,7 +30,7 @@ const Cart = () => {
       ) : (
         <CartComponent />
       )}
-    </>
+    </Box>
   );
 };
 
