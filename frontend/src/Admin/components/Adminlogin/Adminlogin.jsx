@@ -31,13 +31,22 @@ export default function Adminlogin() {
       adminName = adminName + email[i]
     }
   }
-
+  
+  console.log(email,password)
   const handleLogIn = async () => {
+    const payload = {email, password}
     try {
-      const response = await axios.post("https://tame-tan-bee-fez.cyclic.app/admin/login", {
-        email,
-        password,
-      });
+      const response = await axios.post("https://tame-tan-bee-fez.cyclic.app/admin/login", payload);
+      // const response = await fetch(`https://tame-tan-bee-fez.cyclic.app/admin/login`,{
+      //   method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({email, password}),
+
+      // })
+
+      // console.log(response)
       console.log(response.data);
       alert(response.data.msg)
       localStorage.setItem("adminToken", JSON.stringify(response.data.token))

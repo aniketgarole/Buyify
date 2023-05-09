@@ -141,7 +141,7 @@ const Checkout = () => {
     async (cart) => {
       const options = {
         key: "rzp_test_Q6qLBPFz8pzc23",
-        amount: +totalCartPrice * 100,
+        amount: +(totalCartPrice * 100),
         currency: "INR",
         name: "Buyify.com",
         description: "Test Transaction",
