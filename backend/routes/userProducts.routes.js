@@ -62,7 +62,7 @@ userProductRoute.get("/", async (req, res) => {
 userProductRoute.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await ProductsModel.find({ _id: id });
+    const data = await ProductsModel.findOne({ _id: id });
     res.status(200).send(data);
   } catch (err) {
     res.status(400).send({ err });

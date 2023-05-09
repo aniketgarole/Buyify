@@ -7,7 +7,6 @@ import Login from "../User/pages/Login";
 import Signup from "../User/pages/Signup";
 import Cart from "../User/pages/Cart";
 import Checkout from "../User/pages/Checkout";
-
 import AllProducts from "../Admin/pages/AllProducts/AllProducts";
 import Users from "../Admin/pages/Users/Users";
 import Editproduct from "../Admin/pages/Editproduct/Editproduct";
@@ -18,6 +17,7 @@ import Home from "../Admin/pages/Home/Home";
 import NotFound from "../User/pages/Products/NotFound";
 import { HomePage } from "../User/pages/Homepage/HomePage";
 import AdminPrivateroutes from "../Admin/components/AdminPrivateroutes";
+import PrivateRoute from "./PrivateRoutes";
 
 function AllRoutes() {
   return (
@@ -28,7 +28,7 @@ function AllRoutes() {
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/checkout" element={<Checkout />}></Route>
-      <Route path="/cart" element={<Cart />}></Route>
+      <Route path="/cart" element={ <Cart />}> </Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
       <Route path="/admin" element={<Home />}></Route>
