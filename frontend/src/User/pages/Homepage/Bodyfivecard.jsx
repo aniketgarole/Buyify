@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 import Bodyfourchildcard from "./Bodyfourchildcard";
 
@@ -39,18 +39,18 @@ const Details = [
 const Bodyfivecard = () => {
   return (
     <Flex gap={3}>
-      <Box>
+      <Box display={{ base: "none", sm: "none", md: "block" }}>
         <Image
           height={"auto"}
           width={450}
           src="https://images.all-free-download.com/images/graphiclarge/house_decor_sale_poster_template_elegant_colored_classic_6848875.jpg"
         />
       </Box>
-      <Flex gap={3}>
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={3}>
         {Details.map((el) => (
           <Bodyfourchildcard key={el.Product} {...el} />
         ))}
-      </Flex>
+      </SimpleGrid>
     </Flex>
   );
 };

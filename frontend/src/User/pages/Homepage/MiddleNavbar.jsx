@@ -47,10 +47,15 @@ const MiddleNavbar = () => {
         <Flex>
           <Box>
             <Flex alignItems="center" justifyContent="center" gap={1}>
-              <Link textDecorationLine={"none!important"} onClick={() => navigate("/")}>
+              <Link
+                textDecorationLine={"none!important"}
+                onClick={() => navigate("/")}
+              >
                 <Flex gap={1.5}>
                   <Image
-                    w="40px"
+                    // w="40px"
+                    display={{ base: "none", sm: "block", md: "block" }}
+                    w={{ base: "40px", sm: "40px", md: "40px" }}
                     src={Logo_smart_cart}
                     // ml={4}
                     alt="Buyify Logo"
@@ -59,6 +64,7 @@ const MiddleNavbar = () => {
                     fontWeight={600}
                     fontSize={"24px"}
                     letterSpacing={".5px"}
+                    display={{ base: "none", sm: "none", md: "block" }}
                   >
                     Buyify
                   </Text>
@@ -73,6 +79,7 @@ const MiddleNavbar = () => {
                   px={"4"}
                   as={Text}
                   // mt={"-15px"}
+                  display={{ base: "none", sm: "none", md: "block" }}
                 >
                   
                   <span style={{color: 'white'}}>All</span>
@@ -168,12 +175,14 @@ const MiddleNavbar = () => {
             <InputGroup>
               <Input
                 focusBorderColor="rgb(255,153,0)"
-                w={630}
+                // w={630}
+                w={{ base: 200, sm: 300, md: 630 }}
                 colorScheme="green"
                 bg="white"
                 variant="outline"
                 placeholder="Search Buyify"
-                fontSize={"16px"}
+                // fontSize={"16px"}
+                fontSize={{ base: "10px", sm: "14px", md: "16px" }}
                 fontWeight={"400"}
                 // lineHeight={"18px"}
                 color="black"
@@ -239,7 +248,8 @@ const MiddleNavbar = () => {
           </Menu>
 
           <Flex
-            fontSize={"16px"}
+            // fontSize={"16px"}
+            fontSize={{ base: "12px", sm: "14px", md: "16px" }}
             fontWeight={"500"}
             // px={"4"}
             // py="2"

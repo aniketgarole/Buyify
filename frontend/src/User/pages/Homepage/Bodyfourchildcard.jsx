@@ -4,7 +4,10 @@ import React from "react";
 const Bodyfourchildcard = ({ src, OFF, Product, Price, SPrice }) => {
   return (
     <>
-      <Link fontFamily={"Open Sans, sans-serif, Arial, Helvetica"} textDecoration={'none!important'}>
+      <Link
+        fontFamily={"Open Sans, sans-serif, Arial, Helvetica"}
+        textDecoration={"none!important"}
+      >
         <Box mb={2}>
           <Image src={src} w={"auto"} h={"250"} />
         </Box>

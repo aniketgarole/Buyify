@@ -6,7 +6,10 @@ export const Bestbuy = () => {
   return (
     <>
       <Link>
-        <Box padding={"10px 180px"}>
+        <Box
+          paddingX={{ base: "40px", sm: "80px", md: "180px" }}
+          paddingY={"10px"}
+        >
           <Image
             border={"1px solid silver"}
             width={"auto"}

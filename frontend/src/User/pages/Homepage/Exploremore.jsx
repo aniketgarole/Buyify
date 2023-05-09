@@ -5,6 +5,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 export const Exploremore = () => {
   return (
     <Flex
+      display={{ base: "none", sm: "none", md: "flex" }}
       justifyContent={"space-between"}
       marginY={"50px"}
       marginX={"20px"}

@@ -20,8 +20,11 @@ import ProductCard from "../../../components/Product/ProductCard";
 import WomenSidebar from "./WomenSidebar";
 import WomenDrawer from "./WomenDrawer";
 import Nodata from "../../../Assets/Nodata.jpg";
-import Footer from "../../Homepage/Footer";
 import { UpperNavbar } from "../../Homepage/UpperNavbar";
+import Footer from "../../Homepage/Footer";
+
+
+
 
 function Women() {
   const dispatch = useDispatch();
@@ -76,63 +79,65 @@ function Women() {
 
   return (
     <>
-    <UpperNavbar />
-    <Box>
-      <Flex justifyContent={"space-between"}>
-        <Box ml="10px" mt={3}>
-          <Text
-            fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }}
-            textAlign={"left"}
-            fontWeight={"bold"}
-          >
-            Buyify Prime
-          </Text>
-          <Flex gap={2}>
-            <Checkbox></Checkbox>
-            <Image
-              width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }}
-              src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"
-            />
-          </Flex>
-        </Box>
-        <Box mt={3} mr="10px" mb="50px">
-          <Select
-            placeholder="Sort by: Featured"
-            size="sm"
-            borderRadius={20}
-            bgColor="gray.200"
-            _hover={{ bgColor: "gray.300" }}
-            borderColor="#e78420"
-            onChange={handleSort}
-          >
-            <option value="1" name="order">
-              Price: Low to High
-            </option>
-            <option value="-1" name="order">
-              Price: High to Low
-            </option>
-          </Select>
-        </Box>
-      </Flex>
 
-      <Flex
-        mt={"-10px"}
-        // border="1px solid #dadede"
-        justifyContent={"center"}
-      >
-        <Box
-          display={{ base: "none", sm: "none", md: "block", lg: "block" }}
-          width="300px"
-          //  border="1px solid #dadede"
+      <UpperNavbar />
+
+      <Box>
+        <Flex justifyContent={"space-between"}>
+          <Box ml="10px" mt={3}>
+            <Text
+              fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }}
+              textAlign={"left"}
+              fontWeight={"bold"}
+            >
+              Buyify Prime
+            </Text>
+            <Flex gap={2}>
+              <Checkbox></Checkbox>
+              <Image
+                width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }}
+                src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"
+              />
+            </Flex>
+          </Box>
+          <Box mt={3} mr="10px" mb="50px">
+            <Select
+              placeholder="Sort by: Featured"
+              size="sm"
+              borderRadius={20}
+              bgColor="gray.200"
+              _hover={{ bgColor: "gray.300" }}
+              borderColor="#e78420"
+              onChange={handleSort}
+            >
+              <option value="1" name="order">
+                Price: Low to High
+              </option>
+              <option value="-1" name="order">
+                Price: High to Low
+              </option>
+            </Select>
+          </Box>
+        </Flex>
+
+        <Flex
+          mt={"-10px"}
+          // border="1px solid #dadede"
+          justifyContent={"center"}
         >
-          <WomenSidebar
-            brand={brand}
-            setBrand={setBrand}
-            subcategory={subcategory}
-            setsubCategory={setsubCategory}
-            setPage={setPage}
-          />
-        </Box>
+          <Box
+            display={{ base: "none", sm: "none", md: "block", lg: "block" }}
+            width="300px"
+            //  border="1px solid #dadede"
+          >
+            <WomenSidebar
+              brand={brand}
+              setBrand={setBrand}
+              subcategory={subcategory}
+              setsubCategory={setsubCategory}
+              setPage={setPage}
+            />
+          </Box>
 
         <Box
         mb="100px"
