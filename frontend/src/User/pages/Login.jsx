@@ -15,11 +15,11 @@ import {
 import { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../routes/AuthContextProvider";
+// import { AuthContext } from "../../routes/AuthContextProvider";
 
 export default function Login() {
   const navigate = useNavigate()
-  const { setAuth,auth} = useContext(AuthContext)
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false)
@@ -70,7 +70,7 @@ export default function Login() {
         })
         localStorage.setItem('token', data.token)
         navigate('/')
-        setAuth(true);
+       
         console.log(data)
       } else {
         toast({
