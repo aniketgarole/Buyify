@@ -24,20 +24,15 @@ import Nodata from "../../../Assets/Nodata.jpg";
 
 function Men() {
   const dispatch = useDispatch();
+  const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams();
   const [order, setOrder] = useState(searchParams.get("order") || "");
-  const [subcategory, setsubCategory] = useState(
-    searchParams.getAll("subcategory") || []
-  );
+  const [subcategory, setsubCategory] = useState( searchParams.getAll("subcategory") || []);
   const [brand, setBrand] = useState(searchParams.getAll("brand") || []);
   const [page, setPage] = useState(+searchParams.get("page") || 1);
-  const [category, setCategory] = useState(
-    searchParams.getAll("category") || []
-  );
+  const [category, setCategory] = useState(searchParams.getAll("category") || []);
 
-  const { product, isLoading, isError } = useSelector(
-    (store) => store.ProductReducer
-  );
+  const { product, isLoading, isError } = useSelector( (store) => store.ProductReducer);
 
   let limit = 20;
 
@@ -52,7 +47,7 @@ function Men() {
       category: category,
     },
   };
-
+  
   let params = {};
   order && (params.order = order);
   subcategory && (params.subcategory = subcategory);
@@ -64,6 +59,7 @@ function Men() {
   const handlePage = (val) => {
     setPage(page + val);
   };
+
   const handleSort = (e) => {
     setOrder(e.target.value);
     setPage(1);
@@ -73,7 +69,7 @@ function Men() {
     setCategory("Mens");
     setSearchParams(params);
     dispatch(GetProduct(obj));
-  }, [order, subcategory, brand, page, category]);
+  }, [order, subcategory, brand, page, category,location.search]);
 
   return (
     <Box>
@@ -134,6 +130,7 @@ function Men() {
         </Box>
 
         <Box
+        mb="100px"
           width="100%"
           // border="1px solid red"
           height="100vh"

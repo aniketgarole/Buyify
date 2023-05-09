@@ -17,6 +17,7 @@ import Order from "../Admin/pages/Order/Order";
 import Home from "../Admin/pages/Home/Home";
 import NotFound from "../User/pages/Products/NotFound";
 import { HomePage } from "../User/pages/Homepage/HomePage";
+import PrivateRoute from "./PrivateRoutes";
 
 function AllRoutes() {
   return (
@@ -27,7 +28,7 @@ function AllRoutes() {
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/checkout" element={<Checkout />}></Route>
-      <Route path="/cart" element={<Cart />}></Route>
+      <Route path="/cart" element={ <Cart />}> </Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
       <Route path="/admin" element={<Home />}></Route>
