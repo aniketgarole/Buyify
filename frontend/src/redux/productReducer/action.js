@@ -5,7 +5,7 @@ import { GET_PRODUCT_FAILURE, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS, GET_SING
 
 export const GetProduct=(paramObj)=>(dispatch)=>{
     dispatch({type:GET_PRODUCT_REQUEST})
-    axios.get("http://localhost:8000/userProduct",paramObj)
+    axios.get("https://tame-tan-bee-fez.cyclic.app/userProduct",paramObj)
     .then((res)=>{
         // console.log("action",res)
         dispatch({type:GET_PRODUCT_SUCCESS,payload:res.data})
@@ -17,7 +17,7 @@ export const GetProduct=(paramObj)=>(dispatch)=>{
 
 export const GetSingleProduct=(id)=>(dispatch)=>{
     dispatch({type:GET_SINGLE_PRODUCT_REQUEST})
-    axios.get(`http://localhost:8000/userProduct/${id}`)
+    axios.get(`https://tame-tan-bee-fez.cyclic.app/userProduct/${id}`)
     .then((res)=>{
         // console.log("single",res.data)
         dispatch({type:GET_SINGLE_PRODUCT_SUCCESS,payload:res.data})

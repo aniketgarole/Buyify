@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from "./orders.module.css"
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import Singleorder from '../../components/SingleOrder/Singleorder'
 import Adminfooter from '../../components/AdminFooter/Adminfooter'
+import axios from 'axios'
 
 const Orders = () => {
 
@@ -35,6 +36,19 @@ const Orders = () => {
           
         },
       ]
+
+      const getOrders = async() => {
+          try {
+            let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/user`)
+            console.log(res.data)
+          } catch (error) {
+            
+          }
+      }
+
+     useEffect(()=> {
+      getOrders()
+     },[])
     
 
   return (
