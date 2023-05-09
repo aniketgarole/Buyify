@@ -53,12 +53,13 @@ function Men() {
   };
   
   let params = {};
+  params.category = "Mens";
   order && (params.order = order);
   subcategory && (params.subcategory = subcategory);
   brand && (params.brand = brand);
   page && (params.page = page);
   params.limit = limit;
-  params.category = "Mens";
+ 
 
   const handlePage = (val) => {
     setPage(page + val);

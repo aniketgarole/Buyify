@@ -39,25 +39,27 @@ const Details = [
 
 const Bodyfourcard = () => {
   return (
-    <>
-      <Flex bg={"white"} gap={3}>
-        <Box display={{ base: "none", sm: "none", md: "block" }}>
+    <> 
+      <Flex bg={"white"} justifyContent={"space-around"}>
+        <Box display={{ base: "none",lg:"block"}}>
           <Image
-            height={"auto"}
-            width={450}
+            height={"80%"}
+            width="90%"
             src="https://img.freepik.com/premium-vector/summer-sale-promotion-banner-background-seascape-background_1198-677.jpg"
           />
         </Box>
         <SimpleGrid
           columns={{ base: 1, sm: 2, md: 4 }}
-          justifyContent={{ base: "center", sm: "center" }}
-          gap={3}
+          // justifyContent={{ base: "center", sm: "center" }}
+          align="center"
+          gap={7}
         >
           {Details.map((el) => (
             <Bodyfourchildcard key={el.Product} {...el} />
           ))}
         </SimpleGrid>
       </Flex>
+      
     </>
   );
 };

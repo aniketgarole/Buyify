@@ -35,6 +35,7 @@ const MiddleNavbar = () => {
 
   return (
     <Box my="-2.5" paddingTop={"3"}>
+      
       <Box
         display="flex"
         alignItems="center"
@@ -70,7 +71,7 @@ const MiddleNavbar = () => {
                   </Text>
                 </Flex>
               </Link>
-
+              <Box display={{base:"none",sm:"none",md:"none",lg:"block"}}>
               <Menu w="10px">
                 <MenuButton
                   fontSize={"16px"}
@@ -168,6 +169,7 @@ const MiddleNavbar = () => {
                   </HStack>
                 </MenuList>
               </Menu>
+              </Box>
             </Flex>
           </Box>
 
@@ -219,7 +221,7 @@ const MiddleNavbar = () => {
           >
             Search
           </Button> */}
-
+          <Box  display={{base:"none",sm:"none",md:"none",lg:"block"}}>
           <Menu w="10px">
             <MenuButton
               fontSize={"16px"}
@@ -246,7 +248,7 @@ const MiddleNavbar = () => {
               </Grid>
             </MenuList>
           </Menu>
-
+          </Box>
           <Flex
             // fontSize={"16px"}
             fontSize={{ base: "12px", sm: "14px", md: "16px" }}
@@ -256,7 +258,8 @@ const MiddleNavbar = () => {
             alignItems={"center"}
             gap={"7"}
           >
-            <Menu m="10px">
+            <Box  display={{base:"none",sm:"none",md:"none",lg:"block"}}>
+            <Menu m="10px" >
               <MenuButton as={Text} color="white">
               <span style={{color: 'white'}}>Download App</span>
                 
@@ -292,6 +295,7 @@ const MiddleNavbar = () => {
                 </MenuItem>
               </MenuList>
             </Menu>
+            </Box>
 
             <Box marginBottom={"10px"}>
               <Text
@@ -299,7 +303,7 @@ const MiddleNavbar = () => {
                 fontWeight={"400"}
                 justifyContent={"flex-start"}
                 marginBottom={"-7px"}
-                // marginLeft={"-90px"}
+                
               >
                 Hello,
               </Text>
@@ -313,6 +317,7 @@ const MiddleNavbar = () => {
           </Flex>
         </Flex>
       </Box>
+    
     </Box>
   );
 };

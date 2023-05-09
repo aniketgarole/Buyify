@@ -17,6 +17,8 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { UpperNavbar } from "./Homepage/UpperNavbar";
+import Footer from "./Homepage/Footer";
 
 const initialData = {
   name: "",
@@ -98,7 +100,8 @@ export default function Signup() {
   };
 
   return (
-    
+    <>
+    <UpperNavbar />
     <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
       <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={5}>
         <Text fontSize="3xl" fontWeight={"normal"} mt={"-25px"}>
@@ -193,5 +196,7 @@ export default function Signup() {
         </Stack>
       </Box>
     </Stack>
+    <Footer /> 
+    </>
   );
 }

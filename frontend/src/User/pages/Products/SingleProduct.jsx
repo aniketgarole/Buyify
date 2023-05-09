@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import { GetSingleProduct } from '../../../redux/productReducer/action'
 import { addCartData } from '../../../redux/Cart/Action'
+import { UpperNavbar } from '../Homepage/UpperNavbar'
+import Footer from '../Homepage/Footer'
 
 
 function SingleProduct() {
@@ -37,7 +39,7 @@ function SingleProduct() {
     return (
         <>
 
-
+<UpperNavbar />
             <Flex justifyContent={"space-between"} mb={2}>
                 <Box ml="10px" mt={3}>
                     <Text fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }} textAlign={"left"} fontWeight={"bold"}>Buyify Prime</Text>
@@ -404,7 +406,7 @@ function SingleProduct() {
 
 
 
-
+                    <Footer /> 
 
         </>
     )
