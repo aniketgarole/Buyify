@@ -15,7 +15,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import "./adminlogin.styles.css"
+import styles from "./adminlogin.module.css"
 
 export default function Adminlogin() {
   const [email, setEmail] = useState("");
@@ -52,7 +52,7 @@ export default function Adminlogin() {
   };
   return (
     <>
-    <div className="login-main">
+    <div className={styles.loginmain}>
 
       <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
         <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={8}>

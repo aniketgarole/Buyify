@@ -20,6 +20,8 @@ import ProductCard from "../../../components/Product/ProductCard";
 import WomenSidebar from "./WomenSidebar";
 import WomenDrawer from "./WomenDrawer";
 import Nodata from "../../../Assets/Nodata.jpg";
+import Footer from "../../Homepage/Footer";
+import { UpperNavbar } from "../../Homepage/UpperNavbar";
 
 function Women() {
   const dispatch = useDispatch();
@@ -75,6 +77,8 @@ function Women() {
   }, [order, subcategory, brand, page, category]);
 
   return (
+    <>
+    <UpperNavbar />
     <Box>
       <Flex justifyContent={"space-between"}>
         <Box ml="10px" mt={3}>
@@ -255,6 +259,8 @@ function Women() {
         />
       </Flex>
     </Box>
+    <Footer /> 
+    </>
   );
 }
 

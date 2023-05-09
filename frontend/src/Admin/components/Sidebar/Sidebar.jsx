@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./sidebar.styles.css"
+import styles from  "./sidebar.module.css"
 import { useSearchParams } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -61,36 +61,36 @@ const Sidebar = () => {
 
 
   return (
-    <div className='sidebar'>
-      <div className="price">
-        <p className="title">
+    <div className={styles.sidebar}>
+      <div className={styles.price}>
+        <p className={styles.title}>
           Sort By Price
         </p>
-        <ul className='ul'>
-          <div className="li">
+        <ul className={styles.ul}>
+          <div className={styles.li}>
             <input type="radio" name="price" onChange={()=>handleChangeOrder(1)} value={1} checked={order == 1}></input>
             <li>Low to High</li>
           </div>
-          <div className="li">
+          <div className={styles.li}>
             <input type="radio" name="price" onChange={()=>handleChangeOrder(2)} value={2} checked={order == 2}></input>
             <li>High to Low</li>
           </div>
        </ul>
       </div>
-      <div className="category">
-        <ul className="ul">
-          <p className="title">
+      <div className={styles.category}>
+        <ul className={styles.ul}>
+          <p className={styles.title}>
             Sort By Category
           </p>
-          <div className="li">
+          <div className={styles.li}>
             <input name={"Mens"} type="checkbox" value={"Mens"} onChange={handleChangeCategory} checked={category.includes("Mens")}/>
             <li>Men</li>
           </div>
-          <div className="li">
+          <div className={styles.li}>
             <input name={"Womens"} type="checkbox" value={"Womens"} onChange={handleChangeCategory} checked={category.includes("Womens")}/>
             <li>Wonen</li>
           </div>
-          <div className="li">
+          <div className={styles.li}>
             <input name={"Child"} type="checkbox" value={"Child"} onChange={handleChangeCategory} checked={category.includes("Child")}/>
             <li>Kids</li>
           </div>

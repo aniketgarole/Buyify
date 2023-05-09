@@ -3,6 +3,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import CartComponent from "../components/CartComponent";
 import EmptyCart from "../components/EmptyCart";
 import { getCartProducts } from "../../redux/Cart/Action";
+import { UpperNavbar } from "./Homepage/UpperNavbar";
+import Footer from "./Homepage/Footer";
 
 const Cart = () => {
   const { cart, isLoading, isError } = useSelector((store) => {
@@ -21,7 +23,7 @@ const Cart = () => {
 
   return (
     <>
-      
+      <UpperNavbar />
       {isLoading ? (
         <p style={{ color: 'white' }}>Loading</p>
       ) : cart?.length == 0 ? (
@@ -29,6 +31,7 @@ const Cart = () => {
       ) : (
         <CartComponent />
       )}
+      <Footer />
     </>
   );
 };

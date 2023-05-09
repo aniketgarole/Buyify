@@ -17,6 +17,7 @@ import Order from "../Admin/pages/Order/Order";
 import Home from "../Admin/pages/Home/Home";
 import NotFound from "../User/pages/Products/NotFound";
 import { HomePage } from "../User/pages/Homepage/HomePage";
+import AdminPrivateroutes from "../Admin/components/AdminPrivateroutes";
 
 function AllRoutes() {
   return (
@@ -31,12 +32,12 @@ function AllRoutes() {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
       <Route path="/admin" element={<Home />}></Route>
-      <Route path="/admin/products" element={<AllProducts />}></Route>
-      <Route path="/admin/users" element={<Users />}></Route>
-      <Route path="/admin/products/:id" element={<Editproduct />}></Route>
-      <Route path="/admin/addProduct" element={<Addproduct />}></Route>
-      <Route path="/admin/orders/:id" element={<Orders />}></Route>
-      <Route path="/admin/singleorder/:id" element={<Order />}></Route>
+      <Route path="/admin/products" element={<AdminPrivateroutes><AllProducts /></AdminPrivateroutes>}></Route>
+      <Route path="/admin/users" element={<AdminPrivateroutes><Users /></AdminPrivateroutes>}></Route>
+      <Route path="/admin/products/:id" element={<AdminPrivateroutes><Editproduct /></AdminPrivateroutes>}></Route>
+      <Route path="/admin/addProduct" element={<AdminPrivateroutes><Addproduct /></AdminPrivateroutes>}></Route>
+      <Route path="/admin/orders/:id" element={<AdminPrivateroutes><Orders /></AdminPrivateroutes>}></Route>
+      <Route path="/admin/singleorder/:id" element={<AdminPrivateroutes><Order /></AdminPrivateroutes>}></Route>
     </Routes>
   );
 }

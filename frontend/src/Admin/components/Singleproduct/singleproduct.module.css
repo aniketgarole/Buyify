@@ -19,22 +19,22 @@
 }
 
 .buttons button:nth-child(1) {
-    background-color: greenyellow;
+    background-color: #ffd814;
     padding: 3px 20px;
     border-radius: 8px;
 
     &:hover{
-        background-color: rgb(47, 255, 61);
+        background-color: #edc913;
     }
 }
 
 .buttons button:nth-child(2) {
-    background-color: rgb(205, 108, 93);
+    background-color: #ffa41c ;
     padding: 3px 20px;
     border-radius: 8px;
 
     &:hover{
-        background-color: rgb(212, 55, 11);
+        background-color: #dd890a;
     }
 }
 

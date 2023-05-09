@@ -1,8 +1,9 @@
 import React from 'react'
-import "./orders.styles.css"
+import styles from "./orders.module.css"
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import Singleorder from '../../components/SingleOrder/Singleorder'
+import Adminfooter from '../../components/AdminFooter/Adminfooter'
 
 const Orders = () => {
 
@@ -39,8 +40,8 @@ const Orders = () => {
   return (
     <>
         <Navbar/>
-        <div className="orders">
-      <table className='order-table'>
+        <div className={styles.orders}>
+      <table className={styles.ordertable}>
         <thead>
 
       <tr>
@@ -59,6 +60,7 @@ const Orders = () => {
       
       </table>
     </div>
+    <Adminfooter/>
     </>
   )
 }

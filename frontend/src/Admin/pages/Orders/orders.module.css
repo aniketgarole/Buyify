@@ -1,4 +1,4 @@
-.users{
+.orders{
     /* border: 1px solid red; */
     width: 100;
     display: flex;
@@ -6,7 +6,7 @@
     padding: 20px 30px;
 }
 
-.user-table{
+.ordertable{
     width:80%;
     /* padding: 10px 20px; */
     text-align: center;
@@ -16,7 +16,7 @@
     
 }
 
-.user-table tr:nth-child(2n-1){
+.ordertable tr:nth-child(2n-1){
     background-color: rgba(235, 232, 232, 0.331);
     color: black;
     margin-bottom: 20px;
@@ -24,7 +24,7 @@
     padding: 0 20px;
 }
 
-.user-table th{
+.ordertable th{
     background-color: rgba(0, 0, 0, 0.674);
     color: white;
     padding-top: 10px;
@@ -35,7 +35,7 @@
 }
 
 
-.user-table td:nth-child(2n-1){
+.ordertable td:nth-child(2n-1){
     /* background-color: rgba(235, 232, 232, 0.331);
     color: black; */
     padding-top: 10px;
@@ -43,7 +43,7 @@
     
 }
 
-.user-table td{
+.ordertable td{
     text-align: left;
     padding-left: 15px;
 }

@@ -17,7 +17,7 @@ import { Exploremore } from "./Exploremore";
 export const HomePage = () => {
   return (
     <Box bg={"rgb(227,230,230)"}>
-      {/* <UpperNavbar /> */}
+      <UpperNavbar />
       <Carousel />
       <Bodyfour />
       <Bodyfive />
@@ -28,7 +28,7 @@ export const HomePage = () => {
       <Bodyseven />
       <Trendingdeals />
       <Bodyeight />
-      {/* <Footer /> */}
+      <Footer />
     </Box>
   );
 };

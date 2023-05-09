@@ -1,5 +1,5 @@
 import React from 'react'
-import "./home.styles.css"
+import styles from "./home.module.css"
 import Navbar from '../../components/Navbar/Navbar'
 import Adminlogin from '../../components/Adminlogin/Adminlogin'
 

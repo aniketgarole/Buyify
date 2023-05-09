@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./paginate.styles.css"
+import styles from "./paginate.module.css"
 import { useSearchParams } from 'react-router-dom'
 
 const Paginate = () => {
@@ -30,7 +30,7 @@ const Paginate = () => {
 
 
   return (
-    <div className='paginate'>
+    <div className={styles.paginate}>
         <button onClick={()=> handleClick(-1)} disabled={page == 1}>Prev</button>
         <button>{page}</button>
         <button onClick={()=> handleClick(1)}>Next</button>

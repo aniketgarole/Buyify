@@ -1,5 +1,5 @@
 import React from 'react'
-import "./singleuser.styles.css"
+import styles from "./singleuser.module.css"
 import { Link } from 'react-router-dom'
 
 const Singleuser = ({_id,name, email, contact}) => {

@@ -74,7 +74,9 @@ const MiddleNavbar = () => {
                   as={Text}
                   // mt={"-15px"}
                 >
-                  All
+                  
+                  <span style={{color: 'white'}}>All</span>
+                  
                   <ChevronDownIcon />
                 </MenuButton>
                 <MenuList color="black">
@@ -217,7 +219,8 @@ const MiddleNavbar = () => {
               as={Text}
               py="2"
             >
-              Language <ChevronDownIcon />
+              <span style={{color: 'white'}}>Language</span>
+               <ChevronDownIcon />
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <Grid>
@@ -245,7 +248,8 @@ const MiddleNavbar = () => {
           >
             <Menu m="10px">
               <MenuButton as={Text} color="white">
-                Download App
+              <span style={{color: 'white'}}>Download App</span>
+                
               </MenuButton>
               <MenuList color="black">
                 <MenuItem>

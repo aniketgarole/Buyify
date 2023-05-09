@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import "./allproducts.styles.css"
+import styles from "./allproducts.module.css"
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Navbar from '../../components/Navbar/Navbar'
 import Singleproduct from '../../components/Singleproduct/Singleproduct'
 import axios from 'axios'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import Paginate from '../../components/Paginate/Paginate'
+import Adminfooter from '../../components/AdminFooter/Adminfooter'
 
 const AllProducts = () => {
   const [products, setProducts] = useState([])
@@ -73,19 +74,20 @@ const AllProducts = () => {
   return (
     <>
     <Navbar/>
-    <div className='products'>
+    <div className={styles.products}>
       
         <Sidebar/>
       
       {Loading ? <h1>...Loading</h1>
         : Err ? <h1>Something Went Wrong</h1>
-        : <div className="prod-container">
+        : <div className={styles.prodcontainer}>
         {products?.map((item)=> {
           return <Singleproduct {...item} handleDelete = {handleDelete} key={item._id}/>
         })}
       </div>}
     </div>
     <Paginate/>
+    <Adminfooter/>
     </>
   )
 }
