@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Divider, Flex, Text, useToast } from "@chakra-ui/react";
 
 import CartCard from "./CartCard";
@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { getCartProducts } from "../../redux/Cart/Action";
 
 const CartComponent = () => {
+  const [total, setTotal] = useState(0);
+
   const { cart, isLoading, isError } = useSelector((store) => {
     return {
       cart: store.CartReducer.cart,
@@ -21,6 +23,10 @@ const CartComponent = () => {
   let totalprice = cart?.reduce((acc, el) => {
     return acc + +el.offerPrice;
   }, 0);
+
+  const handleQtyChange = (price) => {
+    setTotal((prev) => prev + price);
+  };
 
   return (
     <>
@@ -55,7 +61,7 @@ const CartComponent = () => {
           {/* Cart component */}
           <Box>
             {cart?.map((el) => (
-              <CartCard {...el} key={el.id} />
+              <CartCard {...el} key={el.id} handleQtyChange={handleQtyChange} />
             ))}
           </Box>
 

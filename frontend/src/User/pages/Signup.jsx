@@ -100,9 +100,11 @@ export default function Signup() {
   };
 
   return (
+
     <>
     <UpperNavbar />
     <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
+
       <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={5}>
         <Text fontSize="3xl" fontWeight={"normal"} mt={"-25px"}>
           Create Account

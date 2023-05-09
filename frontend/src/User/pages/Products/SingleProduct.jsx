@@ -1,40 +1,76 @@
-import { Box, Button, Checkbox, Divider, Flex, Grid, Heading, Image, Spinner, Text } from '@chakra-ui/react'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { FaInfoCircle, FaLock } from 'react-icons/fa'
-import { MdLocalOffer } from "react-icons/md"
-import { TbThumbUp } from "react-icons/tb"
-import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useParams } from 'react-router-dom'
-import { GetSingleProduct } from '../../../redux/productReducer/action'
-import { addCartData } from '../../../redux/Cart/Action'
-import { UpperNavbar } from '../Homepage/UpperNavbar'
-import Footer from '../Homepage/Footer'
 
+import {
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import React from "react";
+import { FaInfoCircle, FaLock } from "react-icons/fa";
+import { MdLocalOffer } from "react-icons/md";
+import { TbThumbUp } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { addCartData } from "../../../redux/Cart/Action";
 
 function SingleProduct() {
-    const { id } = useParams();
-    const dispatch = useDispatch()
-    const { singleProduct } = useSelector((store) => store.ProductReducer)
-    // console.log("Page", singleProduct)
-    // console.log(Object.keys(singleProduct).length)
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const toast = useToast()
+  const { product, isLoading, isError } = useSelector(
+    (store) => store.ProductReducer
+  );
+  const [item] = product.filter((element) => {
+    return element.id == id;
+  });
+  // console.log(item)
+  const { originalPrice, offerPrice, discount, title, brand, images } = item;
 
-    const handleAddToCart = () => {
-        const payload = {
-            title: singleProduct.title,
-            brand: singleProduct.brand,
-            offerPrice: singleProduct.offerPrice,
-            quantity: 1,
-            images: singleProduct.images[0],
-        };
-
-        localStorage.setItem("cartData", JSON.stringify(payload));
-        dispatch(addCartData(payload));
-    };
+  const successAdd = () => {
+    toast({
+        title: `Successful.`,
+        description: `Product added to the cart`,
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+    })
     
-    useEffect(() => {
-        dispatch(GetSingleProduct(id))
-    }, [])
+    const failedAdd = () => {
+    toast({
+        title: `PleaseLogin First.`,
+        description: ``,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+    })
+}
+    
+     const handleAddToCart = () => {
+    let data=localStorage.getItem("token")
+    const payload = {
+      title: title,
+      brand: brand,
+      offerPrice: offerPrice,
+      quantity: 1,
+      images: images[0],
+    };
+  
+    dispatch(addCartData(payload));
+    if(data){
+        successAdd()
+    }else{
+        failedAdd()
+    }
+  };
+
 
     return (
         <>
@@ -397,19 +433,8 @@ function SingleProduct() {
 
 
 
-                    </Box>)}
-
-
-
-
-
-
-
-
-                    <Footer /> 
-
-        </>
-    )
+                    </Box>
+)
 }
 
 
