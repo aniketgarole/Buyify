@@ -20,7 +20,7 @@ const CartComponent = () => {
 
   console.log("cart", cart);
 
-  let totalprice = cart.reduce((acc, el) => {
+  let totalprice = cart?.reduce((acc, el) => {
     return acc + +el.offerPrice;
   }, 0);
 

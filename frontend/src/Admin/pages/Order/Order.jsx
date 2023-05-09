@@ -1,7 +1,8 @@
 import React from 'react'
-import "./order.styles.css"
+import styles from "./order.module.css"
 import Navbar from '../../components/Navbar/Navbar'
 import Prod from '../../components/Prod/Prod'
+import Adminfooter from '../../components/AdminFooter/Adminfooter'
 
 const Order = () => {
 
@@ -42,8 +43,8 @@ const Order = () => {
   return (
     <>
         <Navbar/>
-        <div className="orders">
-      <table className='order-table'>
+        <div className={styles.orders}>
+      <table className={styles.ordertable}>
         <thead>
 
       <tr>
@@ -63,6 +64,7 @@ const Order = () => {
       
       </table>
     </div>
+    <Adminfooter/>
     </>
   )
 }

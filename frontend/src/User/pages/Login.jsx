@@ -12,12 +12,15 @@ import {
   Divider,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { UpperNavbar } from "./Homepage/UpperNavbar";
+// import { AuthContext } from "../../routes/AuthContextProvider";
 
 export default function Login() {
   const navigate = useNavigate()
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false)
@@ -68,6 +71,7 @@ export default function Login() {
         })
         localStorage.setItem('token', data.token)
         navigate('/')
+       
         console.log(data)
       } else {
         toast({
@@ -89,7 +93,11 @@ export default function Login() {
 
   return (
     <>
-      <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6} >
+
+
+       <UpperNavbar />
+      <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
+
         <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={8}>
           <Text fontSize="3xl" fontWeight={"medium"} mt={"-25px"}>
             Sign in
@@ -179,6 +187,7 @@ export default function Login() {
       <Text mt={"10px"} mb={"50px"} textAlign={"center"} fontSize="xs" color={"grey"}>
         © 1996-2023, Amazon.com, Inc. or its affiliates
       </Text>
+      <Footer/> 
     </>
   );
 }

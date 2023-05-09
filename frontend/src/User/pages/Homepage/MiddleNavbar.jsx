@@ -35,6 +35,7 @@ const MiddleNavbar = () => {
 
   return (
     <Box my="-2.5" paddingTop={"3"}>
+      
       <Box
         display="flex"
         alignItems="center"
@@ -47,10 +48,15 @@ const MiddleNavbar = () => {
         <Flex>
           <Box>
             <Flex alignItems="center" justifyContent="center" gap={1}>
-              <Link textDecorationLine={"none!important"} onClick={() => navigate("/")}>
+              <Link
+                textDecorationLine={"none!important"}
+                onClick={() => navigate("/")}
+              >
                 <Flex gap={1.5}>
                   <Image
-                    w="40px"
+                    // w="40px"
+                    display={{ base: "none", sm: "block", md: "block" }}
+                    w={{ base: "40px", sm: "40px", md: "40px" }}
                     src={Logo_smart_cart}
                     // ml={4}
                     alt="Buyify Logo"
@@ -59,12 +65,13 @@ const MiddleNavbar = () => {
                     fontWeight={600}
                     fontSize={"24px"}
                     letterSpacing={".5px"}
+                    display={{ base: "none", sm: "none", md: "block" }}
                   >
                     Buyify
                   </Text>
                 </Flex>
               </Link>
-
+              <Box display={{base:"none",sm:"none",md:"none",lg:"block"}}>
               <Menu w="10px">
                 <MenuButton
                   fontSize={"16px"}
@@ -73,8 +80,11 @@ const MiddleNavbar = () => {
                   px={"4"}
                   as={Text}
                   // mt={"-15px"}
+                  display={{ base: "none", sm: "none", md: "block" }}
                 >
-                  All
+                  
+                  <span style={{color: 'white'}}>All</span>
+                  
                   <ChevronDownIcon />
                 </MenuButton>
                 <MenuList color="black">
@@ -159,6 +169,7 @@ const MiddleNavbar = () => {
                   </HStack>
                 </MenuList>
               </Menu>
+              </Box>
             </Flex>
           </Box>
 
@@ -166,12 +177,14 @@ const MiddleNavbar = () => {
             <InputGroup>
               <Input
                 focusBorderColor="rgb(255,153,0)"
-                w={630}
+                // w={630}
+                w={{ base: 200, sm: 300, md: 630 }}
                 colorScheme="green"
                 bg="white"
                 variant="outline"
                 placeholder="Search Buyify"
-                fontSize={"16px"}
+                // fontSize={"16px"}
+                fontSize={{ base: "10px", sm: "14px", md: "16px" }}
                 fontWeight={"400"}
                 // lineHeight={"18px"}
                 color="black"
@@ -208,7 +221,7 @@ const MiddleNavbar = () => {
           >
             Search
           </Button> */}
-
+          <Box  display={{base:"none",sm:"none",md:"none",lg:"block"}}>
           <Menu w="10px">
             <MenuButton
               fontSize={"16px"}
@@ -217,7 +230,8 @@ const MiddleNavbar = () => {
               as={Text}
               py="2"
             >
-              Language <ChevronDownIcon />
+              <span style={{color: 'white'}}>Language</span>
+               <ChevronDownIcon />
             </MenuButton>
             <MenuList zIndex={3} color="black">
               <Grid>
@@ -234,18 +248,21 @@ const MiddleNavbar = () => {
               </Grid>
             </MenuList>
           </Menu>
-
+          </Box>
           <Flex
-            fontSize={"16px"}
+            // fontSize={"16px"}
+            fontSize={{ base: "12px", sm: "14px", md: "16px" }}
             fontWeight={"500"}
             // px={"4"}
             // py="2"
             alignItems={"center"}
             gap={"7"}
           >
-            <Menu m="10px">
+            <Box  display={{base:"none",sm:"none",md:"none",lg:"block"}}>
+            <Menu m="10px" >
               <MenuButton as={Text} color="white">
-                Download App
+              <span style={{color: 'white'}}>Download App</span>
+                
               </MenuButton>
               <MenuList color="black">
                 <MenuItem>
@@ -278,6 +295,7 @@ const MiddleNavbar = () => {
                 </MenuItem>
               </MenuList>
             </Menu>
+            </Box>
 
             <Box marginBottom={"10px"}>
               <Text
@@ -285,7 +303,7 @@ const MiddleNavbar = () => {
                 fontWeight={"400"}
                 justifyContent={"flex-start"}
                 marginBottom={"-7px"}
-                // marginLeft={"-90px"}
+                
               >
                 Hello,
               </Text>
@@ -299,6 +317,7 @@ const MiddleNavbar = () => {
           </Flex>
         </Flex>
       </Box>
+    
     </Box>
   );
 };

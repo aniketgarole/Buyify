@@ -1,32 +1,25 @@
 import {
-  Text,
-  Flex,
-  HStack,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  VStack,
-  Image,
-  Grid,
-  Box,
-} from "@chakra-ui/react";
-import React from "react";
-import { Link } from "react-router-dom";
+    Text,
+    Flex,
+    HStack,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    VStack,
+    Image,
+    Grid,
+    Box,
+  } from "@chakra-ui/react";
+  import React from "react";
+  import { Link } from "react-router-dom";
 
-const BottomNavbar = () => {
+function DummyNav() {
   return (
-    <>
-      <Box
-        display={{ base: "none", sm: "none", md: "none", lg: "flex" }}
-        justifyContent={"space-between"}
-        // marginX={"70px"}
-        paddingY={"5px"}
-        bgColor={"rgb(35,47,62)"}
-        color={"rgb(255,255,255)"}
-        // fontSize={"15px"}
-        fontSize={{ base: "5px", sm: "10px", md: "15px" }}
-      >
+    <Flex justifyContent={"space-between"}
+     paddingY={"5px"}
+    bgColor={"rgb(35,47,62)"}
+    color={"rgb(255,255,255)"}>
         <Link to="/">
           <Menu w="10px">
             <MenuButton
@@ -42,8 +35,7 @@ const BottomNavbar = () => {
             </MenuButton>
           </Menu>
         </Link>
-
-        <Link>
+        <Box>
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -56,9 +48,41 @@ const BottomNavbar = () => {
               
             </MenuButton>
           </Menu>
-        </Link>
-
-        <Link>
+        </Box>
+        <Box display={{base:"block",lg:"none"}}>
+            <Link to="/men">
+          <Menu w="10px">
+            <MenuButton
+              fontSize={"15px"}
+              fontWeight={"500"}
+              px={"3"}
+              as={Text}
+              py="1"
+            >
+              <span style={{color: "white"}}>Men</span>
+              
+            </MenuButton>
+          </Menu>
+          </Link>
+        </Box>
+        <Box display={{base:"block",lg:"none"}}>
+        <Link to="/women">
+          <Menu w="10px">
+            <MenuButton
+              fontSize={"15px"}
+              fontWeight={"500"}
+              px={"3"}
+              as={Text}
+              py="1"
+            >
+              <span style={{color: "white"}}>Women</span>
+              
+            </MenuButton>
+          </Menu>
+          </Link>
+        </Box>
+        <Box display={{base:"none",lg:"block"}}>
+       
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -71,7 +95,7 @@ const BottomNavbar = () => {
               <span style={{color: "white"}}>Sell</span>
               
             </MenuButton>
-            <MenuList zIndex={3} color="black">
+            <MenuList zIndex={3} color="black" >
               <HStack>
                 <Grid>
                   <MenuItem>How to create a listing</MenuItem>
@@ -88,58 +112,15 @@ const BottomNavbar = () => {
                   <MenuItem>Selling limits</MenuItem>
                 </Grid>
                 <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c1/ROW-19400_Fallback_Sell_770x270_ROW.png"></Image>
+                  <Image height={"200px"} width="80%" src="https://ir.ebaystatic.com/cr/v/c1/ROW-19400_Fallback_Sell_770x270_ROW.png"></Image>
                 </VStack>
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
+       
+        </Box>
 
-        {/* <Link>
-          <Menu w="10px">
-            <MenuButton
-              fontSize={"15px"}
-              fontWeight={"500"}
-              px={"3"}
-              as={Text}
-              py="1"
-              borderRadius={5}
-            >
-              <span style={{color: "white"}}>Mobiles</span>
-              
-            </MenuButton>
-            <MenuList zIndex={3} color="black">
-              <HStack>
-                <Grid>
-                  <MenuItem>
-                    <b>Car</b>
-                  </MenuItem>
-                  <MenuItem>Auto and truck parts</MenuItem>
-                  <MenuItem>Tools and supplies</MenuItem>
-                  <MenuItem>Turbo chargers</MenuItem>
-                  <MenuItem>Clothing and merchandise</MenuItem>
-                  <MenuItem>Shock absorbers</MenuItem>
-                  <MenuItem>Electronic and GPS</MenuItem>
-                </Grid>
-                <Grid>
-                  <MenuItem>
-                    <b>Motorcycle and more</b>
-                  </MenuItem>
-                  <MenuItem>Motorcycle parts</MenuItem>
-                  <MenuItem>Body and frame</MenuItem>
-                  <MenuItem>Engines and parts</MenuItem>
-                  <MenuItem>Accessories</MenuItem>
-                  <MenuItem>Exhausts and systems</MenuItem>
-                  <MenuItem>Sell on Buyify</MenuItem>
-                </Grid>
-                <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19399_Fallback_PandA_770x270.png"></Image>
-                </VStack>
-              </HStack>
-            </MenuList>
-          </Menu>
-        </Link> */}
-
+        <Box display={{base:"none",lg:"block"}}>
         <Menu w="10px">
           <MenuButton
             fontSize={"15px"}
@@ -190,13 +171,14 @@ const BottomNavbar = () => {
                 <MenuItem>Sneakers</MenuItem>
               </Grid>
               <VStack>
-                <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19393_Fallback_Moda_770x270.png"></Image>
+                <Image height={"200px"} width="80%" src="https://ir.ebaystatic.com/cr/v/c01/ROW-19393_Fallback_Moda_770x270.png"></Image>
               </VStack>
             </HStack>
           </MenuList>
         </Menu>
-
-        <Link>
+        </Box>
+        <Box display={{base:"none",lg:"block"}}>
+        
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -234,60 +216,15 @@ const BottomNavbar = () => {
                   <MenuItem>Garmin</MenuItem>
                 </Grid>
                 <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19396_Fallback_Sports_and_Leisure_770x270.png"></Image>
+                  <Image  height={"200px"} width="80%"  src="https://ir.ebaystatic.com/cr/v/c01/ROW-19396_Fallback_Sports_and_Leisure_770x270.png"></Image>
                 </VStack>
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
+       
+        </Box>
 
-        {/* <Link>
-          <Menu w="10px">
-            <MenuButton
-              fontSize={"15px"}
-              fontWeight={"500"}
-              px={"3"}
-              as={Text}
-              py="1"
-              borderRadius={5}
-            >
-              <span style={{color: "white"}}>Arts & Collectibles</span>
-              
-            </MenuButton>
-            <MenuList zIndex={3} color="black">
-              <HStack>
-                <Grid>
-                  <MenuItem>
-                    <b>Most popular categories</b>
-                  </MenuItem>
-                  <MenuItem>Collectibles</MenuItem>
-                  <MenuItem>Art</MenuItem>
-                  <MenuItem>Action figures</MenuItem>
-                  <MenuItem>Cartoon characters</MenuItem>
-                  <MenuItem>Movie and TV characters</MenuItem>
-                  <MenuItem>Diecast</MenuItem>
-                </Grid>
-
-                <Grid>
-                  <MenuItem>
-                    <b>More categories</b>
-                  </MenuItem>
-                  <MenuItem>Sports memorabilia</MenuItem>
-                  <MenuItem>Trading card games</MenuItem>
-                  <MenuItem>Antiques</MenuItem>
-                  <MenuItem>Comics</MenuItem>
-                  <MenuItem>Funko pop</MenuItem>
-                  <MenuItem>Star Wars</MenuItem>
-                </Grid>
-                <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19397_Fallback_Collectibles_770x270.png"></Image>
-                </VStack>
-              </HStack>
-            </MenuList>
-          </Menu>
-        </Link> */}
-
-        <Link>
+        <Box display={{base:"none",lg:"block"}}>
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -325,14 +262,15 @@ const BottomNavbar = () => {
                   <MenuItem>Deals</MenuItem>
                 </Grid>
                 <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19394_Fallback_Health_Beauty_770x270.png"></Image>
+                  <Image  height={"200px"} width="80%" src="https://ir.ebaystatic.com/cr/v/c01/ROW-19394_Fallback_Health_Beauty_770x270.png"></Image>
                 </VStack>
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
-
-        <Link>
+      
+        </Box>
+        <Box display={{base:"none",lg:"block"}}>
+       
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -370,14 +308,15 @@ const BottomNavbar = () => {
                   <MenuItem>Retail and services</MenuItem>
                 </Grid>
                 <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19398_Fallback_IndustrialEquipment_770x270.png"></Image>
+                  <Image  height={"200px"} width="80%" src="https://ir.ebaystatic.com/cr/v/c01/ROW-19398_Fallback_IndustrialEquipment_770x270.png"></Image>
                 </VStack>
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
-
-        <Link>
+     
+        </Box>
+        <Box display={{base:"none",lg:"block"}}>
+        
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -415,14 +354,15 @@ const BottomNavbar = () => {
                   <MenuItem>Sell on Buyify</MenuItem>
                 </Grid>
                 <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19392_Fallback_Electronics_770x270.png"></Image>
+                  <Image  height={"200px"} width="80%" src="https://ir.ebaystatic.com/cr/v/c01/ROW-19392_Fallback_Electronics_770x270.png"></Image>
                 </VStack>
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
+       
+        </Box>
+        <Box display={{base:"none",lg:"block"}}>
 
-        <Link>
           <Menu w="10px">
             <MenuButton
               fontSize={"15px"}
@@ -460,15 +400,15 @@ const BottomNavbar = () => {
                   <MenuItem>Jewelry and beads</MenuItem>
                 </Grid>
                 <VStack>
-                  <Image src="https://ir.ebaystatic.com/cr/v/c01/ROW-19395_Fallback_Home_Garden_770x270.png"></Image>
+                  <Image  height={"200px"} width="80%" src="https://ir.ebaystatic.com/cr/v/c01/ROW-19395_Fallback_Home_Garden_770x270.png"></Image>
                 </VStack>
               </HStack>
             </MenuList>
           </Menu>
-        </Link>
-
-        <Link>
-          <Menu w="10px">
+        
+        </Box>
+        <Box display={{base:"none",lg:"block"}}>
+          <Menu w="10px" > 
             <MenuButton
               fontSize={"15px"}
               fontWeight={"500"}
@@ -481,10 +421,10 @@ const BottomNavbar = () => {
               
             </MenuButton>
           </Menu>
-        </Link>
-      </Box>
-    </>
-  );
-};
+        </Box>
 
-export default BottomNavbar;
+    </Flex>
+  )
+}
+
+export default DummyNav

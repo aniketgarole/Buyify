@@ -1,6 +1,7 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 import Bodyfourchildcard from "./Bodyfourchildcard";
+import { Link } from "react-router-dom";
 
 const Details = [
   {
@@ -38,21 +39,27 @@ const Details = [
 
 const Bodyfourcard = () => {
   return (
-    <>
-      <Flex bg={"white"} gap={3}>
-        <Box>
+    <> 
+      <Flex bg={"white"} justifyContent={"space-around"}>
+        <Box display={{ base: "none",lg:"block"}}>
           <Image
-            height={"auto"}
-            width={450}
+            height={"80%"}
+            width="90%"
             src="https://img.freepik.com/premium-vector/summer-sale-promotion-banner-background-seascape-background_1198-677.jpg"
           />
         </Box>
-        <Flex gap={3}>
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, md: 4 }}
+          // justifyContent={{ base: "center", sm: "center" }}
+          align="center"
+          gap={7}
+        >
           {Details.map((el) => (
             <Bodyfourchildcard key={el.Product} {...el} />
           ))}
-        </Flex>
+        </SimpleGrid>
       </Flex>
+      
     </>
   );
 };

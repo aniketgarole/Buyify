@@ -1,4 +1,4 @@
-import Addproduct from "./Admin/pages/Addproduct/Addproduct";
+// import Addproduct from "./Admin/pages/Addproduct/Addproduct";
 import "./App.css";
 import Cart from "./User/pages/Cart";
 
@@ -18,9 +18,9 @@ function App() {
 
       {/* <Checkout/> */}
 
-      <UpperNavbar />
+      {/* <UpperNavbar /> */}
       <AllRoutes />
-      <Footer />
+      {/* <Footer /> */}
       {/* <Addproduct/> */}
     </div>
   );

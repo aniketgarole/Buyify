@@ -97,6 +97,7 @@ export default function Carousel() {
             <Box
               key={index}
               height={"lg"}
+              width={"50%"}
               position="relative"
               backgroundPosition="center"
               backgroundRepeat="no-repeat"

@@ -11,7 +11,7 @@ adminRoute.get("/", async (req, res) => {
     const data = await AdminModel.find();
     res.status(200).send(data);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({err});
   }
 });
 
@@ -25,7 +25,7 @@ adminRoute.post("/addAdmin", (req, res) => {
       res.status(200).send({ msg: "Admin Added Successfully!!" });
     });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({err});
   }
 });
 
@@ -38,13 +38,13 @@ adminRoute.post("/login", async (req, res) => {
     bcrypt.compare(password, admin[0].password, (err, pass) => {
       if (pass) {
         const token = jwt.sign({test : "EZ1"}, "EZ")
-        res.status(200).send({ msg: "Login Successfull!!", token});
+        res.status(200).send({ msg: "Login Successfull!!", token,name : user[0].name});
       } else {
         res.status(200).send({ err: "Wrong Details" });
       }
     });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({err});
   }
 });
 

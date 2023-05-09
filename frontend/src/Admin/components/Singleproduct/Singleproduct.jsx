@@ -1,5 +1,5 @@
 import React from 'react'
-import "./singleproduct.styles.css"
+import styles from "./singleproduct.module.css"
 import { Link } from 'react-router-dom'
 
 const Singleproduct = ({_id, title, offerPrice, images, handleDelete}) => {
@@ -13,17 +13,17 @@ const Singleproduct = ({_id, title, offerPrice, images, handleDelete}) => {
     }
 
   return (
-    <div className='product'>
-        <div className="img">
+    <div className={styles.product}>
+        <div className={styles.img}>
 
         <img src={images[0]} alt="image" />
         </div>
         <span >{title}</span>
         <span>{offerPrice}</span>
-        <div className="buttons">
+        <div className={styles.buttons}>
 
-        <Link to={`/admin/products/${_id}`}><button className='edit'>Edit</button></Link>
-        <button className='delete' onClick={()=> handleD(_id)}>Delete</button>
+        <Link to={`/admin/products/${_id}`}><button className={styles.edit}>Edit</button></Link>
+        <button className={styles.delete} onClick={()=> handleD(_id)}>Delete</button>
         </div>
     </div>
   )

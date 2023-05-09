@@ -10,9 +10,11 @@ import { addCartData, getCartProducts } from "../../../redux/Cart/Action";
 
 function ProductCard({ data }) {
   const dispatch = useDispatch();
+
   const toast = useToast()
 
   console.log("dataaa", data);
+
 
   let ratingFillArray = [];
   for (let i = 1; i <= Math.ceil(+data.rating); i++) {
@@ -51,7 +53,7 @@ function ProductCard({ data }) {
       className="product-card"
     >
       {/* Image */}
-      <Link to={`/product/${data.id}`}>
+      <Link to={`/product/${data._id}`}>
         <Box>
           <Image width={"100%"} height={"100%"} src={data.images[0]} />
         </Box>

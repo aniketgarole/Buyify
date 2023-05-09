@@ -20,19 +20,21 @@ import ProductCard from "../../../components/Product/ProductCard";
 import WomenSidebar from "./WomenSidebar";
 import WomenDrawer from "./WomenDrawer";
 import Nodata from "../../../Assets/Nodata.jpg";
+import { UpperNavbar } from "../../Homepage/UpperNavbar";
+import Footer from "../../Homepage/Footer";
+
+
+
 
 function Women() {
   const dispatch = useDispatch();
+  const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams();
   const [order, setOrder] = useState(searchParams.get("order") || "");
-  const [subcategory, setsubCategory] = useState(
-    searchParams.getAll("subcategory") || []
-  );
+  const [subcategory, setsubCategory] = useState( searchParams.getAll("subcategory") || []);
   const [brand, setBrand] = useState(searchParams.getAll("brand") || []);
   const [page, setPage] = useState(+searchParams.get("page") || 1);
-  const [category, setCategory] = useState(
-    searchParams.getAll("category") || []
-  );
+  const [category, setCategory] = useState( searchParams.getAll("category") || []);
 
   const { product, isLoading, isError } = useSelector(
     (store) => store.ProductReducer
@@ -63,6 +65,7 @@ function Women() {
   const handlePage = (val) => {
     setPage(page + val);
   };
+
   const handleSort = (e) => {
     setOrder(e.target.value);
     setPage(1);
@@ -72,67 +75,72 @@ function Women() {
     setCategory("Womens");
     setSearchParams(params);
     dispatch(GetProduct(obj));
-  }, [order, subcategory, brand, page, category]);
+  }, [order, subcategory, brand, page, category,location.search]);
 
   return (
-    <Box>
-      <Flex justifyContent={"space-between"}>
-        <Box ml="10px" mt={3}>
-          <Text
-            fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }}
-            textAlign={"left"}
-            fontWeight={"bold"}
-          >
-            Buyify Prime
-          </Text>
-          <Flex gap={2}>
-            <Checkbox></Checkbox>
-            <Image
-              width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }}
-              src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"
-            />
-          </Flex>
-        </Box>
-        <Box mt={3} mr="10px" mb="50px">
-          <Select
-            placeholder="Sort by: Featured"
-            size="sm"
-            borderRadius={20}
-            bgColor="gray.200"
-            _hover={{ bgColor: "gray.300" }}
-            borderColor="#e78420"
-            onChange={handleSort}
-          >
-            <option value="1" name="order">
-              Price: Low to High
-            </option>
-            <option value="-1" name="order">
-              Price: High to Low
-            </option>
-          </Select>
-        </Box>
-      </Flex>
+    <>
 
-      <Flex
-        mt={"-10px"}
-        // border="1px solid #dadede"
-        justifyContent={"center"}
-      >
-        <Box
-          display={{ base: "none", sm: "none", md: "block", lg: "block" }}
-          width="300px"
-          //  border="1px solid #dadede"
+      <UpperNavbar />
+
+      <Box>
+        <Flex justifyContent={"space-between"}>
+          <Box ml="10px" mt={3}>
+            <Text
+              fontSize={{ lg: "1rem", md: "1rem", sm: "1rem", base: "0.7rem" }}
+              textAlign={"left"}
+              fontWeight={"bold"}
+            >
+              Buyify Prime
+            </Text>
+            <Flex gap={2}>
+              <Checkbox></Checkbox>
+              <Image
+                width={{ lg: "50px", md: "50px", sm: "50px", base: "45px" }}
+                src="https://m.media-amazon.com/images/G/31/perc/prime-logo.svg"
+              />
+            </Flex>
+          </Box>
+          <Box mt={3} mr="10px" mb="50px">
+            <Select
+              placeholder="Sort by: Featured"
+              size="sm"
+              borderRadius={20}
+              bgColor="gray.200"
+              _hover={{ bgColor: "gray.300" }}
+              borderColor="#e78420"
+              onChange={handleSort}
+            >
+              <option value="1" name="order">
+                Price: Low to High
+              </option>
+              <option value="-1" name="order">
+                Price: High to Low
+              </option>
+            </Select>
+          </Box>
+        </Flex>
+
+        <Flex
+          mt={"-10px"}
+          // border="1px solid #dadede"
+          justifyContent={"center"}
         >
-          <WomenSidebar
-            brand={brand}
-            setBrand={setBrand}
-            subcategory={subcategory}
-            setsubCategory={setsubCategory}
-            setPage={setPage}
-          />
-        </Box>
+          <Box
+            display={{ base: "none", sm: "none", md: "block", lg: "block" }}
+            width="300px"
+            //  border="1px solid #dadede"
+          >
+            <WomenSidebar
+              brand={brand}
+              setBrand={setBrand}
+              subcategory={subcategory}
+              setsubCategory={setsubCategory}
+              setPage={setPage}
+            />
+          </Box>
 
         <Box
+        mb="100px"
           width="100%"
           // border="1px solid red"
           height="100vh"
@@ -144,12 +152,13 @@ function Women() {
           }}
         >
           {product.length === 0 && isLoading == false ? (
-            <Box width="100%">
+            <Box width="100%" >
               {/* <Heading>No Product</Heading> */}
               <Image margin={"auto"} width="80%" height={"80%"} src={Nodata} />
             </Box>
           ) : (
             <Grid
+            
               pr="5px"
               pl="5px"
               templateColumns={{
@@ -255,6 +264,8 @@ function Women() {
         />
       </Flex>
     </Box>
+    <Footer /> 
+    </>
   );
 }
 
