@@ -4,21 +4,20 @@ import { useToast } from "@chakra-ui/react";
 
 
 const PrivateRoute = ({ children }) => {
-
   const toast = useToast()
   let token = localStorage.getItem("token")
-
- 
-  
-  if(false){
-    toast({
-        description: "You need to login First",
-        status: "error",
-        duration: 1000,
-        isClosable: true,
-      });
-   return <Navigate to = "/login"/>
- }
+  console.log(token)
+  if(token){
     return children
+ }else{
+  toast({
+    description: "You need to login First",
+    status: "error",
+    duration: 1000,
+    isClosable: true,
+  });
+return <Navigate to = "/login"/>
+ }
+    
 }
 export default PrivateRoute;

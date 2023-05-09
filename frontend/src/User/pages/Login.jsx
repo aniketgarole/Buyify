@@ -15,6 +15,7 @@ import {
 import { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { UpperNavbar } from "./Homepage/UpperNavbar";
 // import { AuthContext } from "../../routes/AuthContextProvider";
 
 export default function Login() {
@@ -92,7 +93,7 @@ export default function Login() {
 
   return (
     <>
-    
+       <UpperNavbar />
       <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
         <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={8}>
           <Text fontSize="3xl" fontWeight={"medium"} mt={"-25px"}>
@@ -183,6 +184,7 @@ export default function Login() {
       <Text mt={"10px"} textAlign={"center"} fontSize="xs" color={"grey"}>
         © 1996-2023, Amazon.com, Inc. or its affiliates
       </Text>
+      <Footer/> 
     </>
   );
 }
