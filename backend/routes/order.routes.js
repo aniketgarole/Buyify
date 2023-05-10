@@ -2,14 +2,15 @@
 const express = require("express");
 const { OrderModel } = require("../models/order.model");
 const { userAuth } = require("../middlewares/userAuth.middleware");
+const { adminAuth } = require("../middlewares/adminAuth.middleware");
 
 const orderRouter = express.Router();
 
 
 // Checking user Auth 
-orderRouter.use(userAuth);
+// orderRouter.use(userAuth);
 // Get cart data 
-orderRouter.get("/",async(req,res)=>{
+orderRouter.get("/",adminAuth, async(req,res)=>{
     try{
         const data = await OrderModel.find({authorId : req.body.authorId});
         res.status(200).send(data)
@@ -19,7 +20,7 @@ orderRouter.get("/",async(req,res)=>{
 });
 
 // add product into the cart
-orderRouter.post("/addOrder",async(req,res)=>{
+orderRouter.post("/addOrder",userAuth,async(req,res)=>{
     try{
         // console.log(req.body)
         const prod = new OrderModel(req.body);
@@ -32,7 +33,7 @@ orderRouter.post("/addOrder",async(req,res)=>{
 
 
 // Delete product
-orderRouter.delete("/delete/:id",async(req,res)=>{
+orderRouter.delete("/delete/:id",adminAuth,async(req,res)=>{
     try{
         const {id} = req.params;
         const user = await OrderModel.findOne({_id : id})
