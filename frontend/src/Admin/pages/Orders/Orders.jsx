@@ -42,6 +42,8 @@ const Orders = () => {
     //     },
     //   ]
 
+    console.log(orders)
+
       const getOrders = async() => {
           try {
             let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/order/${id}`,{
@@ -50,8 +52,9 @@ const Orders = () => {
               }
             })
             // console.log(res.data)
+            setOrders(res.data)
           } catch (error) {
-            
+            console.log(error)
           }
       }
 

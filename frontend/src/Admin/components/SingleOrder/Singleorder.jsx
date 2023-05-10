@@ -2,15 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from "./singleorder.module.css"
 
-const Singleorder = ({id, price, time}) => {
+const Singleorder = ({_id, totalPrice , time}) => {
   return (
     <tr>
-        <td>{id}</td>
-        <td>{price}</td>
+        <td>{_id}</td>
+        <td>{totalPrice}</td>
         <td>{time}</td>
         
         {/* <Link to={`/admin/orders/${id}`}><td>Order history</td></Link> */}
-        <td><Link to={`/admin/singleorder/${id}`}>Details</Link></td>
+        <td><Link to={`/admin/singleorder/${_id}`}>Details</Link></td>
         
     </tr>
   )

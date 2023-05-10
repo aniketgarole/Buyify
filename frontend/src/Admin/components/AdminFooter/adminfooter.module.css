@@ -3,4 +3,13 @@
     height: 150px;
     background-color: #131921;
     margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0px;
+}
+
+.adminfooter img{
+    height: 100%;
+    
+    
 }
