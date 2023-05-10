@@ -26,7 +26,7 @@ const Paginate = () => {
             setSearchParams(params)
         },[page])
 
-        console.log("page in paginate",page)
+        // console.log("page in paginate",page)
 
 
   return (

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
 import Adminfooter from '../../components/AdminFooter/Adminfooter'
+import { useToast } from '@chakra-ui/react'
   
 const initialState = {
     title : "", 
@@ -22,10 +23,11 @@ const Editproduct = () => {
     const [err, setErr] = useState(false)
 
     const {id} = useParams()
+    const toast = useToast()
     // console.log(id)
 
     const tok = localStorage.getItem('adminToken')
-    console.log("token", tok)
+    // console.log("token", tok)
 
     const getProduct = async() => {
 
@@ -34,7 +36,7 @@ const Editproduct = () => {
             let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/userProduct/${id}`)
             setLoading(false)
             // console.log(res.data)
-            setProduct(res.data[0])
+            setProduct(res.data)
         } catch (error) {
             setLoading(false)
             setErr(true)
@@ -54,7 +56,16 @@ const Editproduct = () => {
                 token: JSON.parse(localStorage.getItem("adminToken"))
             }
           })
-            alert(res.data.msg)
+            // alert(res.data.msg)
+            let message = res.data.msg
+            toast({
+                position: 'top',
+                  title: message,
+                //   description: "We've created your account for you.",
+                  status: 'success',
+                  duration: 9000,
+                  isClosable: true,
+                })
         } catch (error) {
             console.log(error)
         }

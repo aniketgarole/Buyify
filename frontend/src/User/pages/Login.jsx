@@ -19,6 +19,7 @@ import { UpperNavbar } from "./Homepage/UpperNavbar";
 import Footer from "./Homepage/Footer";
 
 // import { AuthContext } from "../../routes/AuthContextProvider";
+import Footer from "./Homepage/Footer";
 
 export default function Login() {
   const navigate = useNavigate();

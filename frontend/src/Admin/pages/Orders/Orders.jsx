@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./orders.module.css"
 import { useParams } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
@@ -8,39 +8,48 @@ import axios from 'axios'
 
 const Orders = () => {
 
+  const [orders, setOrders] = useState([])
+
     const {id} = useParams()
-    const orders = [
-        { 
-          id: "340394",
-          price: "3434",
-          time: "12 may, 2020",
+
+    const adminToken = JSON.parse(localStorage.getItem("adminToken"))
+    // console.log(adminToken)
+    // const orders = [
+    //     { 
+    //       id: "340394",
+    //       price: "3434",
+    //       time: "12 may, 2020",
           
           
-        },
-        {
-          id: "340124",
-          price: "324",
-          time: "1 June, 2020",
+    //     },
+    //     {
+    //       id: "340124",
+    //       price: "324",
+    //       time: "1 June, 2020",
           
-        },
-        {
-          id: "340364",
-          price: "1234",
-          time: "06 Apr, 2020",
+    //     },
+    //     {
+    //       id: "340364",
+    //       price: "1234",
+    //       time: "06 Apr, 2020",
           
-        },
-        {
-          id: "344494",
-          price: "3434",
-          time: "10 Dec, 2020",
+    //     },
+    //     {
+    //       id: "344494",
+    //       price: "3434",
+    //       time: "10 Dec, 2020",
           
-        },
-      ]
+    //     },
+    //   ]
 
       const getOrders = async() => {
           try {
-            let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/user`)
-            console.log(res.data)
+            let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/order/${id}`,{
+              headers: {
+                token: (adminToken)
+              }
+            })
+            // console.log(res.data)
           } catch (error) {
             
           }

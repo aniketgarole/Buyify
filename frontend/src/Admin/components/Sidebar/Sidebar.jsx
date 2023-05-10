@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   useEffect(()=> {
     let params = {page}
-    console.log("page in sidebar", page)
+    // console.log("page in sidebar", page)
     category.length !== 0 && (params.category = category)
     order &&  (params.order = order) && (params.sort = "offerPrice")
 
