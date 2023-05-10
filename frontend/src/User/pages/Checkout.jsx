@@ -159,23 +159,8 @@ const Checkout = () => {
                     token: localStorage.getItem("token"),
                   },
                   body: JSON.stringify({
-                    orders:{
-                      cart,
-                      //  address: {
-                      //   fullname: address.fullname,
-                      //   mobileNumber: address.mobileNumber,
-                      //   email: address.email,
-                      //   houseNo: address.houseNo,
-                      //   area: address.area,
-                      //   pincode: address.pincode,
-                      //   landmark: address.landmark,
-                      //   city: address.city,
-                      //   state: address.state,
-                      //   country: address.country,
-                      // },
-                    }
-                    ,
-                    time: Date.now(),
+                   
+                    time: new Date(),
                     totalPrice: totalCartPrice,
                   }),
                 }
