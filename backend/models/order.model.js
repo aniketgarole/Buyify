@@ -14,7 +14,6 @@ const orderSchema = mongoose.Schema({
   // size: Array,
   // rating: Number,
   // ratingCount: String,
-  orders : Array,
   totalPrice : Number,
   authorId : String,
   time : String

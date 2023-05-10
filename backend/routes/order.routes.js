@@ -10,9 +10,11 @@ const orderRouter = express.Router();
 // Checking user Auth 
 // orderRouter.use(userAuth);
 // Get cart data 
-orderRouter.get("/",adminAuth, async(req,res)=>{
+orderRouter.get("/:id",adminAuth, async(req,res)=>{
+    const {id} = req.params;
+    const authorId = id;
     try{
-        const data = await OrderModel.find({authorId : req.body.authorId});
+        const data = await OrderModel.find({authorId});
         res.status(200).send(data)
     }catch(err){
         res.status(400).send({err});
