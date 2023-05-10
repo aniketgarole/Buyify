@@ -16,88 +16,83 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { UpperNavbar } from "./Homepage/UpperNavbar";
+import Footer from "./Homepage/Footer";
+
 // import { AuthContext } from "../../routes/AuthContextProvider";
 
 export default function Login() {
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
-  const toast = useToast()
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
   const handleSignIn = async () => {
-
-    let payload = { email, password }
+    let payload = { email, password };
 
     if (!email || !password) {
       toast({
-        title: 'Enter both email and password to login',
-        description: 'All fields are required',
-        status: 'error',
+        title: "Enter both email and password to login",
+        description: "All fields are required",
+        status: "error",
         duration: 5000,
-        position: 'top',
+        position: "top",
         isClosable: true,
-      })
-      return
+      });
+      return;
     }
 
     try {
-      setIsLoading(true)
-      let res = await fetch(
-        'https://tame-tan-bee-fez.cyclic.app/user/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        }
-      )
-      let data = await res.json()
-      
-      setIsLoading(false)
-      
-      console.log(payload, res)
-      
+      setIsLoading(true);
+      let res = await fetch("https://tame-tan-bee-fez.cyclic.app/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      let data = await res.json();
+
+      setIsLoading(false);
+
+      console.log(payload, res);
+
       if (res.status === 200) {
         toast({
-          title: 'Login successful',
-          description: 'Have a great day',
-          status: 'success',
+          title: "Login successful",
+          description: "Have a great day",
+          status: "success",
           duration: 4000,
           isClosable: true,
-          position: 'top',
-        })
-        localStorage.setItem('token', data.token)
-        navigate('/')
-       
-        console.log(data)
+          position: "top",
+        });
+        localStorage.setItem("token", data.token);
+        navigate("/");
+
+        console.log(data);
       } else {
         toast({
-          title: 'Login failed',
-          status: 'error',
+          title: "Login failed",
+          status: "error",
           duration: 4000,
           isClosable: true,
-          position: 'top',
-        })
+          position: "top",
+        });
       }
     } catch (error) {
-      setIsLoading(false)
-      console.log(error)
+      setIsLoading(false);
+      console.log(error);
     }
-  }
+  };
 
-  const isEmailError = email === ''
-  const isPasswordError = password === ''
+  const isEmailError = email === "";
+  const isPasswordError = password === "";
 
   return (
     <>
-
-
-       <UpperNavbar />
+      <UpperNavbar />
       <Stack spacing={5} mx={"auto"} maxW={"sm"} py={8} px={6}>
-
         <Box bg={useColorModeValue("white", "gray.700")} boxShadow="base" p={8}>
           <Text fontSize="3xl" fontWeight={"medium"} mt={"-25px"}>
             Sign in
@@ -144,25 +139,23 @@ export default function Login() {
           </Stack>
         </Box>
         <Text textAlign={"center"}>New to Amazon?</Text>
-        <Box  pl={"10"}>
-        <Link to={"/signup"} >
-          {" "}
-          <Button
-            bg={"#dcdcdc"}
-            color={"black"}
-            _hover={{
-              bg: "#c2c0b7",
-            }}
-            w={"90%"}
-            h={"30px"}
-            rounded={"none"}
-           
-          >
-            Create Your Amazon Account
-          </Button>
-        </Link>
+        <Box pl={"10"}>
+          <Link to={"/signup"}>
+            {" "}
+            <Button
+              bg={"#dcdcdc"}
+              color={"black"}
+              _hover={{
+                bg: "#c2c0b7",
+              }}
+              w={"90%"}
+              h={"30px"}
+              rounded={"none"}
+            >
+              Create Your Amazon Account
+            </Button>
+          </Link>
         </Box>
-        
       </Stack>
       <Divider mb={"12px"} boxShadow="base" />
       <Flex
@@ -184,10 +177,16 @@ export default function Login() {
           Help{" "}
         </Text>
       </Flex>
-      <Text mt={"10px"} mb={"50px"} textAlign={"center"} fontSize="xs" color={"grey"}>
+      <Text
+        mt={"10px"}
+        mb={"50px"}
+        textAlign={"center"}
+        fontSize="xs"
+        color={"grey"}
+      >
         © 1996-2023, Amazon.com, Inc. or its affiliates
       </Text>
-      <Footer/> 
+      <Footer />
     </>
   );
 }

@@ -38,15 +38,20 @@ const Details = [
 
 const Bodyfivecard = () => {
   return (
-    <Flex gap={3}>
-      <Box display={{ base: "none", sm: "none", md: "block" }}>
+    <Flex bg={"white"} justifyContent={"space-around"}>
+      <Box display={{ base: "none", lg: "block" }}>
         <Image
-          height={"auto"}
-          width={450}
+          height={"80%"}
+          width="90%"
           src="https://images.all-free-download.com/images/graphiclarge/house_decor_sale_poster_template_elegant_colored_classic_6848875.jpg"
         />
       </Box>
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={3}>
+      <SimpleGrid
+        columns={{ base: 1, sm: 2, md: 4 }}
+        // justifyContent={{ base: "center", sm: "center" }}
+        align="center"
+        gap={7}
+      >
         {Details.map((el) => (
           <Bodyfourchildcard key={el.Product} {...el} />
         ))}
