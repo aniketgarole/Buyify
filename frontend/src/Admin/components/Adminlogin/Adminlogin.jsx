@@ -10,6 +10,7 @@ import {
   Text,
   useColorModeValue,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
@@ -23,6 +24,8 @@ export default function Adminlogin() {
 
   const navigate = useNavigate()
 
+  const toast = useToast()
+
   let adminName = ""
   for(let i = 0; i < email.length; i++) {
     if (email[i] == "@") {
@@ -32,7 +35,7 @@ export default function Adminlogin() {
     }
   }
   
-  console.log(email,password)
+  // console.log(email,password)
   const handleLogIn = async () => {
     const payload = {email, password}
     try {
@@ -47,8 +50,17 @@ export default function Adminlogin() {
       // })
 
       // console.log(response)
-      console.log(response.data);
-      alert(response.data.msg)
+      // console.log(response.data);
+      // alert(response.data.msg)
+      let message = response.data.msg
+      toast({
+        position: 'top',
+          title: message,
+          // description: "We've created your account for you.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
       localStorage.setItem("adminToken", JSON.stringify(response.data.token))
       localStorage.setItem("adminName", JSON.stringify(adminName))
       setEmail("");
@@ -56,7 +68,7 @@ export default function Adminlogin() {
       // <Navigate to="/admin/products"  />
       navigate("/admin/products")
     } catch (error) {
-      console.error(error,"in frontend");
+      // console.error(error,"in frontend");
     }
   };
   return (

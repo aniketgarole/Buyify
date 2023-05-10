@@ -15,7 +15,7 @@ const Users = () => {
     try {
       setLoading(true)
       let res = await axios.get(`https://tame-tan-bee-fez.cyclic.app/user`)
-      console.log(res.data)
+      // console.log(res.data)
       setLoading(false)
       setUsers(res.data)
     } catch (error) {

@@ -17,6 +17,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { UpperNavbar } from "./Homepage/UpperNavbar";
 // import { AuthContext } from "../../routes/AuthContextProvider";
+import Footer from "./Homepage/Footer";
 
 export default function Login() {
   const navigate = useNavigate()

@@ -3,6 +3,7 @@ import styles from "./addproduct.module.css"
 import axios from 'axios'
 import Navbar from '../../components/Navbar/Navbar'
 import Adminfooter from '../../components/AdminFooter/Adminfooter'
+import { useToast } from '@chakra-ui/react'
 
 const intitProduct = {
     category: "",
@@ -22,6 +23,8 @@ const intitProduct = {
 const Addproduct = () => {
 
     const [product, setProduct] = useState(intitProduct)
+
+    const toast = useToast()
 
     const handleChange = (e) => {
         // console.log(e.target)
@@ -84,7 +87,16 @@ const Addproduct = () => {
                         }, 
                         
                     })
-                    alert(res.data.msg)
+                    // alert(res.data.msg)
+                    let message = res.data.msg
+                    toast({
+                        position: 'top',
+                          title: message,
+                        //   description: "We've created your account for you.",
+                          status: 'success',
+                          duration: 9000,
+                          isClosable: true,
+                        })
                     setProduct(intitProduct)
                 } catch (error) {
                     console.log(error)
@@ -94,7 +106,7 @@ const Addproduct = () => {
             
     }
 
-    console.log(product)
+    // console.log(product)
 
     
 
