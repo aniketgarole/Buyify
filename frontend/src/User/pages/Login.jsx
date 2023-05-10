@@ -68,6 +68,7 @@ export default function Login() {
           position: "top",
         });
         localStorage.setItem("token", data.token);
+        localStorage.setItem("buyfiuser", data.name);
         navigate("/");
 
         console.log(data);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -18,6 +18,7 @@ import {
   Grid,
   VStack,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -32,10 +33,11 @@ import Logo_smart_cart from "./favicon.ico";
 
 const MiddleNavbar = () => {
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("token");
+  const [value, setValue] = useState(true);
+  const toast = useToast();
   return (
     <Box my="-2.5" paddingTop={"3"}>
-      
       <Box
         display="flex"
         alignItems="center"
@@ -71,104 +73,105 @@ const MiddleNavbar = () => {
                   </Text>
                 </Flex>
               </Link>
-              <Box display={{base:"none",sm:"none",md:"none",lg:"block"}}>
-              <Menu w="10px">
-                <MenuButton
-                  fontSize={"16px"}
-                  fontWeight={"500"}
-                  // lineHeight={"15px"}
-                  px={"4"}
-                  as={Text}
-                  // mt={"-15px"}
-                  display={{ base: "none", sm: "none", md: "block" }}
-                >
-                  
-                  <span style={{color: 'white'}}>All</span>
-                  
-                  <ChevronDownIcon />
-                </MenuButton>
-                <MenuList color="black">
-                  <HStack>
-                    <Grid>
-                      <MenuItem>
-                        <b>Musical instruments</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Guitar</MenuItem>
-                      <MenuItem>Pro audio equipment</MenuItem>
-                      <MenuItem>String</MenuItem>
-                      <MenuItem>Stage lighting & effects</MenuItem>
-                    </Grid>
-                    <Grid>
-                      <MenuItem>
-                        <b>Home & garden</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Yard & garden</MenuItem>
-                      <MenuItem>Crafts</MenuItem>
-                      <MenuItem>Home improvement</MenuItem>
-                      <MenuItem>Pet supplies</MenuItem>
-                    </Grid>
-                    <Grid>
-                      <MenuItem>
-                        <b>Sporting goods</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Outdoor sports</MenuItem>
-                      <MenuItem>Team sports</MenuItem>
-                      <MenuItem>Exercise & fitness</MenuItem>
-                      <MenuItem>Golf</MenuItem>
-                    </Grid>
-                    <Grid>
-                      <MenuItem>
-                        <b>Electronics</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Computers & tablets</MenuItem>
-                      <MenuItem>Cameras & photo</MenuItem>
-                      <MenuItem>TV, audio & surveillance</MenuItem>
-                      <MenuItem>cell phones & accessories</MenuItem>
-                    </Grid>
-                  </HStack>
-                  <br />
+              <Box
+                display={{ base: "none", sm: "none", md: "none", lg: "block" }}
+              >
+                <Menu w="10px">
+                  <MenuButton
+                    fontSize={"16px"}
+                    fontWeight={"500"}
+                    // lineHeight={"15px"}
+                    px={"4"}
+                    as={Text}
+                    // mt={"-15px"}
+                    display={{ base: "none", sm: "none", md: "block" }}
+                  >
+                    <span style={{ color: "white" }}>All</span>
 
-                  <HStack>
-                    <Grid>
-                      <MenuItem>
-                        <b>Auto Parts</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>GPS & Security Devices</MenuItem>
-                      <MenuItem>Radar & Laser Detectors</MenuItem>
-                      <MenuItem>Care & Detailing</MenuItem>
-                      <MenuItem>Scooter Parts</MenuItem>
-                    </Grid>
-                    <Grid>
-                      <MenuItem>
-                        <b>Toys & hobbies</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Radio control</MenuItem>
-                      <MenuItem>Kids toys</MenuItem>
-                      <MenuItem>Action figures</MenuItem>
-                      <MenuItem>Dolls & bears</MenuItem>
-                    </Grid>
+                    <ChevronDownIcon />
+                  </MenuButton>
+                  <MenuList color="black">
+                    <HStack>
+                      <Grid>
+                        <MenuItem>
+                          <b>Musical instruments</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Guitar</MenuItem>
+                        <MenuItem>Pro audio equipment</MenuItem>
+                        <MenuItem>String</MenuItem>
+                        <MenuItem>Stage lighting & effects</MenuItem>
+                      </Grid>
+                      <Grid>
+                        <MenuItem>
+                          <b>Home & garden</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Yard & garden</MenuItem>
+                        <MenuItem>Crafts</MenuItem>
+                        <MenuItem>Home improvement</MenuItem>
+                        <MenuItem>Pet supplies</MenuItem>
+                      </Grid>
+                      <Grid>
+                        <MenuItem>
+                          <b>Sporting goods</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Outdoor sports</MenuItem>
+                        <MenuItem>Team sports</MenuItem>
+                        <MenuItem>Exercise & fitness</MenuItem>
+                        <MenuItem>Golf</MenuItem>
+                      </Grid>
+                      <Grid>
+                        <MenuItem>
+                          <b>Electronics</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Computers & tablets</MenuItem>
+                        <MenuItem>Cameras & photo</MenuItem>
+                        <MenuItem>TV, audio & surveillance</MenuItem>
+                        <MenuItem>cell phones & accessories</MenuItem>
+                      </Grid>
+                    </HStack>
+                    <br />
 
-                    <Grid>
-                      <MenuItem>
-                        <b>Collectibles & art</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Collectibles</MenuItem>
-                      <MenuItem>Antiques</MenuItem>
-                      <MenuItem>Sports memorabilia</MenuItem>
-                      <MenuItem>Art</MenuItem>
-                    </Grid>
-                    <Grid>
-                      <MenuItem>
-                        <b>Fashion</b> <ChevronRightIcon />
-                      </MenuItem>
-                      <MenuItem>Women & Accessories</MenuItem>
-                      <MenuItem>Men & Accessories</MenuItem>
-                      <MenuItem>Jewelry & watches</MenuItem>
-                      <MenuItem>Shoes & Sleepers</MenuItem>
-                    </Grid>
-                  </HStack>
-                </MenuList>
-              </Menu>
+                    <HStack>
+                      <Grid>
+                        <MenuItem>
+                          <b>Auto Parts</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>GPS & Security Devices</MenuItem>
+                        <MenuItem>Radar & Laser Detectors</MenuItem>
+                        <MenuItem>Care & Detailing</MenuItem>
+                        <MenuItem>Scooter Parts</MenuItem>
+                      </Grid>
+                      <Grid>
+                        <MenuItem>
+                          <b>Toys & hobbies</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Radio control</MenuItem>
+                        <MenuItem>Kids toys</MenuItem>
+                        <MenuItem>Action figures</MenuItem>
+                        <MenuItem>Dolls & bears</MenuItem>
+                      </Grid>
+
+                      <Grid>
+                        <MenuItem>
+                          <b>Collectibles & art</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Collectibles</MenuItem>
+                        <MenuItem>Antiques</MenuItem>
+                        <MenuItem>Sports memorabilia</MenuItem>
+                        <MenuItem>Art</MenuItem>
+                      </Grid>
+                      <Grid>
+                        <MenuItem>
+                          <b>Fashion</b> <ChevronRightIcon />
+                        </MenuItem>
+                        <MenuItem>Women & Accessories</MenuItem>
+                        <MenuItem>Men & Accessories</MenuItem>
+                        <MenuItem>Jewelry & watches</MenuItem>
+                        <MenuItem>Shoes & Sleepers</MenuItem>
+                      </Grid>
+                    </HStack>
+                  </MenuList>
+                </Menu>
               </Box>
             </Flex>
           </Box>
@@ -221,33 +224,33 @@ const MiddleNavbar = () => {
           >
             Search
           </Button> */}
-          <Box  display={{base:"none",sm:"none",md:"none",lg:"block"}}>
-          <Menu w="10px">
-            <MenuButton
-              fontSize={"16px"}
-              fontWeight={"500"}
-              px={"4"}
-              as={Text}
-              py="2"
-            >
-              <span style={{color: 'white'}}>Language</span>
-               <ChevronDownIcon />
-            </MenuButton>
-            <MenuList zIndex={3} color="black">
-              <Grid>
-                <MenuItem>हिंदी - Hindi</MenuItem>
-                <MenuItem>मराठी - Marathi</MenuItem>
-                <MenuItem>தமிழ் - Tamil</MenuItem>
-                <MenuItem>తెలుగు - Telugu</MenuItem>
-                <MenuItem>ಕನ್ನಡ - Kannada</MenuItem>
-                <MenuItem>മലയാളം - Malayam</MenuItem>
-                <MenuItem>বাংলা - Bangla</MenuItem>
-                <MenuItem>ଓଡିଆ - Odia</MenuItem>
-                <MenuItem>অসমীয়া - Assamese</MenuItem>
-                <MenuItem>سنڌي - Sindhi</MenuItem>
-              </Grid>
-            </MenuList>
-          </Menu>
+          <Box display={{ base: "none", sm: "none", md: "none", lg: "block" }}>
+            <Menu w="10px">
+              <MenuButton
+                fontSize={"16px"}
+                fontWeight={"500"}
+                px={"4"}
+                as={Text}
+                py="2"
+              >
+                <span style={{ color: "white" }}>Language</span>
+                <ChevronDownIcon />
+              </MenuButton>
+              <MenuList zIndex={3} color="black">
+                <Grid>
+                  <MenuItem>हिंदी - Hindi</MenuItem>
+                  <MenuItem>मराठी - Marathi</MenuItem>
+                  <MenuItem>தமிழ் - Tamil</MenuItem>
+                  <MenuItem>తెలుగు - Telugu</MenuItem>
+                  <MenuItem>ಕನ್ನಡ - Kannada</MenuItem>
+                  <MenuItem>മലയാളം - Malayam</MenuItem>
+                  <MenuItem>বাংলা - Bangla</MenuItem>
+                  <MenuItem>ଓଡିଆ - Odia</MenuItem>
+                  <MenuItem>অসমীয়া - Assamese</MenuItem>
+                  <MenuItem>سنڌي - Sindhi</MenuItem>
+                </Grid>
+              </MenuList>
+            </Menu>
           </Box>
           <Flex
             // fontSize={"16px"}
@@ -258,57 +261,91 @@ const MiddleNavbar = () => {
             alignItems={"center"}
             gap={"7"}
           >
-            <Box  display={{base:"none",sm:"none",md:"none",lg:"block"}}>
-            <Menu m="10px" >
-              <MenuButton as={Text} color="white">
-              <span style={{color: 'white'}}>Download App</span>
-                
-              </MenuButton>
-              <MenuList color="black">
-                <MenuItem>
-                  <Link>Download app to get up to 50% off</Link>
-                </MenuItem>
-                <MenuItem>
-                  <HStack>
-                    <Box>
-                      <Image src="https://content1.geekbuying.com/V1.4/en/images/index_images/android_app.png" />
-                    </Box>
-                    <VStack>
-                      <Image
-                        borderRadius="5"
-                        src="https://content1.geekbuying.com/V1.4/en/images/index_images/app_store.jpg"
-                      />
-                      <Image
-                        borderRadius="5"
-                        src="https://content1.geekbuying.com/V1.4/en/images/index_images/google_play.jpg"
-                      />
-                      <Image
-                        borderRadius="5"
-                        src="https://content1.geekbuying.com/V1.4/en/images/index_images/gallery.jpg"
-                      />
-                    </VStack>
-                  </HStack>
-                </MenuItem>
-                <Divider />
-                <MenuItem mt={3}>
-                  <Link>Go to Mobile Site</Link>
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <Box
+              display={{ base: "none", sm: "none", md: "none", lg: "block" }}
+            >
+              <Menu m="10px">
+                <MenuButton as={Text} color="white">
+                  <span style={{ color: "white" }}>Download App</span>
+                </MenuButton>
+                <MenuList color="black">
+                  <MenuItem>
+                    <Link>Download app to get up to 50% off</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <HStack>
+                      <Box>
+                        <Image src="https://content1.geekbuying.com/V1.4/en/images/index_images/android_app.png" />
+                      </Box>
+                      <VStack>
+                        <Image
+                          borderRadius="5"
+                          src="https://content1.geekbuying.com/V1.4/en/images/index_images/app_store.jpg"
+                        />
+                        <Image
+                          borderRadius="5"
+                          src="https://content1.geekbuying.com/V1.4/en/images/index_images/google_play.jpg"
+                        />
+                        <Image
+                          borderRadius="5"
+                          src="https://content1.geekbuying.com/V1.4/en/images/index_images/gallery.jpg"
+                        />
+                      </VStack>
+                    </HStack>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem mt={3}>
+                    <Link>Go to Mobile Site</Link>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </Box>
 
             <Box marginBottom={"10px"}>
-              <Text
-                fontSize={"11px"}
-                fontWeight={"400"}
-                justifyContent={"flex-start"}
-                marginBottom={"-7px"}
-                
-              >
-                Hello,
-              </Text>
-              <MyLink to="/login">LogIn</MyLink> or{" "}
-              <MyLink to="/signup">SignUp</MyLink>
+              {token ? (
+                <Text
+                  fontSize={"11px"}
+                  fontWeight={"400"}
+                  justifyContent={"flex-start"}
+                  marginBottom={"-7px"}
+                >
+                  Hi, {localStorage.getItem("buyfiuser")}
+                </Text>
+              ) : (
+                <Text
+                  fontSize={"11px"}
+                  fontWeight={"400"}
+                  justifyContent={"flex-start"}
+                  marginBottom={"-7px"}
+                >
+                  Hello,
+                </Text>
+              )}
+
+              {token ? (
+                <Text
+                  _hover={{ cursor: "pointer" }}
+                  mt="6px"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    setValue(!value);
+                    toast({
+                      title: "Logged out Successfully, Come back soon!!!",
+                      status: "success",
+                      duration: 2000,
+                      isClosable: true,
+                      position: "top",
+                    });
+                  }}
+                >
+                  Logout
+                </Text>
+              ) : (
+                <Box>
+                  <MyLink to="/login">LogIn</MyLink> or{" "}
+                  <MyLink to="/signup">SignUp</MyLink>
+                </Box>
+              )}
             </Box>
             <MyLink to="/cart">
               <ShoppingCartIcon />
@@ -317,7 +354,6 @@ const MiddleNavbar = () => {
           </Flex>
         </Flex>
       </Box>
-    
     </Box>
   );
 };
