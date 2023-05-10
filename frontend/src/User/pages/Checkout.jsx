@@ -192,9 +192,9 @@ const Checkout = () => {
           navigate("/");
         },
         prefill: {
-          name: address.fullName,
-          email: address.email,
-          contact: address.mobileNumber,
+          name: address?.fullName,
+          email: address?.email,
+          contact: address?.mobileNumber,
         },
         notes: {
           address: "Buyify.com",
