@@ -88,7 +88,7 @@ const Sidebar = () => {
           </div>
           <div className={styles.li}>
             <input name={"Womens"} type="checkbox" value={"Womens"} onChange={handleChangeCategory} checked={category.includes("Womens")}/>
-            <li>Wonen</li>
+            <li>Women</li>
           </div>
           <div className={styles.li}>
             <input name={"Child"} type="checkbox" value={"Child"} onChange={handleChangeCategory} checked={category.includes("Child")}/>
