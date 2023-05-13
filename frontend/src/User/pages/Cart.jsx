@@ -23,7 +23,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getCartProducts());
-  }, []);
+  }, [cart.length]);
 
   return (
     <>
