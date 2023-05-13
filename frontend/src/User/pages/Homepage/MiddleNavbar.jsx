@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -27,15 +27,30 @@ import {
 } from "@chakra-ui/icons";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import {useSelector,shallowEqual, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { Link as MyLink } from "react-router-dom";
 import Logo_smart_cart from "./favicon.ico";
+import {  getCartProducts } from "../../../redux/Cart/Action";
+import axios from "axios";
 
 const MiddleNavbar = () => {
+  const { cart } = useSelector((store) => {
+    return {
+      cart: store.CartReducer.cart,
+    };
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const token = localStorage.getItem("token");
   const [value, setValue] = useState(true);
   const toast = useToast();
+  useEffect(() => {
+    dispatch(getCartProducts());
+  }, [cart.length]);
+ 
+  
+
   return (
     <Box my="-2.5" paddingTop={"3"}>
       <Box
@@ -176,7 +191,7 @@ const MiddleNavbar = () => {
             </Flex>
           </Box>
 
-          <Box>
+          <Box ml="20px" mr="20px" display={{base:"none",sm:"block",md:"block",lg:"block"}}>
             <InputGroup>
               <Input
                 focusBorderColor="rgb(255,153,0)"
@@ -347,9 +362,37 @@ const MiddleNavbar = () => {
                 </Box>
               )}
             </Box>
+            
             <MyLink to="/cart">
+              <Box  position={"relative"}>
+                <Box>
               <ShoppingCartIcon />
+              </Box>
+              {cart==="Please Login (User)"?"":
+              <Box
+                justify={"center"}
+                align="center"
+                pos={"absolute"}
+                top="-7px"
+                right="-12px"
+                width="20px"
+                height="20px"
+                color="white"
+                borderRadius={"50%"}
+                bg="rgb(255,153,0)"
+              >
+                <Text fontWeight={"bold"}
+                color="rgb(19,25,33)"
+             
+                >
+                  {cart=="Please Login (User)"?0:
+                  cart.length}
+                  </Text>
+              </Box>
+}
+              </Box>
             </MyLink>
+            
             <MyLink to="/admin">Admin</MyLink>
           </Flex>
         </Flex>

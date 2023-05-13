@@ -4,16 +4,19 @@ import "./ProductCard.css";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { FaInfoCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addCartData, getCartProducts } from "../../../redux/Cart/Action";
 
 function ProductCard({ data }) {
   const dispatch = useDispatch();
-
+  const { cart } = useSelector((store) => {
+    return {
+      cart: store.CartReducer.cart,
+    };
+  });
   const toast = useToast()
 
-  console.log("dataaa", data);
+  // console.log("dataaa", data);
 
 
   let ratingFillArray = [];
@@ -25,10 +28,7 @@ function ProductCard({ data }) {
     ratingVacantArray.push(i);
   }
 
-  
-
   const handleAddToCart = () => {
-   
     const payload = {
       title: data.title,
       brand: data.brand,
@@ -38,9 +38,19 @@ function ProductCard({ data }) {
     };
     localStorage.setItem("cartData", JSON.stringify(payload));
     dispatch(addCartData(payload));
-    
-    
+    toast({
+      title: `Successful.`,
+      description: `Product added to the cart`,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+      position: "top"
+  })
   };
+
+   useEffect(() => {
+    dispatch(getCartProducts());
+   }, [cart]);
 
   return (
     <Box
